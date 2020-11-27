@@ -1,7 +1,6 @@
-import QtQuick 2.15
-import QtQuick.Window 2.14
-import QtQuick3D 1.15
-import QtQuick.Controls 2.14
+import QtQuick
+import QtQuick3D
+import QtQuick.Controls
 
 
 Window {
@@ -20,12 +19,14 @@ Window {
         //! [rootnode]
 
         DirectionalLight {
-            ambientColor: Qt.rgba(1.0, 1.0, 1.0, 1.0)
-
+            eulerRotation: Qt.vector3d(-135, -110, 0)
+            brightness: 1
         }
 
-
-
+        DirectionalLight {
+            eulerRotation: Qt.vector3d(135, 110, 0)
+            brightness: 1
+        }
 
 
         Model {
@@ -36,10 +37,8 @@ Window {
             materials: [
                 PrincipledMaterial {
                     baseColor: "#DAD9BB"
-                    metalness: 0.75
+                    metalness: 0.0
                     roughness: 0.1
-                    specularAmount: 1.0
-                    indexOfRefraction: 2.5
                     opacity: 1.0
                 }
             ]
@@ -56,10 +55,8 @@ Window {
             materials: [
                 PrincipledMaterial {
                     baseColor: "#DAD9BB"
-                    metalness: 0.75
+                    metalness: 0.0
                     roughness: 0.1
-                    specularAmount: 1.0
-                    indexOfRefraction: 2.5
                     opacity: 1.0
                 }
             ]
@@ -127,7 +124,7 @@ Window {
         anchors.left: parent.left
         width: parent.width * 0.5
         height: parent.height
-        color: "transparent"
+        color: "black"
         border.color: "black"
 
 //        Label {
