@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Resources/Mesh/skull1.mesh</file>
+        <file>Resources/Mesh/skull2.mesh</file>
+    </qresource>
+</RCC>
