@@ -8,25 +8,54 @@ Window {
     width: 1280
     height: 720
     visible: true
-    title: qsTr("Facebow")//
+    title: qsTr("Facebow")
 
 
     property var factor : 0.014
-    // The root scene
-    //! [rootnode]
+
     Node {
         id: standAloneScene
-        //! [rootnode]
 
         DirectionalLight {
-            eulerRotation: Qt.vector3d(-135, -110, 0)
-            brightness: 1
+            eulerRotation.x: 0
+            eulerRotation.y: 45
+            eulerRotation.z: 0
+            brightness: 0.5
+        }
+        DirectionalLight {
+            eulerRotation.x: 0
+            eulerRotation.y: 135
+            eulerRotation.z: 0
+            brightness: 0.5
         }
 
         DirectionalLight {
-            eulerRotation: Qt.vector3d(135, 110, 0)
-            brightness: 1
+            eulerRotation.x: 0
+            eulerRotation.y: -45
+            eulerRotation.z: 0
+            brightness: 0.5
         }
+        DirectionalLight {
+            eulerRotation.x: 0
+            eulerRotation.y: -135
+            eulerRotation.z: 0
+            brightness: 0.5
+        }
+
+
+//        DirectionalLight {
+//            eulerRotation.x: 0
+//            eulerRotation.y: -45
+//            eulerRotation.z: 0
+//            brightness: 0.5
+//        }
+
+
+
+//        DirectionalLight {
+//            eulerRotation: Qt.vector3d(135, 110, 0)
+//            brightness: 1
+//        }
 
 
         Model {
@@ -61,18 +90,20 @@ Window {
                 }
             ]
 
-//            PropertyAnimation on eulerRotation.x {
-//                loops: Animation.Infinite
-//                duration: 5000
-//                to: 0
-//                from: 10
-//            }
+            PropertyAnimation on eulerRotation.x {
+                loops: Animation.Infinite
+                duration: 5000
+                to: 0
+                from: 10
+            }
 //            PropertyAnimation on eulerRotation.y {
 //                loops: Animation.Infinite
 //                duration: 5000
 //                to: -20
 //                from: 20
 //            }
+
+
         }
 
 
@@ -83,7 +114,6 @@ Window {
         //! [cameras start]
         // The predefined cameras. They have to be part of the scene, i.e. inside the root node.
         // Animated perspective camera
-
 
         // Stationary orthographic camera viewing from the front
         OrthographicCamera {
@@ -124,17 +154,8 @@ Window {
         anchors.left: parent.left
         width: parent.width * 0.5
         height: parent.height
-        color: "black"
+        color: "#848895"
         border.color: "black"
-
-//        Label {
-//            text: "Perspective"
-//            anchors.top: parent.top
-//            anchors.right: parent.right
-//            anchors.margins: 10
-//            color: "#222840"
-//            font.pointSize: 14
-//        }
 
         View3D {
             id: topRightView
@@ -152,6 +173,8 @@ Window {
                 backgroundMode: SceneEnvironment.Color
             }
         }
+
+
 
         Row {
             id: controlsContainer
