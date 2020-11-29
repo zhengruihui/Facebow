@@ -16,6 +16,7 @@ Window {
     Node {
         id: standAloneScene
 
+
         DirectionalLight {
             eulerRotation.x: 0
             eulerRotation.y: 45
@@ -61,12 +62,12 @@ Window {
         Model {
 
             source: "Resources/Mesh/skull1.mesh"
-            y: -100
+            y: -50
             scale: Qt.vector3d(window.width*0.5*factor, window.width*0.5*factor, window.width*0.5*factor)
             materials: [
                 PrincipledMaterial {
                     baseColor: "#DAD9BB"
-                    metalness: 0.0
+                    metalness: 0.1
                     roughness: 0.1
                     opacity: 1.0
                 }
@@ -78,24 +79,24 @@ Window {
 
         Model {
 
-            source: "Resources/Mesh/skull2.mesh"
-            y: -100
+            source: "Resources/Mesh/skull2.mesh"            
+            y: -50
             scale: Qt.vector3d(window.width*0.5*factor, window.width*0.5*factor, window.width*0.5*factor)
             materials: [
                 PrincipledMaterial {
                     baseColor: "#DAD9BB"
-                    metalness: 0.0
+                    metalness: 0.1
                     roughness: 0.1
                     opacity: 1.0
                 }
             ]
 
-            PropertyAnimation on eulerRotation.x {
-                loops: Animation.Infinite
-                duration: 5000
-                to: 0
-                from: 10
-            }
+//            PropertyAnimation on eulerRotation.x {
+//                loops: Animation.Infinite
+//                duration: 5000
+//                to: 0
+//                from: 10
+//            }
 //            PropertyAnimation on eulerRotation.y {
 //                loops: Animation.Infinite
 //                duration: 5000
@@ -159,10 +160,13 @@ Window {
 
         View3D {
             id: topRightView
-            anchors.top: parent.top
-            anchors.right: parent.right
-            anchors.left: parent.left
-            anchors.bottom: parent.bottom;
+//            anchors.top: parent.top
+//            anchors.right: parent.right
+//            anchors.left: parent.left
+//            anchors.bottom: parent.bottom
+//            anchors.verticalCenter: parent.verticalCenter
+            anchors.centerIn: parent
+            anchors.fill:parent
             camera: cameraOrthographicFront
             importScene: standAloneScene
             renderMode: View3D.Underlay
