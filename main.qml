@@ -11,8 +11,13 @@ Window {
     title: qsTr("Facebow")
 
 
-    property var factor : 0.014
-
+    property var pi : 3.1415926
+    property var degreeX : 0
+    property var degreeY : 0
+    property var radius : 600
+    property var zoomFactor : 0.014
+    property var mousePressPositionX
+    property var mousePressPositionY
     Node {
         id: standAloneScene
 
@@ -60,10 +65,10 @@ Window {
 
 
         Model {
-
+            id:skull1
             source: "Resources/Mesh/skull1.mesh"
             y: -50
-            scale: Qt.vector3d(window.width*0.5*factor, window.width*0.5*factor, window.width*0.5*factor)
+            scale: Qt.vector3d(window.width*0.5*zoomFactor, window.width*0.5*zoomFactor, window.width*0.5*zoomFactor)
             materials: [
                 PrincipledMaterial {
                     baseColor: "#DAD9BB"
@@ -78,10 +83,10 @@ Window {
 
 
         Model {
-
-            source: "Resources/Mesh/skull2.mesh"            
+            id:skull2
+            source: "Resources/Mesh/skull2.mesh"
             y: -50
-            scale: Qt.vector3d(window.width*0.5*factor, window.width*0.5*factor, window.width*0.5*factor)
+            scale: Qt.vector3d(window.width*0.5*zoomFactor, window.width*0.5*zoomFactor, window.width*0.5*zoomFactor)
             materials: [
                 PrincipledMaterial {
                     baseColor: "#DAD9BB"
@@ -114,30 +119,31 @@ Window {
 
         //! [cameras start]
         // The predefined cameras. They have to be part of the scene, i.e. inside the root node.
-        // Animated perspective camera
 
         // Stationary orthographic camera viewing from the front
         OrthographicCamera {
             id: cameraOrthographicFront
-            z: 600
+            x: radius*Math.cos(degreeX/180*pi)*Math.sin(degreeY/180*pi)
+            y: radius*Math.sin(degreeX/180*pi)
+            z: radius*Math.cos(degreeX/180*pi)*Math.cos(degreeY/180*pi)
         }
-        //! [cameras end]
 
         // Stationary orthographic camera viewing from right
         OrthographicCamera {
             id: cameraOrthographicRight
-            x: 600
-            eulerRotation.y: 90
+            x: 424
+            z: 424
+            eulerRotation.y: 45
         }
-        //! [cameras end]
+
 
         // Stationary orthographic camera viewing from left
         OrthographicCamera {
             id: cameraOrthographicLeft
-            x: -600
-            eulerRotation.y: -90
+            x: -424
+            z: 424
+            eulerRotation.y: -45
         }
-         //! [cameras end]
 
         // Stationary orthographic camera viewing from the top
         OrthographicCamera {
@@ -153,10 +159,46 @@ Window {
         id: leftRectangle
         anchors.bottom: parent.bottom
         anchors.left: parent.left
-        width: parent.width * 0.5
+        width: parent.width
         height: parent.height
         color: "#848895"
         border.color: "black"
+
+        MouseArea{
+            anchors.fill: parent
+            onWheel: {
+
+                var datl = wheel.angleDelta.y/120
+
+                if(datl>0){
+                    zoomFactor += 0.001
+
+
+                }else{
+
+                    zoomFactor -= 0.001
+
+                }
+
+            }
+
+//            onPressed: {
+
+
+//                mousePressPositionX = mouseX
+//                mousePressPositionY = mouseY
+//            }
+
+//            onReleased: {
+//                //degreeX = mouseX - mousePressPositionX
+//                degreeY -= (mouseX - mousePressPositionX)/10
+//                console.log("degreeX: ", degreeX)
+//                console.log("degreeY: ", degreeY)
+
+//            }
+
+
+        }
 
         View3D {
             id: topRightView
@@ -187,19 +229,27 @@ Window {
             spacing: 10
             padding: 10
 
+
+
+            RoundButton {
+                text: "-"
+                onClicked: {
+                    zoomFactor -= 0.001
+                }
+            }
+
+            RoundButton {
+                text: "+"
+                onClicked: {
+                    zoomFactor += 0.001
+                }
+            }
+
             RoundButton {
                 text: "Front"
                 highlighted: topRightView.camera == cameraOrthographicFront
                 onClicked: {
                     topRightView.camera = cameraOrthographicFront
-                }
-            }
-
-            RoundButton {
-                text: "Right"
-                highlighted: topRightView.camera == cameraOrthographicRight
-                onClicked: {
-                    topRightView.camera = cameraOrthographicRight
                 }
             }
 
@@ -212,6 +262,16 @@ Window {
             }
 
             RoundButton {
+                text: "Right"
+                highlighted: topRightView.camera == cameraOrthographicRight
+                onClicked: {
+                    topRightView.camera = cameraOrthographicRight
+                }
+            }
+
+
+
+            RoundButton {
                 text: "Top"
                 highlighted: topRightView.camera == cameraOrthographicTop
                 onClicked: {
@@ -222,23 +282,23 @@ Window {
     }
 
 
-    Rectangle {
-        id: rightRectangle
-        anchors.bottom: parent.bottom
-        anchors.right: parent.right
-        width: parent.width * 0.5
-        height: parent.height
-        color: "transparent"
-        border.color: "black"
+//    Rectangle {
+//        id: rightRectangle
+//        anchors.bottom: parent.bottom
+//        anchors.right: parent.right
+//        width: parent.width * 0.5
+//        height: parent.height
+//        color: "transparent"
+//        border.color: "black"
 
 
-        Image {
-            id: name
-            anchors.fill: parent
-            source: "Resources/Image/Person.jpg"
-        }
+//        Image {
+//            id: name
+//            anchors.fill: parent
+//            source: "Resources/Image/Person.jpg"
+//        }
 
-    }
+//    }
 
 
 }
