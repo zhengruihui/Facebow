@@ -15,7 +15,7 @@ Window {
     property var degreeX : 0
     property var degreeY : 0
     property var radius : 600
-    property var zoomFactor : 0.014
+    property var zoomFactor : 0.011
     property var mousePressPositionX
     property var mousePressPositionY
     Node {
@@ -89,26 +89,12 @@ Window {
             scale: Qt.vector3d(window.width*0.5*zoomFactor, window.width*0.5*zoomFactor, window.width*0.5*zoomFactor)
             materials: [
                 PrincipledMaterial {
-                    baseColor: "#DAD9BB"
+                    baseColor: "#DAFFFF"
                     metalness: 0.1
                     roughness: 0.1
                     opacity: 1.0
                 }
             ]
-
-//            PropertyAnimation on eulerRotation.x {
-//                loops: Animation.Infinite
-//                duration: 5000
-//                to: 0
-//                from: 10
-//            }
-//            PropertyAnimation on eulerRotation.y {
-//                loops: Animation.Infinite
-//                duration: 5000
-//                to: -20
-//                from: 20
-//            }
-
 
         }
 
@@ -131,6 +117,13 @@ Window {
         // Stationary orthographic camera viewing from right
         OrthographicCamera {
             id: cameraOrthographicRight
+            x: 600
+            //z: 424
+            eulerRotation.y: 90
+        }
+
+        OrthographicCamera {
+            id: cameraOrthographicOblique
             x: 424
             z: 424
             eulerRotation.y: 45
@@ -140,9 +133,9 @@ Window {
         // Stationary orthographic camera viewing from left
         OrthographicCamera {
             id: cameraOrthographicLeft
-            x: -424
-            z: 424
-            eulerRotation.y: -45
+            x: -600
+            //z: 424
+            eulerRotation.y: -90
         }
 
         // Stationary orthographic camera viewing from the top
@@ -159,7 +152,7 @@ Window {
         id: leftRectangle
         anchors.bottom: parent.bottom
         anchors.left: parent.left
-        width: parent.width
+        width: parent.width*0.5
         height: parent.height
         color: "#848895"
         border.color: "black"
@@ -269,7 +262,13 @@ Window {
                 }
             }
 
-
+            RoundButton {
+                text: "Oblique"
+                highlighted: topRightView.camera == cameraOrthographicOblique
+                onClicked: {
+                    topRightView.camera = cameraOrthographicOblique
+                }
+            }
 
             RoundButton {
                 text: "Top"
@@ -282,23 +281,25 @@ Window {
     }
 
 
-//    Rectangle {
-//        id: rightRectangle
-//        anchors.bottom: parent.bottom
-//        anchors.right: parent.right
-//        width: parent.width * 0.5
-//        height: parent.height
-//        color: "transparent"
-//        border.color: "black"
+    Rectangle {
+        id: rightRectangle
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        width: parent.width * 0.5
+        height: parent.height
+        color: "transparent"
+        border.color: "black"
 
 
-//        Image {
-//            id: name
-//            anchors.fill: parent
-//            source: "Resources/Image/Person.jpg"
-//        }
+        Image {
+            id: name
+            //anchors.fill: parent
+            anchors.centerIn: parent
+            source: "Resources/Image/Person.jpg"
 
-//    }
+        }
+
+    }
 
 
 }
