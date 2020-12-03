@@ -280,5 +280,19 @@ Window {
         }
     }
 
+    Rectangle{
+        anchors.top: parent.top
+        anchors.right: parent.right
+        height: parent.height
+        Image {
+            id: person
+            anchors.top: parent.top
+            anchors.right: parent.right
+            height: parent.height
+            source: "Resources/Image/Person.jpg"
+        }
+
+
+    }
 
 }

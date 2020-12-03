@@ -10,6 +10,7 @@ SOURCES += \
     main.cpp
 
 RESOURCES += \
+    Image.qrc \
     mesh.qrc \
     qml.qrc
 
