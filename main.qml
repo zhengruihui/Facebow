@@ -58,13 +58,11 @@ Window {
     width: 1280
     height: 720
     visible: true
-    title: "View3Ds with Different Cameras"
+    title: "Facebow"
 
     property var zoomFactor: 7
     property int buttonSkullHeight: 60
 
-    // The root scene
-    //! [rootnode]
     Node {
         id: standAloneScene
         //! [rootnode]
