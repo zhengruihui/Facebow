@@ -1,211 +1,197 @@
-import QtQuick
-import QtQuick3D
-import QtQuick.Controls
+/****************************************************************************
+**
+** Copyright (C) 2019 The Qt Company Ltd.
+** Contact: https://www.qt.io/licensing/
+**
+** This file is part of the examples of the Qt Toolkit.
+**
+** $QT_BEGIN_LICENSE:BSD$
+** Commercial License Usage
+** Licensees holding valid commercial Qt licenses may use this file in
+** accordance with the commercial license agreement provided with the
+** Software or, alternatively, in accordance with the terms contained in
+** a written agreement between you and The Qt Company. For licensing terms
+** and conditions see https://www.qt.io/terms-conditions. For further
+** information use the contact form at https://www.qt.io/contact-us.
+**
+** BSD License Usage
+** Alternatively, you may use this file under the terms of the BSD license
+** as follows:
+**
+** "Redistribution and use in source and binary forms, with or without
+** modification, are permitted provided that the following conditions are
+** met:
+**   * Redistributions of source code must retain the above copyright
+**     notice, this list of conditions and the following disclaimer.
+**   * Redistributions in binary form must reproduce the above copyright
+**     notice, this list of conditions and the following disclaimer in
+**     the documentation and/or other materials provided with the
+**     distribution.
+**   * Neither the name of The Qt Company Ltd nor the names of its
+**     contributors may be used to endorse or promote products derived
+**     from this software without specific prior written permission.
+**
+**
+** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+** "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+** LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+** A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+** OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+** LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+** DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+** THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+** OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
+**
+** $QT_END_LICENSE$
+**
+****************************************************************************/
 
+import QtQuick 2.15
+import QtQuick.Window 2.14
+import QtQuick3D 1.15
+import QtQuick.Controls 2.14
 
 Window {
     id: window
     width: 1280
     height: 720
     visible: true
-    title: qsTr("Facebow")
+    title: "View3Ds with Different Cameras"
 
+    property var zoomFactor: 7
+    property int buttonSkullHeight: 60
 
-    property var pi : 3.1415926
-    property var degreeX : 0
-    property var degreeY : 0
-    property var radius : 600
-    property var zoomFactor : 0.011
-    property var mousePressPositionX
-    property var mousePressPositionY
+    // The root scene
+    //! [rootnode]
     Node {
         id: standAloneScene
-
-
-        DirectionalLight {
-            eulerRotation.x: 0
-            eulerRotation.y: 45
-            eulerRotation.z: 0
-            brightness: 0.5
-        }
-        DirectionalLight {
-            eulerRotation.x: 0
-            eulerRotation.y: 135
-            eulerRotation.z: 0
-            brightness: 0.5
-        }
+        //! [rootnode]
 
         DirectionalLight {
-            eulerRotation.x: 0
-            eulerRotation.y: -45
-            eulerRotation.z: 0
-            brightness: 0.5
-        }
-        DirectionalLight {
-            eulerRotation.x: 0
-            eulerRotation.y: -135
-            eulerRotation.z: 0
-            brightness: 0.5
+            //ambientColor: Qt.rgba(0.5, 0.5, 0.5, 1.0)
+            //brightness: 0.5
+
         }
 
 
-//        DirectionalLight {
-//            eulerRotation.x: 0
-//            eulerRotation.y: -45
-//            eulerRotation.z: 0
-//            brightness: 0.5
-//        }
+//        Model {
+//            source: "#Rectangle"
+//            y: -200
+//            scale: Qt.vector3d(150, 150, 150)
+//            eulerRotation.x: -90
+//            materials: [
+//                DefaultMaterial {
+//                    diffuseColor: Qt.rgba(0.8, 0.6, 0.4, 1.0)
 
-
-
-//        DirectionalLight {
-//            eulerRotation: Qt.vector3d(135, 110, 0)
-//            brightness: 1
+//                }
+//            ]
 //        }
 
 
         Model {
-            id:skull1
             source: "Resources/Mesh/skull1.mesh"
-            y: -50
-            scale: Qt.vector3d(window.width*0.5*zoomFactor, window.width*0.5*zoomFactor, window.width*0.5*zoomFactor)
+            y: 0
+            scale: Qt.vector3d(zoomFactor, zoomFactor, zoomFactor)
             materials: [
                 PrincipledMaterial {
                     baseColor: "#DAD9BB"
-                    metalness: 0.1
+                    metalness: 0.75
                     roughness: 0.1
+                    specularAmount: 1.0
+                    //indexOfRefraction: 2.5
                     opacity: 1.0
                 }
             ]
 
         }
 
-
-
         Model {
-            id:skull2
             source: "Resources/Mesh/skull2.mesh"
-            y: -50
-            scale: Qt.vector3d(window.width*0.5*zoomFactor, window.width*0.5*zoomFactor, window.width*0.5*zoomFactor)
+            y: 0
+            scale: Qt.vector3d(zoomFactor, zoomFactor, zoomFactor)
             materials: [
                 PrincipledMaterial {
                     baseColor: "#DAFFFF"
-                    metalness: 0.1
+                    metalness: 0.75
                     roughness: 0.1
+                    specularAmount: 1.0
+                    //indexOfRefraction: 2.5
                     opacity: 1.0
                 }
             ]
 
         }
 
-
-
-
-
-
         //! [cameras start]
         // The predefined cameras. They have to be part of the scene, i.e. inside the root node.
+        // Animated perspective camera
 
-        // Stationary orthographic camera viewing from the front
-        OrthographicCamera {
-            id: cameraOrthographicFront
-            x: radius*Math.cos(degreeX/180*pi)*Math.sin(degreeY/180*pi)
-            y: radius*Math.sin(degreeX/180*pi)
-            z: radius*Math.cos(degreeX/180*pi)*Math.cos(degreeY/180*pi)
+        PerspectiveCamera {
+            id: cameraPerspectiveFront
+            z: 650
         }
 
-        // Stationary orthographic camera viewing from right
-        OrthographicCamera {
-            id: cameraOrthographicRight
+        PerspectiveCamera {
+            id: cameraPerspectiveLeft
             x: 600
-            //z: 424
             eulerRotation.y: 90
         }
 
-        OrthographicCamera {
-            id: cameraOrthographicOblique
+        PerspectiveCamera {
+            id: cameraPerspectiveLeftOblique
             x: 424
             z: 424
             eulerRotation.y: 45
         }
 
 
-        // Stationary orthographic camera viewing from left
-        OrthographicCamera {
-            id: cameraOrthographicLeft
+
+        PerspectiveCamera {
+            id: cameraPerspectiveRight
             x: -600
-            //z: 424
             eulerRotation.y: -90
         }
 
-        // Stationary orthographic camera viewing from the top
-        OrthographicCamera {
-            id: cameraOrthographicTop
+        PerspectiveCamera {
+            id: cameraPerspectiveRightOblique
+            x: -424
+            z: 424
+            eulerRotation.y: -45
+        }
+
+        PerspectiveCamera {
+            id: cameraPerspectiveTop
             y: 600
             eulerRotation.x: -90
         }
-        //! [cameras end]
+        //! [cameras start]
+
+        // Second animated perspective camera
+
+
 
     }
 
     Rectangle {
-        id: leftRectangle
-        anchors.bottom: parent.bottom
+        id: topRight
+        anchors.top: parent.top
         anchors.left: parent.left
         width: parent.width*0.5
-        height: parent.height
-        color: "#848895"
+        height: parent.height - buttonSkullHeight
+        color: "transparent"
         border.color: "black"
-
-        MouseArea{
-            anchors.fill: parent
-            onWheel: {
-
-                var datl = wheel.angleDelta.y/120
-
-                if(datl>0){
-                    zoomFactor += 0.001
-
-
-                }else{
-
-                    zoomFactor -= 0.001
-
-                }
-
-            }
-
-//            onPressed: {
-
-
-//                mousePressPositionX = mouseX
-//                mousePressPositionY = mouseY
-//            }
-
-//            onReleased: {
-//                //degreeX = mouseX - mousePressPositionX
-//                degreeY -= (mouseX - mousePressPositionX)/10
-//                console.log("degreeX: ", degreeX)
-//                console.log("degreeY: ", degreeY)
-
-//            }
-
-
-        }
 
         View3D {
             id: topRightView
-//            anchors.top: parent.top
-//            anchors.right: parent.right
-//            anchors.left: parent.left
-//            anchors.bottom: parent.bottom
-//            anchors.verticalCenter: parent.verticalCenter
-            anchors.centerIn: parent
-            anchors.fill:parent
-            camera: cameraOrthographicFront
+            anchors.top: parent.top
+            anchors.right: parent.right
+            anchors.left: parent.left
+            anchors.bottom: parent.bottom;
+            camera: cameraPerspectiveFront
             importScene: standAloneScene
             renderMode: View3D.Underlay
-
 
             environment: SceneEnvironment {
                 clearColor: "#848895"
@@ -213,7 +199,27 @@ Window {
             }
         }
 
+        MouseArea{
+            anchors.fill: parent
+            onWheel: {
+                var datl = wheel.angleDelta.y/120
 
+                if(datl>0){
+                    zoomFactor<9?zoomFactor += 0.5:zoomFactor;
+                }else{
+                    zoomFactor>2?zoomFactor -= 0.5:zoomFactor;
+                }
+
+            }
+        }
+
+    }
+
+    Rectangle{
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        width: parent.width*0.5
+        height: buttonSkullHeight
 
         Row {
             id: controlsContainer
@@ -222,83 +228,56 @@ Window {
             spacing: 10
             padding: 10
 
-
-
-            RoundButton {
-                text: "-"
-                onClicked: {
-                    zoomFactor -= 0.001
-                }
-            }
-
-            RoundButton {
-                text: "+"
-                onClicked: {
-                    zoomFactor += 0.001
-                }
-            }
-
+            //! [buttons]
             RoundButton {
                 text: "Front"
-                highlighted: topRightView.camera == cameraOrthographicFront
+                highlighted: topRightView.camera == cameraPerspectiveFront
                 onClicked: {
-                    topRightView.camera = cameraOrthographicFront
+                    topRightView.camera = cameraPerspectiveFront
+                }
+            }
+            //! [buttons]
+            RoundButton {
+                text: "Left"
+                highlighted: topRightView.camera == cameraPerspectiveLeft
+                onClicked: {
+                    topRightView.camera = cameraPerspectiveLeft
                 }
             }
 
             RoundButton {
-                text: "Left"
-                highlighted: topRightView.camera == cameraOrthographicLeft
+                text: "LeftOblique"
+                highlighted: topRightView.camera == cameraPerspectiveLeftOblique
                 onClicked: {
-                    topRightView.camera = cameraOrthographicLeft
+                    topRightView.camera = cameraPerspectiveLeftOblique
                 }
             }
 
             RoundButton {
                 text: "Right"
-                highlighted: topRightView.camera == cameraOrthographicRight
+                highlighted: topRightView.camera == cameraPerspectiveRight
                 onClicked: {
-                    topRightView.camera = cameraOrthographicRight
+                    topRightView.camera = cameraPerspectiveRight
                 }
             }
 
             RoundButton {
-                text: "Oblique"
-                highlighted: topRightView.camera == cameraOrthographicOblique
+                text: "RightOblique"
+                highlighted: topRightView.camera == cameraPerspectiveRightOblique
                 onClicked: {
-                    topRightView.camera = cameraOrthographicOblique
+                    topRightView.camera = cameraPerspectiveRightOblique
                 }
             }
+
 
             RoundButton {
                 text: "Top"
-                highlighted: topRightView.camera == cameraOrthographicTop
+                highlighted: topRightView.camera == cameraPerspectiveTop
                 onClicked: {
-                    topRightView.camera = cameraOrthographicTop
+                    topRightView.camera = cameraPerspectiveTop
                 }
             }
         }
-    }
-
-
-    Rectangle {
-        id: rightRectangle
-        anchors.bottom: parent.bottom
-        anchors.right: parent.right
-        width: parent.width * 0.5
-        height: parent.height
-        color: "transparent"
-        border.color: "black"
-
-
-        Image {
-            id: name
-            //anchors.fill: parent
-            anchors.centerIn: parent
-            source: "Resources/Image/Person.jpg"
-
-        }
-
     }
 
 
