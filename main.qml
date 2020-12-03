@@ -128,7 +128,7 @@ Window {
 
         PerspectiveCamera {
             id: cameraPerspectiveFront
-            z: 650
+            z: 600
         }
 
         PerspectiveCamera {
@@ -203,9 +203,9 @@ Window {
                 var datl = wheel.angleDelta.y/120
 
                 if(datl>0){
-                    zoomFactor<9?zoomFactor += 0.5:zoomFactor;
+                    zoomFactor<9?zoomFactor += 0.1:zoomFactor;
                 }else{
-                    zoomFactor>2?zoomFactor -= 0.5:zoomFactor;
+                    zoomFactor>2?zoomFactor -= 0.1:zoomFactor;
                 }
 
             }
