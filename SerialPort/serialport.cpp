@@ -1,5 +1,6 @@
 #include "serialport.h"
 #include "QDebug"
+#include <QList>
 
 SerialPort::SerialPort(QObject *parent) : QObject(parent)
 {
@@ -38,6 +39,8 @@ SerialPort::SerialPort(QObject *parent) : QObject(parent)
     //连接信号槽
     QObject::connect(serialPort, &QSerialPort::readyRead, this, &SerialPort::readData);
 
+    writeData();
+
 }
 
 void SerialPort::writeData()
@@ -53,7 +56,17 @@ void SerialPort::readData()
     QByteArray readBuffer;
     readBuffer = serialPort->readAll();
 
-    qDebug() << "readData";
+
+    QList<QByteArray> list = readBuffer.split('/');
+
+    float x = list.at(0).toFloat();
+    float y = list.at(1).toFloat();
+    float z = list.at(2).toFloat();
+    float heading = list.at(3).toFloat();
+    float tilt = list.at(4).toFloat();
+    float roll = list.at(5).toFloat();
+
+    emit positionChanged(x, y, z, heading, tilt, roll);
 
     readBuffer.clear();
 

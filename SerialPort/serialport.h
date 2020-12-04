@@ -9,6 +9,10 @@
 class SerialPort : public QObject
 {
     Q_OBJECT
+
+    Q_PROPERTY(NOTIFY yearChanged)
+
+
 public:
     explicit SerialPort(QObject *parent = nullptr);
 
@@ -18,6 +22,7 @@ private:
     QSerialPort *serialPort = nullptr;
 
 signals:
+    void positionChanged(float x, float y, float z, float heading, float tilt, float roll);
 
 private slots:
     void readData();

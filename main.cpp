@@ -60,12 +60,15 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     QSurfaceFormat::setDefaultFormat(QQuick3D::idealSurfaceFormat());
 
+    qmlRegisterType<SerialPort>("SerialPort",1,0,"SerialPort");
+
+
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())
         return -1;
 
-    SerialPort serialPort;
+//    SerialPort serialPort;
 
     return app.exec();
 }

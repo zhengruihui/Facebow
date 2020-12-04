@@ -52,6 +52,7 @@ import QtQuick 2.15
 import QtQuick.Window 2.14
 import QtQuick3D 1.15
 import QtQuick.Controls 2.14
+import SerialPort 1.0
 
 Window {
     id: window
@@ -62,6 +63,8 @@ Window {
 
     property var zoomFactor: 7
     property int buttonSkullHeight: 60
+    property int zoomFactorMax: 10
+    property int zoomFactorMin: 2
 
     Node {
         id: standAloneScene
@@ -89,6 +92,7 @@ Window {
 
 
         Model {
+            id: skullModel1
             source: "Resources/Mesh/skull1.mesh"
             y: 0
             scale: Qt.vector3d(zoomFactor, zoomFactor, zoomFactor)
@@ -106,6 +110,7 @@ Window {
         }
 
         Model {
+            id: skullModel2
             source: "Resources/Mesh/skull2.mesh"
             y: 0
             scale: Qt.vector3d(zoomFactor, zoomFactor, zoomFactor)
@@ -119,6 +124,8 @@ Window {
                     opacity: 1.0
                 }
             ]
+
+
 
         }
 
@@ -176,7 +183,7 @@ Window {
         id: topRight
         anchors.top: parent.top
         anchors.left: parent.left
-        width: parent.width*0.5
+        width: parent.width
         height: parent.height - buttonSkullHeight
         color: "transparent"
         border.color: "black"
@@ -203,9 +210,9 @@ Window {
                 var datl = wheel.angleDelta.y/120
 
                 if(datl>0){
-                    zoomFactor<9?zoomFactor += 0.1:zoomFactor;
+                    zoomFactor<zoomFactorMax?zoomFactor += 0.1:zoomFactor;
                 }else{
-                    zoomFactor>2?zoomFactor -= 0.1:zoomFactor;
+                    zoomFactor>zoomFactorMin?zoomFactor -= 0.1:zoomFactor;
                 }
 
             }
@@ -216,7 +223,7 @@ Window {
     Rectangle{
         anchors.bottom: parent.bottom
         anchors.left: parent.left
-        width: parent.width*0.5
+        width: parent.width
         height: buttonSkullHeight
 
         Row {
@@ -278,19 +285,31 @@ Window {
         }
     }
 
-    Rectangle{
-        anchors.top: parent.top
-        anchors.right: parent.right
-        height: parent.height
-        Image {
-            id: person
-            anchors.top: parent.top
-            anchors.right: parent.right
-            height: parent.height
-            source: "Resources/Image/Person.jpg"
-        }
+//    Rectangle{
+//        anchors.top: parent.top
+//        anchors.right: parent.right
+//        height: parent.height
+//        Image {
+//            id: person
+//            anchors.top: parent.top
+//            anchors.right: parent.right
+//            height: parent.height
+//            source: "Resources/Image/Person.jpg"
+//        }
 
 
+//    }
+
+    SerialPort{
+            onPositionChanged: {
+                skullModel2.x = x;
+                skullModel2.y = y;
+                skullModel2.z = z;
+                skullModel2.eulerRotation.x = tilt;
+                skullModel2.eulerRotation.y = heading;
+                skullModel2.eulerRotation.z = roll;
+                console.log('skullModel2Position:', x, y, z, heading, tilt, roll)
+            }
     }
 
 }
