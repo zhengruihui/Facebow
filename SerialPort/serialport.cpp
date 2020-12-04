@@ -11,6 +11,11 @@ SerialPort::SerialPort(QObject *parent) : QObject(parent)
 //    {
 //        QSerialPort serial;
 //        serial.setPort(info);
+//        qDebug() << info.description();
+//        qDebug() << info.vendorIdentifier();
+//        qDebug() << info.manufacturer();
+//        qDebug() << info.productIdentifier();
+//        qDebug() << info.serialNumber();
 //        if(serial.open(QIODevice::ReadWrite))
 //        {
 //            //设置串口名
@@ -59,15 +64,20 @@ void SerialPort::readData()
 
     QList<QByteArray> list = readBuffer.split('/');
 
-    float x = list.at(0).toFloat();
-    float y = list.at(1).toFloat();
-    float z = list.at(2).toFloat();
-    float heading = list.at(3).toFloat();
-    float tilt = list.at(4).toFloat();
-    float roll = list.at(5).toFloat();
+    if(list.size()==6)
+    {
+        float x = list.at(0).toFloat();
+        float y = list.at(1).toFloat();
+        float z = list.at(2).toFloat();
+        float heading = list.at(3).toFloat();
+        float tilt = list.at(4).toFloat();
+        float roll = list.at(5).toFloat();
 
-    emit positionChanged(x, y, z, heading, tilt, roll);
+        emit positionChanged(x, y, z, heading, tilt, roll);
 
-    readBuffer.clear();
+        readBuffer.clear();
+    }
+
+
 
 }
