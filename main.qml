@@ -28,7 +28,7 @@ Window {
             id: person
             anchors.top: parent.top
             anchors.right: parent.right
-            height: parent.height
+            width: parent.width
             source: "Resources/Image/Person.jpg"
         }
 

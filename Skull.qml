@@ -10,6 +10,7 @@ Item {
     property int zoomFactorMax: 10
     property int zoomFactorMin: 2
     property int lightBrightness: 70
+    property int yOffset: -15
 
 
     Node {
@@ -58,12 +59,12 @@ Item {
         Model {
             id: skullModel1
             source: "Resources/Mesh/skull1.mesh"
-            y: -15
+            y: yOffset
             scale: Qt.vector3d(zoomFactor, zoomFactor, zoomFactor)
             materials: [
                 PrincipledMaterial {
                     baseColor: "#D0CFB0"
-                    metalness: 0.5
+                    metalness: 0.75
                     roughness: 0.1
                     specularAmount: 0.5
                     //indexOfRefraction: 2.5
@@ -76,12 +77,12 @@ Item {
         Model {
             id: skullModel2
             source: "Resources/Mesh/skull2.mesh"
-            y: -15
+            y: yOffset
             scale: Qt.vector3d(zoomFactor, zoomFactor, zoomFactor)
             materials: [
                 PrincipledMaterial {
                     baseColor: "#DAFFFF"
-                    metalness: 0.5
+                    metalness: 0.75
                     roughness: 0.1
                     specularAmount: 0.5
                     //indexOfRefraction: 2.5
@@ -246,15 +247,11 @@ Item {
     SerialPort{
             onPositionChanged: {
                 skullModel2.x = x;
-                skullModel2.y = y;
+                skullModel2.y = y+yOffset;
                 skullModel2.z = z;
                 skullModel2.eulerRotation.x = tilt;
                 skullModel2.eulerRotation.y = heading;
                 skullModel2.eulerRotation.z = roll;
-//                console.log("skullModel2Position:", x, y, z, heading, tilt, roll)
-//                console.log("position: ", directionalLightFront.x,directionalLightFront.y,directionalLightFront.z)
-//                console.log("eulerRotation: ", directionalLightFront.eulerRotation.x,directionalLightFront.eulerRotation.y,directionalLightFront.eulerRotation.z)
-//                console.log("brightness: ", directionalLightFront.brightness)
             }
     }
 
