@@ -143,13 +143,13 @@ Item {
         width: parent.width
         height: parent.height - buttonSkullHeight
         color: "transparent"
-        border.color: "black"
+        border.color: "white"
         border.width: 2
 
         View3D {
             id: view3DSkull
             anchors.fill: parent
-            camera: cameraPerspectiveFront
+            camera: cameraPerspectiveLeftOblique
             importScene: standAloneScene
             renderMode: View3D.Underlay
 
@@ -159,19 +159,20 @@ Item {
             }
         }
 
-        MouseArea{
-            anchors.fill: parent
-            onWheel: {
-                var datl = wheel.angleDelta.y/120
+//        MouseArea{
+//            anchors.fill: parent
+//            onWheel: {
+//                var datl = wheel.angleDelta.y/120
 
-                if(datl>0){
-                    zoomFactor<zoomFactorMax?zoomFactor += 0.1:zoomFactor;
-                }else{
-                    zoomFactor>zoomFactorMin?zoomFactor -= 0.1:zoomFactor;
-                }
+//                if(datl>0){
+//                    zoomFactor<zoomFactorMax?zoomFactor += 0.1:zoomFactor;
+//                }else{
+//                    zoomFactor>zoomFactorMin?zoomFactor -= 0.1:zoomFactor;
+//                }
 
-            }
-        }
+//            }
+
+//        }
 
     }
 
@@ -191,54 +192,54 @@ Item {
             spacing: 10
             padding: 10
 
-            RoundButton {
-                text: "Front"
-                highlighted: view3DSkull.camera == cameraPerspectiveFront
-                onClicked: {
-                    view3DSkull.camera = cameraPerspectiveFront
-                }
-            }
+//            RoundButton {
+//                text: "Front"
+//                highlighted: view3DSkull.camera == cameraPerspectiveFront
+//                onClicked: {
+//                    view3DSkull.camera = cameraPerspectiveFront
+//                }
+//            }
 
-            RoundButton {
-                text: "Left"
-                highlighted: view3DSkull.camera == cameraPerspectiveLeft
-                onClicked: {
-                    view3DSkull.camera = cameraPerspectiveLeft
-                }
-            }
+//            RoundButton {
+//                text: "Left"
+//                highlighted: view3DSkull.camera == cameraPerspectiveLeft
+//                onClicked: {
+//                    view3DSkull.camera = cameraPerspectiveLeft
+//                }
+//            }
 
-            RoundButton {
-                text: "LeftOblique"
-                highlighted: view3DSkull.camera == cameraPerspectiveLeftOblique
-                onClicked: {
-                    view3DSkull.camera = cameraPerspectiveLeftOblique
-                }
-            }
+//            RoundButton {
+//                text: "LeftOblique"
+//                highlighted: view3DSkull.camera == cameraPerspectiveLeftOblique
+//                onClicked: {
+//                    view3DSkull.camera = cameraPerspectiveLeftOblique
+//                }
+//            }
 
-            RoundButton {
-                text: "Right"
-                highlighted: view3DSkull.camera == cameraPerspectiveRight
-                onClicked: {
-                    view3DSkull.camera = cameraPerspectiveRight
-                }
-            }
+//            RoundButton {
+//                text: "Right"
+//                highlighted: view3DSkull.camera == cameraPerspectiveRight
+//                onClicked: {
+//                    view3DSkull.camera = cameraPerspectiveRight
+//                }
+//            }
 
-            RoundButton {
-                text: "RightOblique"
-                highlighted: view3DSkull.camera == cameraPerspectiveRightOblique
-                onClicked: {
-                    view3DSkull.camera = cameraPerspectiveRightOblique
-                }
-            }
+//            RoundButton {
+//                text: "RightOblique"
+//                highlighted: view3DSkull.camera == cameraPerspectiveRightOblique
+//                onClicked: {
+//                    view3DSkull.camera = cameraPerspectiveRightOblique
+//                }
+//            }
 
 
-            RoundButton {
-                text: "Top"
-                highlighted: view3DSkull.camera == cameraPerspectiveTop
-                onClicked: {
-                    view3DSkull.camera = cameraPerspectiveTop
-                }
-            }
+//            RoundButton {
+//                text: "Top"
+//                highlighted: view3DSkull.camera == cameraPerspectiveTop
+//                onClicked: {
+//                    view3DSkull.camera = cameraPerspectiveTop
+//                }
+//            }
         }
     }
 
