@@ -4,71 +4,118 @@ import QtQuick3D 1.15
 import QtQuick.Controls 2.14
 import SerialPort 1.0
 
-
 Window {
-    property int menuBarHeight: 0
+    property int topBarHeight: 30
+
+    property int bottomBarHeight: 30
+
+    property int leftBarWidth: 60
+
+    property int rightBarWidth: 30
+
+    property var barColor: "#1f2026"
+
+    property int currentPage: 1
+
+    function changePage(page)
+    {
+        if(page === currentPage)
+        {
+
+        }
+        else{
+            if(page === 1)
+            {
+                mainLoader.source = "MeasuringSteps.qml"
+                currentPage = 1
+            }
+            else if(page === 2)
+            {
+                mainLoader.source = "Report.qml"
+                currentPage = 2
+            }
+
+        }
+
+    }
 
 
     id: mainWindow
     width: 1280
     height: 720
     visible: true
-    color: "black"
+    color: barColor
 
+    flags: Qt.Window | Qt.FramelessWindowHint
 
+    Rectangle{
+        id:topBar
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        height:topBarHeight
+        color: barColor
 
-
-    Page1{
-        id:page1
-        anchors.fill: parent
-        visible: true
-        opacity: 1
     }
 
-    Page2{
-        id:page2
-        anchors.fill: parent
-        visible: false
-        opacity: 0
+    Rectangle{
+        id:bottomBar
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+
+        height:bottomBarHeight
+        color: barColor
+
     }
-
-
 
 
 
     Rectangle{
+        id:leftBar
         anchors.top: parent.top
         anchors.left: parent.left
-        width: 60
+        width: leftBarWidth
         height: parent.height
-
+        color: barColor
 
         Column {
-            id: controlsContainerx
+            id: controlsContainer
             anchors.top: parent.top
             anchors.left: parent.left
             anchors.centerIn: parent
+            width: parent.width
 
-            spacing: 10
+            spacing: 20
             padding: 10
 
-            RoundButton {
-                text: qsTr("Page1")
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                Text{
+                    text: qsTr("测量")
+                    anchors.centerIn: parent
+
+                }
+                highlighted: currentPage == 1
                 onClicked: {
-                    page2.visible = false
-                    page2.opacity = 0
-                    page1.visible = true
-                    page1.opacity = 1
+                    mainLoader.source = "MeasuringSteps.qml"
+                    changePage(1)
+
                 }
             }
 
-            RoundButton {
-                text: qsTr("Page2")
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                Text{
+                    text: qsTr("报告")
+                    anchors.centerIn: parent
+
+                }
+                highlighted: currentPage == 2
                 onClicked: {
-                    page1.visible = false
-                    page1.opacity = 0
-                    page2.visible = true
-                    page2.opacity = 1
+                    mainLoader.source = "Report.qml"
+                    changePage(2)
                 }
             }
 
@@ -76,6 +123,39 @@ Window {
 
 
     }
+
+    Rectangle{
+        id:rightBar
+        anchors.top: parent.top
+        anchors.right: parent.right
+        width: rightBarWidth
+        height: parent.height
+        color: barColor
+    }
+
+
+
+    Loader{
+        id: mainLoader
+        anchors.top: topBar.bottom
+        anchors.bottom: bottomBar.top
+        anchors.left: leftBar.right
+        anchors.right: rightBar.left
+
+
+
+
+
+        source: "MeasuringSteps.qml"
+
+    }
+
+
+
+
+
+
+
 
 
 //    flags: Qt.Window | Qt.FramelessWindowHint

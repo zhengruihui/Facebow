@@ -4,6 +4,8 @@ import QtQuick.Controls 2.14
 Item {
     property int menuBarHeight: 0
 
+
+
     Rectangle {
         anchors.top: parent.top
         anchors.left: parent.left
