@@ -46,7 +46,7 @@ Window {
     visible: true
     color: barColor
 
-    flags: Qt.Window | Qt.FramelessWindowHint
+    //flags: Qt.Window | Qt.FramelessWindowHint
 
     Rectangle{
         id:topBar

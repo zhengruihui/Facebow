@@ -155,7 +155,6 @@ Item {
 
 
 
-
         Rectangle{
             id:topBar
             anchors.top: parent.top
@@ -256,25 +255,25 @@ Item {
     DropShadow {
         anchors.fill: rootRectangle
         transparentBorder: true
-        horizontalOffset: -10
-        verticalOffset: 10
-        radius: 20.0
-        samples: 41
+        horizontalOffset: 0
+        verticalOffset: 0
+        radius: 30.0
+        samples: 61
         color: "#80000000"
-        spread: 0.1
+        spread: 0.2
         source: rootRectangle
     }
-    DropShadow {
-        anchors.fill: rootRectangle
-        transparentBorder: true
-        horizontalOffset: 5
-        verticalOffset: -5
-        radius: 20.0
-        samples: 41
-        color: "#80000000"
-        spread: 0.1
-        source: rootRectangle
-    }
+//    DropShadow {
+//        anchors.fill: rootRectangle
+//        transparentBorder: true
+//        horizontalOffset: 0
+//        verticalOffset: 0
+//        radius: 20.0
+//        samples: 41
+//        color: "#80000000"
+//        spread: 0.1
+//        source: rootRectangle
+//    }
 
 
 
