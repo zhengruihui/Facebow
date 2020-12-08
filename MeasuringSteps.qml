@@ -13,7 +13,7 @@ Item {
 
     property int rightBarWidth: 100
 
-    property var barColor: "#1f2026"
+    property var barColor: "white"
 
     property int borderWidth: 4
 
@@ -140,6 +140,7 @@ Item {
 
     }
 
+
     Rectangle {
         id: rootRectangle
         anchors.top: parent.top
@@ -148,11 +149,17 @@ Item {
         height: parent.height
 
         color: "transparent"
-        border.width: borderWidth;
-        border.color: "#1f2026";
-        radius: 6
+//        border.width: borderWidth;
+//        border.color: "#1f2026";
+//        radius: 6
 
 
+        BorderImage {
+            source: "Resources/Image/lineedit-bg.png"
+            width: parent.width; height: parent.height
+            border { left: 10; top: 10; right: 10; bottom: 10 }
+
+        }
 
 
         Rectangle{
@@ -252,17 +259,17 @@ Item {
 
 
 
-    DropShadow {
-        anchors.fill: rootRectangle
-        transparentBorder: true
-        horizontalOffset: 0
-        verticalOffset: 0
-        radius: 30.0
-        samples: 61
-        color: "#80000000"
-        spread: 0.2
-        source: rootRectangle
-    }
+//    DropShadow {
+//        anchors.fill: rootRectangle
+//        transparentBorder: true
+//        horizontalOffset: 0
+//        verticalOffset: 0
+//        radius: 30.0
+//        samples: 61
+//        color: "#80000000"
+//        spread: 0.2
+//        source: rootRectangle
+//    }
 //    DropShadow {
 //        anchors.fill: rootRectangle
 //        transparentBorder: true

@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>Resources/Image/Person.jpg</file>
         <file>Resources/Image/Person2.jpg</file>
+        <file>Resources/Image/lineedit-bg.png</file>
     </qresource>
 </RCC>

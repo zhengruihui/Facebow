@@ -13,7 +13,7 @@ Window {
 
     property int rightBarWidth: 30
 
-    property var barColor: "#1f2026"
+    property var barColor: "white"
 
     property int currentPage: 1
 
