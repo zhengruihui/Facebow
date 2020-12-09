@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQuick.Window 2.14
 import QtQuick3D 1.15
 import QtQuick.Controls 2.5
+import QtQuick.Controls 1.4
 import SerialPort 1.0
 import QtQuick.Controls.Styles 1.4
 
@@ -90,6 +91,45 @@ Window {
             padding: 10
 
 
+            Button
+            {
+                id: root_Button
+                property string nomerPic: "Resources/assets/navigation/view_sel.png"
+                property string hoverPic: "Resources/assets/navigation/view_sel.png"
+                //property string pressPic: "qrc:/Images/003.png"
+                style: ButtonStyle
+                {
+                    background:Rectangle
+                    {
+                        implicitHeight:root_Button.height
+                        implicitWidth:root_Button.width
+                        Image
+                        {
+                            anchors.fill: parent
+                            source:
+                            {
+                                if(control.hovered)
+                                {
+                                    if(control.pressed)
+                                    {
+                                        //pressPic
+                                    }
+                                    else
+                                    {
+                                        hoverPic
+                                    }
+                                }
+                                else
+                                {
+                                    nomerPic
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
 
 
 
@@ -117,7 +157,7 @@ Window {
 
                 }
 
-                highlighted: currentPage == 2
+                //highlighted: currentPage == 2
                 onClicked: {
                     mainLoader.source = "Report.qml"
                     changePage(2)

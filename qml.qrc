@@ -6,5 +6,6 @@
         <file>MeasuringSteps.qml</file>
         <file>Report.qml</file>
         <file>IconButton.qml</file>
+        <file>Test.qml</file>
     </qresource>
 </RCC>
