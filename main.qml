@@ -5,15 +5,15 @@ import QtQuick.Controls 2.14
 import SerialPort 1.0
 
 Window {
-    property int topBarHeight: 30
+    property int topBarHeight: 50
 
-    property int bottomBarHeight: 30
+    property int bottomBarHeight: 15
 
-    property int leftBarWidth: 60
+    property int leftBarWidth: 65
 
-    property int rightBarWidth: 30
+    property int rightBarWidth: 15
 
-    property var barColor: "white"
+    property var barColor: "#1f2026"
 
     property int currentPage: 1
 
@@ -93,7 +93,7 @@ Window {
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 Text{
-                    text: qsTr("测量")
+                    text: qsTr("Measure")
                     anchors.centerIn: parent
 
                 }
@@ -108,10 +108,11 @@ Window {
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
                 Text{
-                    text: qsTr("报告")
+                    text: qsTr("Report")
                     anchors.centerIn: parent
 
                 }
+
                 highlighted: currentPage == 2
                 onClicked: {
                     mainLoader.source = "Report.qml"

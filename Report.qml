@@ -81,6 +81,11 @@ Item {
 
 
 
+
+
+
+
+
     }
 
 
@@ -97,9 +102,9 @@ Item {
     DropShadow {
         anchors.fill: rootRectangle
         transparentBorder: true
-        horizontalOffset: -10
-        verticalOffset: 10
-        radius: 20.0
+        horizontalOffset: -15
+        verticalOffset: 15
+        radius: 20
         samples: 41
         color: "#80000000"
         spread: 0.1

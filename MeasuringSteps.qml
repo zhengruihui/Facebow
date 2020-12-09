@@ -5,19 +5,19 @@ import SerialPort 1.0
 import QtGraphicalEffects 1.15
 
 Item {
-    property int topBarHeight: 30
+    property int topBarHeight: 35
 
-    property int bottomBarHeight: 100
+    property int bottomBarHeight: 80
 
-    property int leftBarWidth: 40
+    property int leftBarWidth: 35
 
     property int rightBarWidth: 100
 
-    property var barColor: "white"
+    property int centerBarWidth: 10
+
+    property var barColor: "#1f2026"
 
     property int borderWidth: 4
-
-
 
 
 
@@ -28,7 +28,9 @@ Item {
     property int lightBrightness: 70
     property int yOffset: -15
 
+
     anchors.fill: parent
+
 
     Node {
         id: standAloneScene
@@ -140,7 +142,6 @@ Item {
 
     }
 
-
     Rectangle {
         id: rootRectangle
         anchors.top: parent.top
@@ -148,18 +149,12 @@ Item {
         width: parent.width
         height: parent.height
 
-        color: "transparent"
-//        border.width: borderWidth;
-//        border.color: "#1f2026";
-//        radius: 6
+        color: "#1f2026"
+        border.width: borderWidth;
+        border.color: "transparent";
+        radius: 6//圆角半径
 
 
-        BorderImage {
-            source: "Resources/Image/lineedit-bg.png"
-            width: parent.width; height: parent.height
-            border { left: 10; top: 10; right: 10; bottom: 10 }
-
-        }
 
 
         Rectangle{
@@ -183,6 +178,8 @@ Item {
 
         }
 
+
+
         Rectangle{
             id:leftBar
             anchors.left: parent.left
@@ -190,6 +187,132 @@ Item {
             width: leftBarWidth
             height: parent.height-2*borderWidth
             color: barColor
+
+
+            Column {
+                id: controlsContainer
+                anchors.centerIn: parent
+                spacing: 10
+                padding: 10
+
+                Button {
+                    width: leftBar.width
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+
+                    Text {
+                        text: "Front"
+                        //默认坐标居中
+                        anchors.centerIn: parent
+                        //默认文字对齐方式为水平和垂直居中
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        //默认宽度为parent的宽度，这样字太长超出范围时自动显示省略号
+                        width: parent.width
+                    }
+
+                    highlighted: view3DSkull.camera == cameraPerspectiveFront
+                    onClicked: {
+                        view3DSkull.camera = cameraPerspectiveFront
+                    }
+                }
+
+                Button {
+                    width: leftBar.width
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    Text {
+                        text: "Left"
+                        //默认坐标居中
+                        anchors.centerIn: parent
+                        //默认文字对齐方式为水平和垂直居中
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        //默认宽度为parent的宽度，这样字太长超出范围时自动显示省略号
+                        width: parent.width
+                    }
+                    highlighted: view3DSkull.camera == cameraPerspectiveLeft
+                    onClicked: {
+                        view3DSkull.camera = cameraPerspectiveLeft
+                    }
+                }
+
+                Button {
+                    width: leftBar.width
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    Text {
+                        text: "LeftOblique"
+                        //默认坐标居中
+                        anchors.centerIn: parent
+                        //默认文字对齐方式为水平和垂直居中
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        //默认宽度为parent的宽度，这样字太长超出范围时自动显示省略号
+                        width: parent.width
+                    }
+                    highlighted: view3DSkull.camera == cameraPerspectiveLeftOblique
+                    onClicked: {
+                        view3DSkull.camera = cameraPerspectiveLeftOblique
+                    }
+                }
+
+                Button {
+                    width: leftBar.width
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    Text {
+                        text: "Right"
+                        //默认坐标居中
+                        anchors.centerIn: parent
+                        //默认文字对齐方式为水平和垂直居中
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        //默认宽度为parent的宽度，这样字太长超出范围时自动显示省略号
+                        width: parent.width
+                    }
+                    highlighted: view3DSkull.camera == cameraPerspectiveRight
+                    onClicked: {
+                        view3DSkull.camera = cameraPerspectiveRight
+                    }
+                }
+
+                Button {
+                    width: leftBar.width
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    Text {
+                        text: "RightOblique"
+                        //默认坐标居中
+                        anchors.centerIn: parent
+                        //默认文字对齐方式为水平和垂直居中
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        //默认宽度为parent的宽度，这样字太长超出范围时自动显示省略号
+                        width: parent.width
+                    }
+                    highlighted: view3DSkull.camera == cameraPerspectiveRightOblique
+                    onClicked: {
+                        view3DSkull.camera = cameraPerspectiveRightOblique
+                    }
+                }
+
+
+                Button {
+                    width: leftBar.width
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    Text {
+                        text: "Top"
+                        //默认坐标居中
+                        anchors.centerIn: parent
+                        //默认文字对齐方式为水平和垂直居中
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        //默认宽度为parent的宽度，这样字太长超出范围时自动显示省略号
+                        width: parent.width
+                    }
+                    highlighted: view3DSkull.camera == cameraPerspectiveTop
+                    onClicked: {
+                        view3DSkull.camera = cameraPerspectiveTop
+                    }
+                }
+            }
 
         }
 
@@ -203,25 +326,21 @@ Item {
         }
 
 
+        View3D {
+            id: view3DSkull
+            anchors.top: topBar.bottom
+            anchors.left: leftBar.right
+            width: (parent.width-leftBarWidth-rightBarWidth-centerBarWidth)/2
+            height: parent.height-topBarHeight-bottomBarHeight
+            camera: cameraPerspectiveLeftOblique
+            importScene: standAloneScene
+            renderMode: View3D.Overlay
 
 
 
-            View3D {
-                id: view3DSkull
-                anchors.top: topBar.bottom
-                anchors.left: leftBar.right
-                width: (parent.width-leftBarWidth-rightBarWidth)/2
-                height: parent.height-topBarHeight-bottomBarHeight
-                camera: cameraPerspectiveLeftOblique
-                importScene: standAloneScene
-                renderMode: View3D.Underlay
-
-
-
-                environment: SceneEnvironment {
-                    clearColor: "#24252a"
-                    backgroundMode: SceneEnvironment.Color
-                }
+            environment: SceneEnvironment {
+                clearColor: "#cad8dc"
+                backgroundMode: SceneEnvironment.Color
             }
 
             MouseArea{
@@ -238,8 +357,22 @@ Item {
                 }
 
             }
+        }
 
 
+
+
+        Rectangle{
+
+            anchors.top: topBar.bottom
+            anchors.right: rightBar.left
+            width: (parent.width-leftBarWidth-rightBarWidth-centerBarWidth)/2
+            height: parent.height-topBarHeight-bottomBarHeight
+            color: "#cad8dc"
+
+
+
+        }
 
 
 
@@ -258,29 +391,28 @@ Item {
 
 
 
-
-//    DropShadow {
-//        anchors.fill: rootRectangle
-//        transparentBorder: true
-//        horizontalOffset: 0
-//        verticalOffset: 0
-//        radius: 30.0
-//        samples: 61
-//        color: "#80000000"
-//        spread: 0.2
-//        source: rootRectangle
-//    }
-//    DropShadow {
-//        anchors.fill: rootRectangle
-//        transparentBorder: true
-//        horizontalOffset: 0
-//        verticalOffset: 0
-//        radius: 20.0
-//        samples: 41
-//        color: "#80000000"
-//        spread: 0.1
-//        source: rootRectangle
-//    }
+    DropShadow {
+        anchors.fill: rootRectangle
+        transparentBorder: true
+        horizontalOffset: -15
+        verticalOffset: 15
+        radius: 20
+        samples: 41
+        color: "#80000000"
+        spread: 0.1
+        source: rootRectangle
+    }
+    DropShadow {
+        anchors.fill: rootRectangle
+        transparentBorder: true
+        horizontalOffset: 5
+        verticalOffset: -5
+        radius: 20.0
+        samples: 41
+        color: "#80000000"
+        spread: 0.1
+        source: rootRectangle
+    }
 
 
 
