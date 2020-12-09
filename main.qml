@@ -89,60 +89,24 @@ Window {
             spacing: 20
             padding: 10
 
-            IconButton {
-                id: btn_camera
-                img_src: "qrc:/camera.png";
-                btn_txt: "相机"
-                onClickedLeft: setInfoText(btn_txt + " Left Button click")
-                onClickedRight: setInfoText(btn_txt + " Right Button click")
-            }
+
 
 
 
             Button {
-
+                id:buttonMeasure
                 anchors.horizontalCenter: parent.horizontalCenter
 
 
-                background: Image{
-                    id:backgroundMeasure
-                    source: "Resources/assets/navigation/view.png"
-                }
-
-
-
-                Text{
-                    text: qsTr("Measure")
-                    anchors.top: backgroundMeasure.bottom
-                    anchors.horizontalCenter: parent.horizontalCenter
-
-
-                }
-
-
-//                style: ButtonStyle {
-//                    background: Rectangle {
-//                        color: control.hovered?"#a0a0a0":"#c0c0c0";
-//                        border.width: control.pressed?2:1;
-//                        border.color: "white";
-//                    }
-//                    label: Label {
-//                        text: control.text; // 设置label样式后，按钮显示以此text为准
-//                        color: "black";
-//                        font.pixelSize: 24;
-//                        font.bold: true;
-//                    }
-//                }
-
-
-
-                highlighted: currentPage == 1
+                //highlighted: currentPage == 1
                 onClicked: {
-                    backgroundMeasure.source = "Resources/assets/navigation/view_sel.png"
+                    buttonMeasure.icon.source = "Resources/assets/navigation/view_sel.png"
                     mainLoader.source = "MeasuringSteps.qml"
                     changePage(1)
 
                 }
+
+
             }
 
             Button {
