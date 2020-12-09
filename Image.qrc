@@ -3,5 +3,7 @@
         <file>Resources/Image/Person.jpg</file>
         <file>Resources/Image/Person2.jpg</file>
         <file>Resources/Image/lineedit-bg.png</file>
+        <file>Resources/assets/navigation/view.png</file>
+        <file>Resources/assets/navigation/view_sel.png</file>
     </qresource>
 </RCC>

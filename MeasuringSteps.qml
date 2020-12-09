@@ -5,13 +5,13 @@ import SerialPort 1.0
 import QtGraphicalEffects 1.15
 
 Item {
-    property int topBarHeight: 35
+    property int topBarHeight: 40
 
-    property int bottomBarHeight: 80
+    property int bottomBarHeight: 100
 
-    property int leftBarWidth: 35
+    property int leftBarWidth: 40
 
-    property int rightBarWidth: 100
+    property int rightBarWidth: 130
 
     property int centerBarWidth: 10
 
@@ -338,6 +338,8 @@ Item {
 
 
 
+
+
             environment: SceneEnvironment {
                 clearColor: "#cad8dc"
                 backgroundMode: SceneEnvironment.Color
@@ -414,6 +416,15 @@ Item {
         source: rootRectangle
     }
 
-
+    SerialPort{
+            onPositionChanged: {
+                skullModel2.x = x;
+                skullModel2.y = y+yOffset;
+                skullModel2.z = z;
+                skullModel2.eulerRotation.x = tilt;
+                skullModel2.eulerRotation.y = heading;
+                skullModel2.eulerRotation.z = roll;
+            }
+    }
 
 }
