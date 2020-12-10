@@ -28,7 +28,7 @@ Item {
     property int lightBrightness: 70
     property int yOffset: -15
 
-
+    property int currentButtonID : 0
     anchors.fill: parent
 
 
@@ -189,130 +189,173 @@ Item {
             color: barColor
 
 
+
             Column {
-                id: controlsContainer
-                anchors.centerIn: parent
-                spacing: 10
+                anchors.top: parent.top
+                width: parent.width
+                height: parent.height
+                topPadding: topBar.height-4
+
+                spacing: 11
                 padding: 10
 
-                Button {
-                    width: leftBar.width
+
+
+                MButton{
+                    width: 31
+                    height: 31
+                    haveText: false
                     anchors.horizontalCenter: parent.horizontalCenter
 
+                    normalImagelUrl: "Resources/assets/skull/zoom_out.png"
+                    pressedImageUrl: "Resources/assets/skull/zoom_out_sel.png"
+                    normalTextColor: "#DEDEDE"
+                    pressedTextColor: "#0DAF9D"
 
-                    Text {
-                        text: "Front"
-                        //默认坐标居中
-                        anchors.centerIn: parent
-                        //默认文字对齐方式为水平和垂直居中
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        //默认宽度为parent的宽度，这样字太长超出范围时自动显示省略号
-                        width: parent.width
+                    highlighted: currentButtonID == 1
+                    onClicked: {
+                        zoomFactor>zoomFactorMin?zoomFactor -= 0.1:zoomFactor
+                        currentButtonID = 1
                     }
+
+                }
+
+                MButton{
+                    width: 31
+                    height: 31
+                    haveText: false
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    normalImagelUrl: "Resources/assets/skull/zoom_in.png"
+                    pressedImageUrl: "Resources/assets/skull/zoom_in_sel.png"
+
+                    highlighted: currentButtonID == 2
+                    onClicked: {
+                        zoomFactor<zoomFactorMax?zoomFactor += 0.1:zoomFactor
+                        currentButtonID = 2
+                    }
+
+                }
+
+                MButton{
+                    width: 31
+                    height: 31
+                    haveText: false
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    normalImagelUrl: "Resources/assets/skull/default.png"
+                    pressedImageUrl: "Resources/assets/skull/default_sel.png"
+
+                    highlighted: currentButtonID == 3
+                    onClicked: {
+                         zoomFactor = 7
+                        currentButtonID = 3
+                    }
+
+                }
+
+
+
+
+            }
+
+            Column{
+                anchors.bottom: parent.bottom
+                width: parent.width
+                height: parent.height
+                topPadding: 200
+
+                spacing: 11
+                padding: 10
+
+
+                MButton{
+                    width: 31
+                    height: 31
+                    haveText: false
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    normalImagelUrl: "Resources/assets/skull/right.png"
+                    pressedImageUrl: "Resources/assets/skull/right_sel.png"
+
+                    highlighted: view3DSkull.camera == cameraPerspectiveRight
+                    onClicked: {
+                        view3DSkull.camera = cameraPerspectiveRight
+                    }
+
+                }
+
+                MButton{
+                    width: 31
+                    height: 31
+                    haveText: false
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    normalImagelUrl: "Resources/assets/skull/left.png"
+                    pressedImageUrl: "Resources/assets/skull/left_sel.png"
+
+                    highlighted: view3DSkull.camera == cameraPerspectiveLeft
+                    onClicked: {
+                        view3DSkull.camera = cameraPerspectiveLeft
+                    }
+
+                }
+
+                MButton{
+                    width: 31
+                    height: 31
+                    haveText: false
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    normalImagelUrl: "Resources/assets/skull/front.png"
+                    pressedImageUrl: "Resources/assets/skull/front_sel.png"
 
                     highlighted: view3DSkull.camera == cameraPerspectiveFront
                     onClicked: {
                         view3DSkull.camera = cameraPerspectiveFront
                     }
+
                 }
 
-                Button {
-                    width: leftBar.width
+                MButton{
+                    width: 31
+                    height: 31
+                    haveText: false
                     anchors.horizontalCenter: parent.horizontalCenter
-                    Text {
-                        text: "Left"
-                        //默认坐标居中
-                        anchors.centerIn: parent
-                        //默认文字对齐方式为水平和垂直居中
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        //默认宽度为parent的宽度，这样字太长超出范围时自动显示省略号
-                        width: parent.width
-                    }
-                    highlighted: view3DSkull.camera == cameraPerspectiveLeft
-                    onClicked: {
-                        view3DSkull.camera = cameraPerspectiveLeft
-                    }
-                }
 
-                Button {
-                    width: leftBar.width
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    Text {
-                        text: "LeftOblique"
-                        //默认坐标居中
-                        anchors.centerIn: parent
-                        //默认文字对齐方式为水平和垂直居中
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        //默认宽度为parent的宽度，这样字太长超出范围时自动显示省略号
-                        width: parent.width
-                    }
-                    highlighted: view3DSkull.camera == cameraPerspectiveLeftOblique
-                    onClicked: {
-                        view3DSkull.camera = cameraPerspectiveLeftOblique
-                    }
-                }
+                    normalImagelUrl: "Resources/assets/skull/top.png"
+                    pressedImageUrl: "Resources/assets/skull/top_sel.png"
 
-                Button {
-                    width: leftBar.width
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    Text {
-                        text: "Right"
-                        //默认坐标居中
-                        anchors.centerIn: parent
-                        //默认文字对齐方式为水平和垂直居中
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        //默认宽度为parent的宽度，这样字太长超出范围时自动显示省略号
-                        width: parent.width
-                    }
-                    highlighted: view3DSkull.camera == cameraPerspectiveRight
-                    onClicked: {
-                        view3DSkull.camera = cameraPerspectiveRight
-                    }
-                }
-
-                Button {
-                    width: leftBar.width
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    Text {
-                        text: "RightOblique"
-                        //默认坐标居中
-                        anchors.centerIn: parent
-                        //默认文字对齐方式为水平和垂直居中
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        //默认宽度为parent的宽度，这样字太长超出范围时自动显示省略号
-                        width: parent.width
-                    }
-                    highlighted: view3DSkull.camera == cameraPerspectiveRightOblique
-                    onClicked: {
-                        view3DSkull.camera = cameraPerspectiveRightOblique
-                    }
-                }
-
-
-                Button {
-                    width: leftBar.width
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    Text {
-                        text: "Top"
-                        //默认坐标居中
-                        anchors.centerIn: parent
-                        //默认文字对齐方式为水平和垂直居中
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        //默认宽度为parent的宽度，这样字太长超出范围时自动显示省略号
-                        width: parent.width
-                    }
                     highlighted: view3DSkull.camera == cameraPerspectiveTop
                     onClicked: {
                         view3DSkull.camera = cameraPerspectiveTop
                     }
+
                 }
+
+                MButton{
+                    width: 31
+                    height: 31
+                    haveText: false
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    normalImagelUrl: "Resources/assets/skull/oblique.png"
+                    pressedImageUrl: "Resources/assets/skull/oblique_sel.png"
+
+                    highlighted: view3DSkull.camera == cameraPerspectiveRightOblique
+                    onClicked: {
+                        view3DSkull.camera = cameraPerspectiveRightOblique
+                    }
+
+                }
+
+
+
             }
+
+
+
+
 
         }
 
@@ -396,10 +439,10 @@ Item {
     DropShadow {
         anchors.fill: rootRectangle
         transparentBorder: true
-        horizontalOffset: -15
-        verticalOffset: 15
-        radius: 20
-        samples: 41
+        horizontalOffset: -10
+        verticalOffset: 8
+        radius: 30
+        samples: 61
         color: "#80000000"
         spread: 0.1
         source: rootRectangle
@@ -409,8 +452,8 @@ Item {
         transparentBorder: true
         horizontalOffset: 5
         verticalOffset: -5
-        radius: 20.0
-        samples: 41
+        radius: 30
+        samples: 61
         color: "#80000000"
         spread: 0.1
         source: rootRectangle

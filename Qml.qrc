@@ -3,9 +3,12 @@
         <file>main.qml</file>
         <file>Skull.qml</file>
         <file>MenuBar.qml</file>
-        <file>MeasuringSteps.qml</file>
+        <file>Measure.qml</file>
         <file>Report.qml</file>
-        <file>IconButton.qml</file>
+        <file>MButton.qml</file>
         <file>Test.qml</file>
+        <file>Information.qml</file>
+        <file>Track.qml</file>
+        <file>Help.qml</file>
     </qresource>
 </RCC>

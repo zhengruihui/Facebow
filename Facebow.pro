@@ -11,8 +11,8 @@ SOURCES += \
 
 RESOURCES += \
     Image.qrc \
-    mesh.qrc \
-    qml.qrc
+    Mesh.qrc \
+    Qml.qrc
 
 OTHER_FILES += \
     doc/src/*.*

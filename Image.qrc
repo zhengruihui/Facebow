@@ -1,9 +1,31 @@
 <RCC>
     <qresource prefix="/">
         <file>Resources/Image/Person.jpg</file>
-        <file>Resources/Image/Person2.jpg</file>
-        <file>Resources/Image/lineedit-bg.png</file>
-        <file>Resources/assets/navigation/view.png</file>
-        <file>Resources/assets/navigation/view_sel.png</file>
+        <file>Resources/assets/navigation/information.png</file>
+        <file>Resources/assets/navigation/information_sel.png</file>
+        <file>Resources/assets/navigation/report.png</file>
+        <file>Resources/assets/navigation/report_sel.png</file>
+        <file>Resources/assets/navigation/track.png</file>
+        <file>Resources/assets/navigation/track_sel.png</file>
+        <file>Resources/assets/navigation/measure.png</file>
+        <file>Resources/assets/navigation/measure_sel.png</file>
+        <file>Resources/assets/navigation/help.png</file>
+        <file>Resources/assets/navigation/help_sel.png</file>
+        <file>Resources/assets/skull/default.png</file>
+        <file>Resources/assets/skull/default_sel.png</file>
+        <file>Resources/assets/skull/front.png</file>
+        <file>Resources/assets/skull/front_sel.png</file>
+        <file>Resources/assets/skull/left.png</file>
+        <file>Resources/assets/skull/left_sel.png</file>
+        <file>Resources/assets/skull/oblique.png</file>
+        <file>Resources/assets/skull/oblique_sel.png</file>
+        <file>Resources/assets/skull/right.png</file>
+        <file>Resources/assets/skull/right_sel.png</file>
+        <file>Resources/assets/skull/top.png</file>
+        <file>Resources/assets/skull/top_sel.png</file>
+        <file>Resources/assets/skull/zoom_in.png</file>
+        <file>Resources/assets/skull/zoom_in_sel.png</file>
+        <file>Resources/assets/skull/zoom_out.png</file>
+        <file>Resources/assets/skull/zoom_out_sel.png</file>
     </qresource>
 </RCC>
