@@ -97,6 +97,30 @@ Window {
             }
         }
 
+        Row{
+            anchors.top: parent.top
+            anchors.left: parent.left
+            width: parent.width
+            height: topBarHeight
+            leftPadding: 81
+
+
+            Text {
+                anchors.verticalCenter: parent.verticalCenter
+                text: qsTr("ECIDME")
+                color: "#DEDEDE"
+                width: parent.width
+                wrapMode: Text.WordWrap
+                font.family: "Dubai Medium" // Dubai Medium // Arial Black
+                font.pixelSize: 36
+                font.bold: true
+
+             }
+
+
+
+        }
+
 
         Row {
             anchors.top: parent.top

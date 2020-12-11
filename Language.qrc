@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
         <file>Language/ChineseSimpilifed.qm</file>
-        <file>Language/ChineseSimpilifed.ts</file>
     </qresource>
 </RCC>

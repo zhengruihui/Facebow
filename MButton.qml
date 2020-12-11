@@ -46,6 +46,7 @@ Rectangle {
         anchors.topMargin: 2
         color: highlighted ? pressedTextColor : normalTextColor
         visible: haveText? true : false
+        font.family: "Source Code Pro"
     }
 
     MouseArea {

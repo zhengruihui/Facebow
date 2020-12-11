@@ -4,27 +4,32 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../main.qml" line="225"/>
+        <location filename="../main.qml" line="110"/>
+        <source>ECIDME</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main.qml" line="252"/>
         <source>Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.qml" line="242"/>
+        <location filename="../main.qml" line="269"/>
         <source>Measure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.qml" line="259"/>
+        <location filename="../main.qml" line="286"/>
         <source>Track</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.qml" line="276"/>
+        <location filename="../main.qml" line="303"/>
         <source>Report</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.qml" line="301"/>
+        <location filename="../main.qml" line="329"/>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
