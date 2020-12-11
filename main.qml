@@ -12,11 +12,27 @@ Window {
 
     property int leftBarWidth: 80
 
-    property int rightBarWidth: 30
+    property int rightBarWidth: 50
 
-    property var barColor: "#1f2026"
+    property var menuBarColor: "#1f2026"
 
     property int currentPage: 1
+
+    property int currentButton: 1
+
+    property bool normalWindow: true
+
+
+    id: mainWindow
+    width: 1280
+    height: 720
+    visible: true
+    color: menuBarColor
+
+
+
+    flags: Qt.Window | Qt.FramelessWindowHint
+
 
     function changePage(page)
     {
@@ -50,29 +66,117 @@ Window {
             currentPage = 5
         }
 
-
-
     }
 
 
-    id: mainWindow
-    width: 1280
-    height: 720
-    visible: true
-    color: barColor
-
-
-    //flags: Qt.Window | Qt.FramelessWindowHint
-
-    Rectangle{
+    Rectangle {
         id:topBar
         anchors.top: parent.top
-        anchors.left: parent.left
-        anchors.right: parent.right
-        height:topBarHeight
-        color: barColor
+        width: parent.width
+        height: topBarHeight
+        color: menuBarColor
+
+
+        MouseArea {
+            anchors.fill: parent
+            acceptedButtons: Qt.LeftButton
+            property point clickPos: "0,0"
+            onPressed: {
+                clickPos = Qt.point(mouse.x, mouse.y)
+            }
+
+
+            onPositionChanged: {
+                //鼠标偏移量
+                var delta = Qt.point(mouse.x - clickPos.x, mouse.y - clickPos.y)
+
+
+                //如果mainwindow继承自QWidget,用setPos
+                mainWindow.setX(mainWindow.x + delta.x)
+                mainWindow.setY(mainWindow.y + delta.y)
+            }
+        }
+
+
+        Row {
+            anchors.fill: parent
+            leftPadding: parent.width-155
+
+            spacing: 20
+
+            MButton{
+                width: 22
+                height: 22
+                haveText: false
+                anchors.verticalCenter: parent.verticalCenter
+
+                normalImagelUrl: "Resources/assets/menubar/min.png"
+                pressedImageUrl: "Resources/assets/menubar/min_sel.png"
+
+                onClicked: {
+                    mainWindow.showMinimized()
+                    currentButton = 1
+                }
+
+            }
+
+            MButton{
+                width: 22
+                height: 22
+                haveText: false
+                anchors.verticalCenter: parent.verticalCenter
+
+                normalImagelUrl: "Resources/assets/menubar/max.png"
+                pressedImageUrl: "Resources/assets/menubar/max_sel.png"
+
+                highlighted: !normalWindow
+                onClicked: {
+                    if(normalWindow)
+                    {
+                        mainWindow.showMaximized()
+                        currentButton = 2
+                        normalWindow = false
+                    }
+                    else{
+                        mainWindow.showNormal()
+                        normalWindow = true
+                    }
+
+                }
+
+            }
+
+            MButton{
+                width: 22
+                height: 22
+                haveText: false
+                anchors.verticalCenter: parent.verticalCenter
+
+                normalImagelUrl: "Resources/assets/menubar/close.png"
+                pressedImageUrl: "Resources/assets/menubar/close_sel.png"
+
+                onClicked: {
+                    mainWindow.close()
+                    currentButton = 3
+                }
+
+            }
+
+
+
+
+
+        }
+
+
+
+
+
 
     }
+
+
+
 
     Rectangle{
         id:bottomBar
@@ -81,9 +185,11 @@ Window {
         anchors.right: parent.right
 
         height:bottomBarHeight
-        color: barColor
+        color: menuBarColor
 
     }
+
+
 
     Rectangle{
         id:leftBar
@@ -91,7 +197,7 @@ Window {
         anchors.verticalCenter: parent.verticalCenter
         width: leftBarWidth
         height: parent.height
-        color: barColor
+        color: menuBarColor
 
 
 
@@ -102,11 +208,6 @@ Window {
             height: parent.height
             topPadding: 127
 
-            //anchors.top: parent.top
-            //anchors.left: parent.left
-//            anchors.verticalCenter: parent.verticalCenter
-//            width: parent.width
-            //height: parent.height
 
             spacing: 11
             padding: 10
@@ -120,7 +221,7 @@ Window {
 
                 normalImagelUrl: "Resources/assets/navigation/information.png"
                 pressedImageUrl: "Resources/assets/navigation/information_sel.png"
-                text: "Information"
+                text: qsTr("Information")
                 normalTextColor: "#DEDEDE"
                 pressedTextColor: "#0DAF9D"
 
@@ -137,7 +238,7 @@ Window {
                 anchors.horizontalCenter: parent.horizontalCenter
                 normalImagelUrl: "Resources/assets/navigation/measure.png"
                 pressedImageUrl: "Resources/assets/navigation/measure_sel.png"
-                text: "Measure"
+                text: qsTr("Measure")
                 normalTextColor: "#DEDEDE"
                 pressedTextColor: "#0DAF9D"
 
@@ -154,7 +255,7 @@ Window {
                 anchors.horizontalCenter: parent.horizontalCenter
                 normalImagelUrl: "Resources/assets/navigation/track.png"
                 pressedImageUrl: "Resources/assets/navigation/track_sel.png"
-                text: "Track"
+                text: qsTr("Track")
                 normalTextColor: "#DEDEDE"
                 pressedTextColor: "#0DAF9D"
 
@@ -171,7 +272,7 @@ Window {
                 anchors.horizontalCenter: parent.horizontalCenter
                 normalImagelUrl: "Resources/assets/navigation/report.png"
                 pressedImageUrl: "Resources/assets/navigation/report_sel.png"
-                text: "Report"
+                text: qsTr("Report")
                 normalTextColor: "#DEDEDE"
                 pressedTextColor: "#0DAF9D"
 
@@ -186,20 +287,17 @@ Window {
         Column{
             id: columnButton2
             anchors.bottom: parent.bottom
-            width: parent.width
-            height: parent.height
+            width: 80
+            height: 85
+            bottomPadding: 25
 
-
-            bottomPadding: 20
             MButton{
                 width: 80
                 height: 60
-                anchors.bottom: parent.bottom
                 anchors.horizontalCenter: parent.horizontalCenter
                 normalImagelUrl: "Resources/assets/navigation/help.png"
                 pressedImageUrl: "Resources/assets/navigation/help_sel.png"
-                text: "Help"
-                textItem.verticalAlignment: Text.AlignTop
+                text: qsTr("Help")
                 normalTextColor: "#DEDEDE"
                 pressedTextColor: "#0DAF9D"
                 highlighted: currentPage == 5
@@ -213,13 +311,18 @@ Window {
         }
     }
 
+
+
+
+
+
     Rectangle{
         id:rightBar
         anchors.top: parent.top
         anchors.right: parent.right
         width: rightBarWidth
         height: parent.height
-        color: barColor
+        color: menuBarColor
     }
 
 
@@ -240,18 +343,6 @@ Window {
 
 
 
-
-
-
-//    flags: Qt.Window | Qt.FramelessWindowHint
-
-//    MenuBar{
-//        id: menuBar
-//        anchors.top: parent.top
-//        anchors.left: parent.left
-//        anchors.right: parent.right
-//        height: menuBarHeight
-//    }
 
 
 

@@ -27,5 +27,11 @@
         <file>Resources/assets/skull/zoom_in_sel.png</file>
         <file>Resources/assets/skull/zoom_out.png</file>
         <file>Resources/assets/skull/zoom_out_sel.png</file>
+        <file>Resources/assets/menubar/close.png</file>
+        <file>Resources/assets/menubar/close_sel.png</file>
+        <file>Resources/assets/menubar/max.png</file>
+        <file>Resources/assets/menubar/max_sel.png</file>
+        <file>Resources/assets/menubar/min.png</file>
+        <file>Resources/assets/menubar/min_sel.png</file>
     </qresource>
 </RCC>

@@ -107,8 +107,8 @@ Item {
 
         PerspectiveCamera {
             id: cameraPerspectiveLeft
-            x: 600
-            eulerRotation.y: 90
+            x: -600
+            eulerRotation.y: -90
         }
 
         PerspectiveCamera {
@@ -119,12 +119,13 @@ Item {
         }
 
 
-
         PerspectiveCamera {
             id: cameraPerspectiveRight
-            x: -600
-            eulerRotation.y: -90
+            x: 600
+            eulerRotation.y: 90
         }
+
+
 
         PerspectiveCamera {
             id: cameraPerspectiveRightOblique
@@ -152,7 +153,7 @@ Item {
         color: "#1f2026"
         border.width: borderWidth;
         border.color: "transparent";
-        radius: 6//圆角半径
+        radius: 6
 
 
 
@@ -196,7 +197,7 @@ Item {
                 height: parent.height
                 topPadding: topBar.height-4
 
-                spacing: 11
+                spacing: 10.2
                 padding: 10
 
 
@@ -209,8 +210,6 @@ Item {
 
                     normalImagelUrl: "Resources/assets/skull/zoom_out.png"
                     pressedImageUrl: "Resources/assets/skull/zoom_out_sel.png"
-                    normalTextColor: "#DEDEDE"
-                    pressedTextColor: "#0DAF9D"
 
                     highlighted: currentButtonID == 1
                     onClicked: {
@@ -260,12 +259,12 @@ Item {
             }
 
             Column{
-                anchors.bottom: parent.bottom
+                anchors.top: parent.top
                 width: parent.width
                 height: parent.height
-                topPadding: 200
+                topPadding: 193.7
 
-                spacing: 11
+                spacing: 10.2
                 padding: 10
 
 
@@ -375,7 +374,7 @@ Item {
             anchors.left: leftBar.right
             width: (parent.width-leftBarWidth-rightBarWidth-centerBarWidth)/2
             height: parent.height-topBarHeight-bottomBarHeight
-            camera: cameraPerspectiveLeftOblique
+            camera: cameraPerspectiveRightOblique
             importScene: standAloneScene
             renderMode: View3D.Overlay
 
@@ -384,7 +383,7 @@ Item {
 
 
             environment: SceneEnvironment {
-                clearColor: "#cad8dc"
+                clearColor: "#949597"
                 backgroundMode: SceneEnvironment.Color
             }
 
@@ -413,7 +412,7 @@ Item {
             anchors.right: rightBar.left
             width: (parent.width-leftBarWidth-rightBarWidth-centerBarWidth)/2
             height: parent.height-topBarHeight-bottomBarHeight
-            color: "#cad8dc"
+            color: "#949597"
 
 
 
