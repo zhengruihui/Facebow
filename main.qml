@@ -99,7 +99,10 @@ Window {
 
 
         Row {
-            anchors.fill: parent
+            anchors.top: parent.top
+            anchors.left: parent.left
+            width: parent.width
+            height: topBarHeight
             leftPadding: parent.width-155
 
             spacing: 20
@@ -133,8 +136,8 @@ Window {
                 onClicked: {
                     if(normalWindow)
                     {
-                        mainWindow.showFullScreen()
-                        //mainWindow.showMaximized()
+                        //mainWindow.showFullScreen()
+                        mainWindow.showMaximized()
                         currentButton = 2
                         normalWindow = false
                     }
@@ -194,8 +197,8 @@ Window {
 
     Rectangle{
         id:leftBar
+        anchors.top: parent.top
         anchors.left: parent.left
-        anchors.verticalCenter: parent.verticalCenter
         width: leftBarWidth
         height: parent.height
         color: menuBarColor
@@ -287,10 +290,11 @@ Window {
         }
         Column{
             id: columnButton2
-            anchors.bottom: parent.bottom
-            width: 80
-            height: 85
-            bottomPadding: 25
+            anchors.top: parent.top
+            anchors.left: parent.left
+            width: leftBarWidth
+            height: parent.height
+            topPadding: parent.height-90
 
             MButton{
                 width: 80

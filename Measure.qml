@@ -198,9 +198,6 @@ Item {
                 topPadding: topBar.height-4
 
                 spacing: 10.2
-                padding: 10
-
-
 
                 MButton{
                     width: 31
@@ -265,7 +262,6 @@ Item {
                 topPadding: 193.7
 
                 spacing: 10.2
-                padding: 10
 
 
                 MButton{
