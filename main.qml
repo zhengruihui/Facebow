@@ -16,7 +16,7 @@ Window {
 
     property var menuBarColor: "#1f2026"
 
-    property int currentPage: 1
+    property int currentPage: 2
 
     property int currentButton: 1
 
@@ -133,7 +133,8 @@ Window {
                 onClicked: {
                     if(normalWindow)
                     {
-                        mainWindow.showMaximized()
+                        mainWindow.showFullScreen()
+                        //mainWindow.showMaximized()
                         currentButton = 2
                         normalWindow = false
                     }
