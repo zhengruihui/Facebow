@@ -8,6 +8,8 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
+    QSurfaceFormat::setDefaultFormat(QQuick3D::idealSurfaceFormat());
+
     QTranslator *qtTranslator = new QTranslator();
 
     if(qtTranslator->load(":/Language/ChineseSimpilifed.qm")){
