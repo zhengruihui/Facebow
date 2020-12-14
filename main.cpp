@@ -1,8 +1,10 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QtQuick3D/qquick3d.h>
-#include "SerialPort/serialport.h"
 #include <QTranslator>
+
+#include "SerialPort/serialport.h"
+
 
 int main(int argc, char *argv[])
 {

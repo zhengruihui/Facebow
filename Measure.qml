@@ -29,7 +29,7 @@ Item {
     property int yOffset: -15
 
     property int currentButtonID : 0
-    anchors.fill: parent
+    //anchors.fill: parent
 
 
     Node {
@@ -372,10 +372,7 @@ Item {
             height: parent.height-topBarHeight-bottomBarHeight
             camera: cameraPerspectiveRightOblique
             importScene: standAloneScene
-            renderMode: View3D.Overlay
-
-
-
+            renderMode: View3D.Offscreen
 
 
             environment: SceneEnvironment {

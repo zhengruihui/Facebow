@@ -34,6 +34,42 @@ Window {
     flags: Qt.Window | Qt.FramelessWindowHint
 
 
+//    function changePage(page)
+//    {
+//        if(page === currentPage)
+//        {
+
+//        }
+//        else if(page === 1)
+//        {
+//            mainLoader.source = "Information.qml"
+//            currentPage = 1
+//        }
+//        else if(page === 2)
+//        {
+//            //mainLoader.source = "Measure.qml"
+//            measure.opacity = 1
+//            currentPage = 2
+//        }
+//        else if(page === 3)
+//        {
+//            mainLoader.source = "Track.qml"
+//            currentPage = 3
+//        }
+//        else if(page === 4)
+//        {
+//            mainLoader.source = "Report.qml"
+//            currentPage = 4
+//        }
+//        else
+//        {
+//            mainLoader.source = "Help.qml"
+//            currentPage = 5
+//        }
+
+//    }
+
+
     function changePage(page)
     {
         if(page === currentPage)
@@ -42,30 +78,39 @@ Window {
         }
         else if(page === 1)
         {
-            mainLoader.source = "Information.qml"
-            currentPage = 1
+            information.visible = true
+            measure.visible = false
+            track.visible = false
+            report.visible = false
+
+
         }
         else if(page === 2)
         {
-            mainLoader.source = "Measure.qml"
-            currentPage = 2
+            information.visible = false
+            measure.visible = true
+            track.visible = false
+            report.visible = false
+
         }
         else if(page === 3)
         {
-            mainLoader.source = "Track.qml"
-            currentPage = 3
+            information.visible = false
+            measure.visible = false
+            track.visible = true
+            report.visible = false
+
+
         }
         else if(page === 4)
         {
-            mainLoader.source = "Report.qml"
-            currentPage = 4
-        }
-        else
-        {
-            mainLoader.source = "Help.qml"
-            currentPage = 5
+            information.visible = false
+            measure.visible = false
+            track.visible = false
+            report.visible = true
         }
 
+        currentPage = page
     }
 
 
@@ -355,23 +400,45 @@ Window {
     }
 
 
-
-    Loader{
-        id: mainLoader
+    Information{
+        id:information
         anchors.top: topBar.bottom
         anchors.bottom: bottomBar.top
         anchors.left: leftBar.right
         anchors.right: rightBar.left
-
-        source: "Measure.qml"
-
+        visible: false
     }
 
 
 
+    Measure{
+        id:measure
+        anchors.top: topBar.bottom
+        anchors.bottom: bottomBar.top
+        anchors.left: leftBar.right
+        anchors.right: rightBar.left
+        visible: true
+    }
+
+    Track{
+        id:track
+        anchors.top: topBar.bottom
+        anchors.bottom: bottomBar.top
+        anchors.left: leftBar.right
+        anchors.right: rightBar.left
+        visible: false
+    }
 
 
 
+    Report{
+        id:report
+        anchors.top: topBar.bottom
+        anchors.bottom: bottomBar.top
+        anchors.left: leftBar.right
+        anchors.right: rightBar.left
+        visible: false
+    }
 
 
 
