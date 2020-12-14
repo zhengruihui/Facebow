@@ -45,6 +45,7 @@ Window {
             measure.visible = false
             track.visible = false
             report.visible = false
+            help.visible = false
 
 
         }
@@ -54,6 +55,7 @@ Window {
             measure.visible = true
             track.visible = false
             report.visible = false
+            help.visible = false
 
         }
         else if(page === 3)
@@ -62,6 +64,7 @@ Window {
             measure.visible = false
             track.visible = true
             report.visible = false
+            help.visible = false
 
 
         }
@@ -71,6 +74,15 @@ Window {
             measure.visible = false
             track.visible = false
             report.visible = true
+            help.visible = false
+        }
+        else if(page === 5)
+        {
+            information.visible = false
+            measure.visible = false
+            track.visible = false
+            report.visible = false
+            help.visible = true
         }
 
         currentPage = page
@@ -402,6 +414,16 @@ Window {
         anchors.right: rightBar.left
         visible: false
     }
+
+    Help{
+        id:help
+        anchors.top: topBar.bottom
+        anchors.bottom: bottomBar.top
+        anchors.left: leftBar.right
+        anchors.right: rightBar.left
+        visible: false
+    }
+
 
 
 }
