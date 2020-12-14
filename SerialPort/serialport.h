@@ -10,9 +10,6 @@ class SerialPort : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(NOTIFY yearChanged)
-
-
 public:
     explicit SerialPort(QObject *parent = nullptr);
 
