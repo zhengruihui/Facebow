@@ -33,43 +33,6 @@ Window {
 
     flags: Qt.Window | Qt.FramelessWindowHint
 
-
-//    function changePage(page)
-//    {
-//        if(page === currentPage)
-//        {
-
-//        }
-//        else if(page === 1)
-//        {
-//            mainLoader.source = "Information.qml"
-//            currentPage = 1
-//        }
-//        else if(page === 2)
-//        {
-//            //mainLoader.source = "Measure.qml"
-//            measure.opacity = 1
-//            currentPage = 2
-//        }
-//        else if(page === 3)
-//        {
-//            mainLoader.source = "Track.qml"
-//            currentPage = 3
-//        }
-//        else if(page === 4)
-//        {
-//            mainLoader.source = "Report.qml"
-//            currentPage = 4
-//        }
-//        else
-//        {
-//            mainLoader.source = "Help.qml"
-//            currentPage = 5
-//        }
-
-//    }
-
-
     function changePage(page)
     {
         if(page === currentPage)
