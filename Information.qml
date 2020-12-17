@@ -42,12 +42,10 @@ Item {
 
 
 
-        Rectangle{          
+        Rectangle{
             anchors.centerIn: parent
             width: parent.width-40
             height: parent.height-90
-//            border.width: borderWidth;
-//            border.color: "transparent";
             color: "#FFFFFF"
             radius: 6
 
@@ -129,71 +127,143 @@ Item {
             }
 
 
-            Row{
-                anchors.top: parent.top
-                anchors.left: parent.left
-                width: parent.width
-                height: 72
-                topPadding: 24
-                leftPadding: 343
-                Image {
-                    anchors.verticalCenter: parent.verticalCenter
-                    source: "Resources/Patient/patient_details.png"
-
-                }
+            //第一行
+            Image {
+                x: 343
+                y: 24
+                source: "Resources/Patient/patient_details.png"
             }
 
-            Row{
-                anchors.top: parent.top
-                anchors.left: parent.left
-                width: parent.width
-                height: 72
-                topPadding: 24
-                leftPadding: 371
-                Text {
-                    text: qsTr("患者详情")
-                    anchors.verticalCenter: parent.verticalCenter
-                    color: "#0DAF9D"
-                }
+
+            Text {
+                text: qsTr("患者详情")
+                x: 371
+                y: 31
+                color: "#0DAF9D"
             }
+            Text {
+                text: qsTr("编辑")
+                x: parent.width - 52
+                y: 31
+                color: "#0DAF9D"
 
-            Row{
-                anchors.top: parent.top
-                anchors.left: parent.left
-                width: parent.width
-                height: 72
-                topPadding: 24
-                leftPadding: parent.width - 75
-                Text {
-                    id: editText
-                    text: qsTr("编辑")
-                    anchors.verticalCenter: parent.verticalCenter
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignHCenter
-                    anchors.margins: 10
-                    font.pixelSize: 20
-                    color: "#0DAF9D"
-                    MouseArea{
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        onPressed: {
-
-                            console.log("edit")
-
-                        }
-
-                        onEntered: {
-                            editText.color = "black"
-                        }
-
-                        onExited: {
-                            editText.color = "#0DAF9D"
-                        }
-
+                MouseArea{
+                    anchors.fill: parent
+                    onPressed: {
+                        console.log("onPressed")
                     }
 
                 }
             }
+
+
+
+            //第二行
+            Image {
+                x: 343
+                y: 152
+                source: "Resources/Patient/report.png"
+            }
+            Text {
+                text: qsTr("报告")
+                x: 372
+                y: 158
+                color: "#0DAF9D"
+            }
+
+            Rectangle{
+                x: 343
+                y: 189
+                width: 178
+                height: 152
+                color: "transparent"
+                border.color: "#DDE2E7"
+                radius: 5
+
+
+                Image {
+                    anchors.centerIn: parent
+                    source: "Resources/Patient/PDF.png"
+                }
+            }
+
+            Rectangle{
+                x: 553
+                y: 189
+                width: 178
+                height: 152
+                color: "transparent"
+                border.color: "#DDE2E7"
+                radius: 5
+
+
+                Image {
+                    anchors.centerIn: parent
+                    source: "Resources/Patient/PDF.png"
+                }
+            }
+
+
+            //第三行
+            Image {
+                x: 343
+                y: 383.5
+                source: "Resources/Patient/diagnose.png"
+            }
+
+
+            Text {
+                text: qsTr("诊断信息")
+                x: 371
+                y: 389
+                color: "#0DAF9D"
+            }
+            Text {
+                text: qsTr("编辑")
+                x: parent.width - 52
+                y: 389
+                color: "#0DAF9D"
+
+                MouseArea{
+                    anchors.fill: parent
+                    onPressed: {
+                        console.log("onPressed")
+                    }
+
+                }
+            }
+
+
+
+                TextField {
+                    //placeholderText: qsTr("编辑诊断信息")
+                    x: 344
+                    y: 416.5
+
+                    width: parent.width - 388
+                    height: parent.height - 483
+
+                    selectByMouse: true
+                    font.pointSize: 11
+
+                    background: Rectangle {
+                        anchors.centerIn: parent
+                        width: parent.width
+                        height: parent.height
+
+                        color: "transparent"
+                        border.color: "#DDE2E7"
+
+                        }
+
+
+
+
+
+                }
+
+
+
 
 
 
