@@ -400,15 +400,11 @@ Item {
 
 
         Rectangle{
-
             anchors.top: topBar.bottom
             anchors.right: rightBar.left
             width: (parent.width-leftBarWidth-rightBarWidth-centerBarWidth)/2
             height: parent.height-topBarHeight-bottomBarHeight
             color: "#949597"
-
-
-
         }
 
 

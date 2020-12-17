@@ -5,21 +5,16 @@ import QtQuick.Controls 2.5
 import QtQuick.Controls.Styles 1.4
 import SerialPort 1.0
 
+
 Window {
+
     property int topBarHeight: 70
-
     property int bottomBarHeight: 15
-
     property int leftBarWidth: 80
-
     property int rightBarWidth: 50
-
     property var menuBarColor: "#1f2026"
-
-    property int currentPage: 2
-
+    property int currentPage: 1
     property int currentButton: 1
-
     property bool normalWindow: true
 
 
@@ -28,7 +23,6 @@ Window {
     height: 720
     visible: true
     color: menuBarColor
-
 
 
     flags: Qt.Window | Qt.FramelessWindowHint
@@ -46,8 +40,6 @@ Window {
             track.visible = false
             report.visible = false
             help.visible = false
-
-
         }
         else if(page === 2)
         {
@@ -56,7 +48,6 @@ Window {
             track.visible = false
             report.visible = false
             help.visible = false
-
         }
         else if(page === 3)
         {
@@ -65,8 +56,6 @@ Window {
             track.visible = true
             report.visible = false
             help.visible = false
-
-
         }
         else if(page === 4)
         {
@@ -147,19 +136,19 @@ Window {
             anchors.left: parent.left
             width: parent.width
             height: topBarHeight
-            leftPadding: parent.width-155
+            leftPadding: parent.width-180
 
-            spacing: 20
+            spacing: 0
 
             MButton{
-                width: 22
-                height: 22
+                width: 42
+                height: 30
                 haveText: false
                 anchors.verticalCenter: parent.verticalCenter
 
                 normalImagelUrl: "Resources/assets/menubar/min.png"
                 pressedImageUrl: "Resources/assets/menubar/min_sel.png"
-
+                hover:true
                 onClicked: {
                     mainWindow.showMinimized()
                     currentButton = 1
@@ -168,14 +157,14 @@ Window {
             }
 
             MButton{
-                width: 22
-                height: 22
+                width: 42
+                height: 30
                 haveText: false
                 anchors.verticalCenter: parent.verticalCenter
 
                 normalImagelUrl: "Resources/assets/menubar/max.png"
                 pressedImageUrl: "Resources/assets/menubar/max_sel.png"
-
+                hover:true
                 highlighted: !normalWindow
                 onClicked: {
                     if(normalWindow)
@@ -195,14 +184,14 @@ Window {
             }
 
             MButton{
-                width: 22
-                height: 22
+                width: 42
+                height: 30
                 haveText: false
                 anchors.verticalCenter: parent.verticalCenter
 
                 normalImagelUrl: "Resources/assets/menubar/close.png"
                 pressedImageUrl: "Resources/assets/menubar/close_sel.png"
-
+                hover:true
                 onClicked: {
                     mainWindow.close()
                     currentButton = 3
@@ -271,7 +260,8 @@ Window {
                 pressedImageUrl: "Resources/assets/navigation/information_sel.png"
                 text: qsTr("Information")
                 normalTextColor: "#DEDEDE"
-                pressedTextColor: "#0DAF9D"
+                pressedTextColor: "#0DAF9D"              
+                hover:true
 
                 highlighted: currentPage == 1
                 onClicked: {
@@ -289,7 +279,7 @@ Window {
                 text: qsTr("Measure")
                 normalTextColor: "#DEDEDE"
                 pressedTextColor: "#0DAF9D"
-
+                hover:true
                 highlighted: currentPage == 2
                 onClicked: {
                     changePage(2)
@@ -306,7 +296,7 @@ Window {
                 text: qsTr("Track")
                 normalTextColor: "#DEDEDE"
                 pressedTextColor: "#0DAF9D"
-
+                hover:true
                 highlighted: currentPage == 3
                 onClicked: {
                     changePage(3)
@@ -323,7 +313,7 @@ Window {
                 text: qsTr("Report")
                 normalTextColor: "#DEDEDE"
                 pressedTextColor: "#0DAF9D"
-
+                hover:true
                 highlighted: currentPage == 4
                 onClicked: {
                     changePage(4)
@@ -349,6 +339,7 @@ Window {
                 text: qsTr("Help")
                 normalTextColor: "#DEDEDE"
                 pressedTextColor: "#0DAF9D"
+                hover:true
                 highlighted: currentPage == 5
                 onClicked: {
                     changePage(5)
@@ -361,10 +352,6 @@ Window {
     }
 
 
-
-
-
-
     Rectangle{
         id:rightBar
         anchors.top: parent.top
@@ -375,15 +362,17 @@ Window {
     }
 
 
+
+
+
     Information{
         id:information
         anchors.top: topBar.bottom
         anchors.bottom: bottomBar.top
         anchors.left: leftBar.right
         anchors.right: rightBar.left
-        visible: false
+        visible: true
     }
-
 
 
     Measure{
@@ -392,7 +381,7 @@ Window {
         anchors.bottom: bottomBar.top
         anchors.left: leftBar.right
         anchors.right: rightBar.left
-        visible: true
+        visible: false
     }
 
     Track{
@@ -423,6 +412,8 @@ Window {
         anchors.right: rightBar.left
         visible: false
     }
+
+
 
 
 

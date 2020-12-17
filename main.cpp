@@ -4,6 +4,7 @@
 #include <QTranslator>
 
 #include "SerialPort/serialport.h"
+#include "patient.h"
 
 
 int main(int argc, char *argv[])
@@ -18,7 +19,7 @@ int main(int argc, char *argv[])
         app.installTranslator(qtTranslator);
     }
 
-
+    qmlRegisterType<Patient>("Patient",1,0,"Patient");
     qmlRegisterType<SerialPort>("SerialPort",1,0,"SerialPort");
 
 

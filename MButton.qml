@@ -15,6 +15,7 @@ Rectangle {
 
     property bool  highlighted: false
     property bool haveText: true
+    property bool hover: false
 
     property alias imageItem: img
     property alias imageUrl: img.source
@@ -52,9 +53,27 @@ Rectangle {
     MouseArea {
         id: area
         anchors.fill: parent
-        hoverEnabled: parent.enabled
+        hoverEnabled: true
         onClicked: root.clicked();
         cursorShape: Qt.PointingHandCursor
+
+        onEntered: {
+            if(hover)
+            {
+                root.color = "grey"
+            }
+
+        }
+        onExited: {
+
+            if(hover)
+            {
+                root.color = "transparent"
+            }
+
+
+        }
+
 
     }
 }

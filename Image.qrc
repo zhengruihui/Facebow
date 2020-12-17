@@ -33,5 +33,14 @@
         <file>Resources/assets/menubar/max_sel.png</file>
         <file>Resources/assets/menubar/min.png</file>
         <file>Resources/assets/menubar/min_sel.png</file>
+        <file>Resources/Patient/_.png</file>
+        <file>Resources/Patient/add.png</file>
+        <file>Resources/Patient/diagnose.png</file>
+        <file>Resources/Patient/form.png</file>
+        <file>Resources/Patient/patient.png</file>
+        <file>Resources/Patient/patient_details.png</file>
+        <file>Resources/Patient/PDF.png</file>
+        <file>Resources/Patient/report.png</file>
+        <file>Resources/Patient/search.png</file>
     </qresource>
 </RCC>

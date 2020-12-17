@@ -1,6 +1,7 @@
 QT += core
 QT += quick quick3d
 QT += serialport
+QT += sql
 
 target.path = $$[QT_INSTALL_EXAMPLES]/quick3d/Facebow
 
@@ -14,7 +15,8 @@ INSTALLS += target
 
 SOURCES += \
     SerialPort/serialport.cpp \
-    main.cpp
+    main.cpp \
+    patient.cpp
 
 RESOURCES += \
     Image.qrc \
@@ -23,6 +25,7 @@ RESOURCES += \
     Qml.qrc
 
 HEADERS += \
-    SerialPort/serialport.h
+    SerialPort/serialport.h \
+    patient.h
 
 DISTFILES +=
