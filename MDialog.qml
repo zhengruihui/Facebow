@@ -14,7 +14,6 @@ Item {
         color: "#FFFFFF"
         border.color: "#DDE2E7"
         radius: 5
-        visible: false
 
 
 
