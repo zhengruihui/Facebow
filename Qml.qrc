@@ -7,5 +7,6 @@
         <file>Information.qml</file>
         <file>Track.qml</file>
         <file>Help.qml</file>
+        <file>MDialog.qml</file>
     </qresource>
 </RCC>

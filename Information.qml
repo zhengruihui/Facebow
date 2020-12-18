@@ -5,6 +5,7 @@ import SerialPort 1.0
 import QtGraphicalEffects 1.15
 import Patient 1.0
 
+
 Item {
 
     property int topBarHeight: 40
@@ -25,6 +26,8 @@ Item {
 
     property int currentButtonID : 0
 
+    property int frontSize: 14
+
 
 
 
@@ -43,6 +46,7 @@ Item {
 
 
         Rectangle{
+
             anchors.centerIn: parent
             width: parent.width-40
             height: parent.height-90
@@ -60,38 +64,55 @@ Item {
                 color: "#FFFFFF"
                 radius: 6
 
-
-
-                TextField {
-                    id: inputField
-                    placeholderText: qsTr("    Enter name")
+                Rectangle{
                     anchors.top: parent.top
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.topMargin: 10
                     width: parent.width - 37
                     height: 36
 
-                    selectByMouse: true
-                    font.pointSize: 11
-
-
-
-
-
-                    background: Rectangle {
-                        width: parent.width
-                        height: 1
-                        anchors.bottom: parent.bottom
-                        color: "transparent"
-                        border.color: "#DDE2E7"
-
-                        }
 
                     Image {
                         id: searchImage
                         anchors.left: parent.left
                         anchors.verticalCenter: parent.verticalCenter
+                        anchors.rightMargin: 10
                         source: "Resources/Patient/search.png"
+                    }
+
+
+                    TextField {
+                        id: inputField
+                        placeholderText: qsTr("输入姓名")
+                        anchors.top: parent.top
+                        anchors.horizontalCenter: parent.horizontalCenter
+                       // anchors.topMargin: 10
+                        width: parent.width - 30
+                        height: parent.height
+
+                        selectByMouse: true
+                        font.pointSize: 11
+
+
+
+                        background: Rectangle {
+                            width: parent.width
+                            height: parent.height
+                            anchors.bottom: parent.bottom
+                            color: "transparent"
+                            border.color: "transparent"
+
+                            }
+
+
+                        property bool editing: false
+
+                        onTextEdited: editing = true;
+                        onEditingFinished: editing = false;
+                        onTextChanged: {
+
+                            console.log(inputField.text)
+                        }
                     }
 
 
@@ -113,47 +134,126 @@ Item {
 
                     }
 
-                    property bool editing: false
+                    Rectangle{
+                        anchors.bottom: parent.bottom
 
-                    onTextEdited: editing = true;
-                    onEditingFinished: editing = false;
-                    onTextChanged: {
-                        //myModel.sortByKey(inputField.text);
-                        console.log(inputField.text)
+                        width: parent.width
+                        height: 1
+                        color: "transparent"
+                        border.color: "#DDE2E7"
+
                     }
+
+
                 }
 
 
-            }
 
+
+
+            }
 
             //第一行
-            Image {
+            Rectangle{
                 x: 343
                 y: 24
-                source: "Resources/Patient/patient_details.png"
-            }
+                width: parent.width - 380
+                height: 24
+                color: "transparent"
 
-
-            Text {
-                text: qsTr("患者详情")
-                x: 371
-                y: 31
-                color: "#0DAF9D"
-            }
-            Text {
-                text: qsTr("编辑")
-                x: parent.width - 52
-                y: 31
-                color: "#0DAF9D"
-
-                MouseArea{
-                    anchors.fill: parent
-                    onPressed: {
-                        console.log("onPressed")
-                    }
-
+                Image {
+                    x: 0
+                    anchors.verticalCenter: parent.verticalCenter
+                    source: "Resources/Patient/patient_details.png"
                 }
+
+
+                Text {
+                    text: qsTr("患者详情")
+                    x: 28
+                    anchors.verticalCenter: parent.verticalCenter
+                    color: "#0DAF9D"
+                    font.pixelSize: frontSize
+                }
+                Text {
+                    text: qsTr("编辑")
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.rightMargin: 16
+                    color: "#0DAF9D"
+                    font.pixelSize: frontSize
+
+                    MouseArea{
+                        anchors.fill: parent
+                        onPressed: {
+                            editDialog.visible = true
+                            //dialogShadow.visible = true
+                            //rootRectangle.opacity = 0.8
+
+                            //rootRectangleDropShadow.opacity = 0.8
+                        }
+
+                    }
+                }
+
+
+
+            }
+
+
+
+
+            Rectangle{
+                x: 343
+                y: 59
+                width: parent.width - 380
+                height: 53
+                color: "transparent"
+                border.color: "#DDE2E7"
+                radius: 5
+
+
+
+                Text {
+                    id:idText
+                    text: qsTr("ID: A34543")
+                    x: 14
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: frontSize
+                    font.family: "SourceHanSansCN-Regular"
+                    color: "#323C47"
+                }
+
+                Text {
+                    id:idName
+                    text: qsTr("姓名: 陈同学")
+                    x: parent.width/4
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: frontSize
+                    font.family: "SourceHanSansCN-Regular"
+                    color: "#323C47"
+                }
+
+                Text {
+                    id: idSex
+                    text: qsTr("性别: 女")
+                    x: parent.width/4*2
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: frontSize
+                    font.family: "SourceHanSansCN-Regular"
+                    color: "#323C47"
+                }
+
+                Text {
+                    id:idBirthday
+                    text: qsTr("出生年月: 1974-11-14")
+                    x: parent.width/4*3
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: frontSize
+                    font.family: "SourceHanSansCN-Regular"
+                    color: "#323C47"
+                }
+
             }
 
 
@@ -169,6 +269,7 @@ Item {
                 x: 372
                 y: 158
                 color: "#0DAF9D"
+                font.pixelSize: frontSize
             }
 
             Rectangle{
@@ -204,47 +305,62 @@ Item {
             }
 
 
+
             //第三行
-            Image {
+            Rectangle{
                 x: 343
                 y: 383.5
-                source: "Resources/Patient/diagnose.png"
-            }
+                width: parent.width - 380
+                height: 24
+                color: "transparent"
 
-
-            Text {
-                text: qsTr("诊断信息")
-                x: 371
-                y: 389
-                color: "#0DAF9D"
-            }
-            Text {
-                text: qsTr("编辑")
-                x: parent.width - 52
-                y: 389
-                color: "#0DAF9D"
-
-                MouseArea{
-                    anchors.fill: parent
-                    onPressed: {
-                        console.log("onPressed")
-                    }
-
+                Image {
+                    x: 0
+                    anchors.verticalCenter: parent.verticalCenter
+                    source: "Resources/Patient/diagnose.png"
                 }
+
+
+                Text {
+                    text: qsTr("诊断信息")
+                    x: 28
+                    anchors.verticalCenter: parent.verticalCenter
+                    color: "#0DAF9D"
+                    font.pixelSize: frontSize
+                }
+                Text {
+                    text: qsTr("编辑")
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.rightMargin: 16
+                    color: "#0DAF9D"
+                    font.pixelSize: frontSize
+
+                    MouseArea{
+                        anchors.fill: parent
+                        onPressed: {
+
+                        }
+
+                    }
+                }
+
+
+
             }
 
 
 
                 TextField {
-                    //placeholderText: qsTr("编辑诊断信息")
-                    x: 344
+                    placeholderText: qsTr("输入诊断信息")
+                    x: 343
                     y: 416.5
 
-                    width: parent.width - 388
+                    width: parent.width - 380
                     height: parent.height - 483
 
                     selectByMouse: true
-                    font.pointSize: 11
+                    font.pointSize: frontSize
 
                     background: Rectangle {
                         anchors.centerIn: parent
@@ -253,6 +369,7 @@ Item {
 
                         color: "transparent"
                         border.color: "#DDE2E7"
+                        radius: 5
 
                         }
 
@@ -261,6 +378,21 @@ Item {
 
 
                 }
+
+                MDialog{
+                    id: editDialog
+                    width: 560
+                    height: 491
+                    anchors.centerIn: parent
+                    visible: false
+
+
+                }
+
+
+
+
+
 
 
 
@@ -274,6 +406,7 @@ Item {
 
 
             DropShadow {
+                id:searchRectangleDropShadow
                 anchors.fill: searchRectangle
                 transparentBorder: true
                 horizontalOffset: 1
@@ -285,6 +418,9 @@ Item {
                 source: searchRectangle
             }
         }
+
+
+
 
     }
 
@@ -302,6 +438,7 @@ Item {
         source: rootRectangle
     }
     DropShadow {
+        id:rootRectangleDropShadow
         anchors.fill: rootRectangle
         transparentBorder: true
         horizontalOffset: 5
