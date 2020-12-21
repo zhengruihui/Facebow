@@ -19,8 +19,10 @@ Window {
 
 
     id: mainWindow
-    width: 1366
-    height: 768
+//    width: 1366
+//    height: 768
+    width: 1400
+    height: 800
     visible: true
     color: menuBarColor
 
