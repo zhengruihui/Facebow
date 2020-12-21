@@ -9,7 +9,7 @@
 #include <QSqlRecord>
 
 
-bool Patient::createConnection()
+bool Patient::connect()
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "connection1");
     db.setDatabaseName("Patient.db");
@@ -21,14 +21,36 @@ bool Patient::createConnection()
     return true;
 }
 
+bool Patient::disConnect()
+{
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "connection1");
+    db.setDatabaseName("Patient.db");
+    db.close();
+
+    return true;
+
+}
+
+
+//sqlite> CREATE TABLE COMPANY(
+//   ID INT PRIMARY KEY     NOT NULL,
+//   NAME           TEXT    NOT NULL,
+//   AGE            INT     NOT NULL,
+//   ADDRESS        CHAR(50),
+//   SALARY         REAL
+//);
+
 //创建数据库表
 bool Patient::createTable()
 {
     QSqlDatabase db = QSqlDatabase::database("connection1"); //建立数据库连接
     QSqlQuery query(db);
-    bool success = query.exec("create table automobil(id int primary key,attribute varchar,"
-                              "type varchar,kind varchar,nation int,carnumber int,elevaltor int,"
-                              "distance int,oil int,temperature int)");
+    bool success = query.exec("CREATE TABLE students ("
+                              "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                              "name VARCHAR(40) NOT NULL, "
+                              "sex VARCHAR(40) NOT NULL, "
+                              "age INTEGER NULL)");
+
     if(success)
     {
         qDebug() << QObject::tr("数据库表创建成功！\n");
@@ -46,21 +68,16 @@ bool Patient::insert()
 {
     QSqlDatabase db = QSqlDatabase::database("connection1"); //建立数据库连接
     QSqlQuery query(db);
-    query.prepare("insert into automobil values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    query.prepare("INSERT INTO students (name, sex,age) "
+                  "VALUES (:name, :sex, :age)");
 
     long records = 10;
     for(int i=0; i<records; i++)
     {
-        query.bindValue(0, i);
-        query.bindValue(1, "四轮");
-        query.bindValue(2, "轿车");
-        query.bindValue(3, "富康");
-        query.bindValue(4, rand()%100);
-        query.bindValue(5, rand()%10000);
-        query.bindValue(6, rand()%300);
-        query.bindValue(7, rand()%200000);
-        query.bindValue(8, rand()%52);
-        query.bindValue(9, rand()%100);
+        query.bindValue(":name", "zheng");
+        query.bindValue(":sex", "男");
+        query.bindValue(":age", 31 );
+
 
         bool success=query.exec();
         if(!success)
@@ -78,15 +95,16 @@ bool Patient::queryAll()
 {
     QSqlDatabase db = QSqlDatabase::database("connection1"); //建立数据库连接
     QSqlQuery query(db);
-    query.exec("select * from automobil");
-    QSqlRecord rec = query.record();
-    qDebug() << QObject::tr("automobil表字段数：" ) << rec.count();
-
+    query.exec("SELECT * FROM students WHERE age >= 20 AND age <= 80;");
     while(query.next())
     {
-        for(int index = 0; index < 10; index++)
-            qDebug() << query.value(index) << " ";
-        qDebug() << "\n";
+        QString id = query.value(0).toString();
+        QString name = query.value(2).toString();
+        QString sex = query.value(1).toString();
+        QString age = query.value(2).toString();
+
+
+        qDebug()<<name<<id<<sex<<age;
     }
     return true;
 }

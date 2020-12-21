@@ -23,6 +23,8 @@ int main(int argc, char *argv[])
     qmlRegisterType<SerialPort>("SerialPort",1,0,"SerialPort");
 
 
+
+
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())

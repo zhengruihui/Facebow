@@ -110,7 +110,11 @@ Item {
                         onTextEdited: editing = true;
                         onEditingFinished: editing = false;
                         onTextChanged: {
-
+                            patientDB.connect()
+                            patientDB.createTable()
+                            patientDB.insert()
+                            patientDB.queryAll()
+                            patientDB.disConnect()
                             console.log(inputField.text)
                         }
                     }
@@ -126,8 +130,6 @@ Item {
                             anchors.fill: parent
                             onPressed: {
                                 patientInfo.append({"name": "王五", "sex":"男", "age": "5岁"})
-                                console.log(infoListView.height)
-
                             }
 
 
@@ -160,16 +162,16 @@ Item {
 
                 ListModel{
                      id: patientInfo
-                     ListElement {
-                         name: "张三"
-                         sex: "男"
-                         age: "45岁"
-                     }
-                     ListElement {
-                         name: "李四"
-                         sex: "男"
-                         age: "65岁"
-                     }
+//                     ListElement {
+//                         name: "张三"
+//                         sex: "男"
+//                         age: "45岁"
+//                     }
+//                     ListElement {
+//                         name: "李四"
+//                         sex: "男"
+//                         age: "65岁"
+//                     }
 
 
 
@@ -873,6 +875,11 @@ Item {
         source: rootRectangle
     }
 
+
+    Patient{
+        id: patientDB
+
+    }
 
 
 
