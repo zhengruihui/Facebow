@@ -145,35 +145,40 @@ bool Patient::updateById(QString id, QString patientID, QString name, QString se
     QSqlDatabase db = QSqlDatabase::database("connection1"); //建立数据库连接
     QSqlQuery query(db);
 
-//    query.prepare("UPDATE  departments  SET department =:department WHERE departID =:departID ");
+    query.prepare("UPDATE patients SET patientID =:patientID  name =:name sex =:sex birthday =:birthday diagnosis =:diagnosis WHERE ID =:ID ");
 
-//    query.bindValue(":departID",);
-//    query.bindValue(":department",);
-//    query.exec();
+    query.bindValue(":patientID", patientID);
+    query.bindValue(":name", name);
+    query.bindValue(":sex", sex);
+    query.bindValue(":birthday", birthday);
+    query.bindValue(":diagnosis", diagnosis);
+    query.bindValue(":ID", id);
 
-
-
-
-
-
-
+    bool success = query.exec();
 
 
 
 
-    QString command = "UPDATE patients SET";
-
-    command.append(" patientID = '" + patientID);
-    command.append("' name = '" + name);
-    command.append("' sex = '" + sex);
-    command.append("' birthday = '" + birthday);
-    command.append("' diagnosis = '" + diagnosis);
-    command.append("' WHERE ID = " + id);
-
-    qDebug() << command;
 
 
-    bool success=query.exec(command);
+
+
+
+
+
+//    QString command = "UPDATE patients SET";
+
+//    command.append(" patientID = '" + patientID);
+//    command.append("' name = '" + name);
+//    command.append("' sex = '" + sex);
+//    command.append("' birthday = '" + birthday);
+//    command.append("' diagnosis = '" + diagnosis);
+//    command.append("' WHERE ID = " + id);
+
+//    qDebug() << command;
+
+
+//    bool success=query.exec(command);
 
     if(!success)
     {
