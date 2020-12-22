@@ -9,6 +9,45 @@
 #include <QSqlRecord>
 
 
+Patient::Patient()
+{
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "connection1");
+    db.setDatabaseName("Patient.db");
+    if(db.open())
+    {
+        qDebug() << QObject::tr("数据库连接成功！\n");
+
+        QSqlQuery query(db);
+        bool success = query.exec("CREATE TABLE patients ("
+                                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                                  "patientID VARCHAR(40) NOT NULL, "
+                                  "name VARCHAR(40) NOT NULL, "
+                                  "sex VARCHAR(40) NOT NULL, "
+                                  "birthday VARCHAR(40) NOT NULL, "
+                                  "age VARCHAR(40) NULL)");
+
+        if(success)
+        {
+            qDebug() << QObject::tr("数据库表创建成功！\n");
+        }
+        else
+        {
+            qDebug() << QObject::tr("数据库表创建失败！\n");
+        }
+
+    }else{
+        qDebug() << QObject::tr("数据库连接失败！\n");
+    }
+
+}
+
+Patient::~Patient()
+{
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "connection1");
+    db.setDatabaseName("Patient.db");
+    db.close();
+}
+
 bool Patient::connect()
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "connection1");
@@ -32,79 +71,56 @@ bool Patient::disConnect()
 }
 
 
-//sqlite> CREATE TABLE COMPANY(
-//   ID INT PRIMARY KEY     NOT NULL,
-//   NAME           TEXT    NOT NULL,
-//   AGE            INT     NOT NULL,
-//   ADDRESS        CHAR(50),
-//   SALARY         REAL
-//);
-
-//创建数据库表
-bool Patient::createTable()
-{
-    QSqlDatabase db = QSqlDatabase::database("connection1"); //建立数据库连接
-    QSqlQuery query(db);
-    bool success = query.exec("CREATE TABLE students ("
-                              "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                              "name VARCHAR(40) NOT NULL, "
-                              "sex VARCHAR(40) NOT NULL, "
-                              "age INTEGER NULL)");
-
-    if(success)
-    {
-        qDebug() << QObject::tr("数据库表创建成功！\n");
-        return true;
-    }
-    else
-    {
-        qDebug() << QObject::tr("数据库表创建失败！\n");
-        return false;
-    }
-}
 
 //向数据库中插入记录
-bool Patient::insert()
+bool Patient::insert(QString patientID, QString name, QString sex, QString birthday, QString age)
 {
     QSqlDatabase db = QSqlDatabase::database("connection1"); //建立数据库连接
     QSqlQuery query(db);
-    query.prepare("INSERT INTO students (name, sex,age) "
-                  "VALUES (:name, :sex, :age)");
+    query.prepare("INSERT INTO patients (patientID, name, sex, birthday, age) "
+                  "VALUES (:patientID, :name, :sex, :birthday, :age)");
 
-    long records = 10;
-    for(int i=0; i<records; i++)
+
+    query.bindValue(":patientID", patientID);
+    query.bindValue(":name", name);
+    query.bindValue(":sex", sex);
+    query.bindValue(":birthday", birthday);
+    query.bindValue(":age", age );
+
+
+    if(query.exec())
     {
-        query.bindValue(":name", "zheng");
-        query.bindValue(":sex", "男");
-        query.bindValue(":age", 31 );
-
-
-        bool success=query.exec();
-        if(!success)
-        {
-            QSqlError lastError = query.lastError();
-            qDebug() << lastError.driverText() << QString(QObject::tr("插入失败"));
-            return false;
-        }
+        return true;
     }
-    return true;
+    else{
+        QSqlError lastError = query.lastError();
+        qDebug() << lastError.driverText() << QString(QObject::tr("插入失败"));
+        return false;
+    }
+
+
 }
 
-//查询所有信息
-bool Patient::queryAll()
+
+bool Patient::searchByName(QString name)
 {
+    if(name==nullptr)
+    {
+        return false;
+    }
     QSqlDatabase db = QSqlDatabase::database("connection1"); //建立数据库连接
     QSqlQuery query(db);
-    query.exec("SELECT * FROM students WHERE age >= 20 AND age <= 80;");
+
+    QString command = "SELECT * FROM patients WHERE name Like ";
+    command.append("'%" + name + "%'");
+    query.exec(command);
+
+
     while(query.next())
     {
-        QString id = query.value(0).toString();
-        QString name = query.value(2).toString();
-        QString sex = query.value(1).toString();
-        QString age = query.value(2).toString();
 
+        emit searchChanged(query.value(1).toString(), query.value(2).toString(), query.value(3).toString(), query.value(4).toString(), query.value(5).toString());
 
-        qDebug()<<name<<id<<sex<<age;
     }
     return true;
 }

@@ -27,6 +27,14 @@ Item {
 
     property int frontSize: 14
 
+    property string patientID: "A00001"
+    property string patientName: "ECIDME"
+    property string patientSex: "female"
+    property string patientBirthday: "2018-07-14"
+    property string patientAge: "3"
+
+    property bool addPatient: false
+
 
 
 
@@ -110,12 +118,9 @@ Item {
                         onTextEdited: editing = true;
                         onEditingFinished: editing = false;
                         onTextChanged: {
-                            patientDB.connect()
-                            patientDB.createTable()
-                            patientDB.insert()
-                            patientDB.queryAll()
-                            patientDB.disConnect()
-                            console.log(inputField.text)
+                            patientInfo.clear()
+                            patientDB.searchByName(inputField.text)
+
                         }
                     }
 
@@ -129,9 +134,9 @@ Item {
                         MouseArea{
                             anchors.fill: parent
                             onPressed: {
-                                patientInfo.append({"name": "王五", "sex":"男", "age": "5岁"})
+                                addPatient = true
+                                editDialog.open()
                             }
-
 
                         }
                     }
@@ -162,20 +167,6 @@ Item {
 
                 ListModel{
                      id: patientInfo
-//                     ListElement {
-//                         name: "张三"
-//                         sex: "男"
-//                         age: "45岁"
-//                     }
-//                     ListElement {
-//                         name: "李四"
-//                         sex: "男"
-//                         age: "65岁"
-//                     }
-
-
-
-
                 }
 
 
@@ -190,7 +181,7 @@ Item {
 
 
 
-
+                    //patientInfo.
 
 
                     delegate: Column {
@@ -288,12 +279,6 @@ Item {
                                 console.log("current index = ",currentIndex)
                             }
 
-
-
-
-
-
-
                 }
 
 
@@ -321,7 +306,7 @@ Item {
                     text: qsTr("患者详情")
                     x: 28
                     anchors.verticalCenter: parent.verticalCenter
-                    color: "#0DAF9D"
+                    color: "#323C47"
                     font.pixelSize: frontSize
                 }
                 Text {
@@ -335,11 +320,7 @@ Item {
                     MouseArea{
                         anchors.fill: parent
                         onPressed: {
-                            //editDialog.visible = true
-                            //dialogShadow.visible = true
-                            //rootRectangle.opacity = 0.8
-
-                            //rootRectangleDropShadow.opacity = 0.8
+                            addPatient = false
                             editDialog.open()
                         }
 
@@ -365,29 +346,58 @@ Item {
 
 
                 Text {
-                    id:idText
-                    text: qsTr("ID: A34543")
+                    id: displayID
+                    text: qsTr("ID: ")
                     x: 14
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: frontSize
                     font.family: "SourceHanSansCN-Regular"
                     color: "#323C47"
                 }
+                Text {
+                    id:idText
+                    text: "A34543"
+                    anchors.left: displayID.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: frontSize
+                    font.family: "SourceHanSansCN-Regular"
+                    color: "#323C47"
+                }
 
                 Text {
-                    id:idName
-                    text: qsTr("姓名: 陈同学")
+                    id:displayName
+                    text: qsTr("姓名: ")
                     x: parent.width/4
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: frontSize
                     font.family: "SourceHanSansCN-Regular"
                     color: "#323C47"
                 }
+                Text {
+                    id:idName
+                    text: "陈同学"
+                    anchors.left: displayName.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: frontSize
+                    font.family: "SourceHanSansCN-Regular"
+                    color: "#323C47"
+                }
+
+
 
                 Text {
-                    id: idSex
-                    text: qsTr("性别: 女")
+                    id: displaySex
+                    text: qsTr("性别: ")
                     x: parent.width/4*2
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: frontSize
+                    font.family: "SourceHanSansCN-Regular"
+                    color: "#323C47"
+                }
+                Text {
+                    id: idSex
+                    text: "女"
+                    anchors.left: displaySex.right
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: frontSize
                     font.family: "SourceHanSansCN-Regular"
@@ -395,9 +405,18 @@ Item {
                 }
 
                 Text {
-                    id:idBirthday
-                    text: qsTr("出生年月: 1974-11-14")
+                    id:displayBirthday
+                    text: qsTr("出生年月: ")
                     x: parent.width/4*3
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: frontSize
+                    font.family: "SourceHanSansCN-Regular"
+                    color: "#323C47"
+                }
+                Text {
+                    id:idBirthday
+                    text: "1974-11-14"
+                    anchors.left: displayBirthday.right
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: frontSize
                     font.family: "SourceHanSansCN-Regular"
@@ -418,7 +437,7 @@ Item {
                 text: qsTr("报告")
                 x: 372
                 y: 158
-                color: "#0DAF9D"
+                color: "#323C47"
                 font.pixelSize: frontSize
             }
 
@@ -475,7 +494,7 @@ Item {
                     text: qsTr("诊断信息")
                     x: 28
                     anchors.verticalCenter: parent.verticalCenter
-                    color: "#0DAF9D"
+                    color: "#323C47"
                     font.pixelSize: frontSize
                 }
                 Text {
@@ -544,6 +563,8 @@ Item {
 
                     focus: true
 
+                    modal: true
+
                     closePolicy: Popup.NoAutoClose
 
                     enter: Transition {
@@ -595,7 +616,8 @@ Item {
 
                         }
                         TextField {
-                            placeholderText: qsTr("First Name")
+                            id:dialogID
+                            placeholderText: qsTr("ID")
                             x: 125.5
                             anchors.verticalCenter: parent.verticalCenter
                             width: 400
@@ -643,9 +665,44 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                             width: 400
                             height: 50
-                            color: "transparent"
-                            border.color: "#DDDDDD"
+                            color: "#7AE9EFF4"
+                            //border.color: "#DDDDDD"
                             radius: 3
+
+                            Rectangle {
+                                x: 9
+                                anchors.verticalCenter: parent.verticalCenter
+                                width: 187.5
+                                height: 34
+                                color: "#0DAF9D"
+                                //border.color: "#DDDDDD"
+                                radius: 3
+                                Text {
+                                    anchors.centerIn: parent
+                                    text: qsTr("男")
+                                    font.pixelSize: 12
+                                    color: "#323C47"
+                                }
+
+                            }
+
+                            Rectangle {
+                                x: 202
+                                anchors.verticalCenter: parent.verticalCenter
+                                width: 187.5
+                                height: 34
+                                color: "#FFFFFF"
+                                //border.color: "#DDDDDD"
+                                radius: 3
+                                Text {
+                                    anchors.centerIn: parent
+                                    text: qsTr("女")
+                                    font.pixelSize: 12
+                                    color: "#323C47"
+                                }
+
+                            }
+
                         }
 
                     }//end-SEX
@@ -670,6 +727,7 @@ Item {
 
 
                         TextField {
+                            id:dialogBirthday
                             placeholderText: qsTr("1975-11-12")
                             x: 125.5
                             anchors.verticalCenter: parent.verticalCenter
@@ -690,63 +748,110 @@ Item {
                                 radius: 3
 
                                 }
-                            ListModel{
-                                 id: listmodel_year
-                                 ListElement{yname:"1970"}
-                                 ListElement{yname:"1971"}
-                                 ListElement{yname:"1972"}
-                                 ListElement{yname:"1973"}
-                                 ListElement{yname:"1974"}
-                                 ListElement{yname:"1975"}
-                                 ListElement{yname:"1976"}
-                                 ListElement{yname:"1977"}
-                                 ListElement{yname:"1978"}
-                                 ListElement{yname:"1979"}
-                                 ListElement{yname:"1980"}
-                                 ListElement{yname:"1981"}
-                                 ListElement{yname:"1982"}
-                                 ListElement{yname:"1983"}
-                                 ListElement{yname:"1984"}
+//                            ListModel{
+//                                 id: listmodel_year
+//                                 ListElement{yname:"1970"}
+//                                 ListElement{yname:"1971"}
+//                                 ListElement{yname:"1972"}
+//                                 ListElement{yname:"1973"}
+//                                 ListElement{yname:"1974"}
+//                                 ListElement{yname:"1975"}
+//                                 ListElement{yname:"1976"}
+//                                 ListElement{yname:"1977"}
+//                                 ListElement{yname:"1978"}
+//                                 ListElement{yname:"1979"}
+//                                 ListElement{yname:"1980"}
+//                                 ListElement{yname:"1981"}
+//                                 ListElement{yname:"1982"}
+//                                 ListElement{yname:"1983"}
+//                                 ListElement{yname:"1984"}
 
 
-                            }
-                            Component{
-                                id: com_delegate_year
-                                Column{
-                                    id: wrapper_year
-                                    Text {
-                                        id: nameText
-                                        text: yname
-                                        color: wrapper_year.PathView.isCurrentItem ? "#14c0f5" : "#dcdcdc"
-                                    }
-                                }
-                            }
+//                            }
+//                            Component{
+//                                id: com_delegate_year
+//                                Column{
+//                                    id: wrapper_year
+//                                    Text {
+//                                        id: nameText
+//                                        text: yname
+//                                        color: wrapper_year.PathView.isCurrentItem ? "#14c0f5" : "#dcdcdc"
+//                                    }
+//                                }
+//                            }
 
-                            PathView{
-                                id: pathview_start_year
-                                anchors.top: parent.bottom
-                                width: parent.width
-                                height: parent.height
-                                model:listmodel_year
-                                delegate: com_delegate_year
-                                pathItemCount: 5
-                                preferredHighlightBegin: 0.5
-                                preferredHighlightEnd: 0.5
-                                path: Path{
-                                    startX: 0
-                                    startY: -30
-                                    PathLine{x:0; y:25}
-                                    PathLine{x:0; y:45}
-                                    PathLine{x:0; y:65}
-                                }
+//                            PathView{
+//                                id: pathview_start_year
+//                                anchors.top: parent.bottom
+//                                width: parent.width
+//                                height: parent.height
+//                                model:listmodel_year
+//                                delegate: com_delegate_year
+//                                pathItemCount: 5
+//                                preferredHighlightBegin: 0.5
+//                                preferredHighlightEnd: 0.5
+//                                path: Path{
+//                                    startX: 0
+//                                    startY: -30
+//                                    PathLine{x:0; y:25}
+//                                    PathLine{x:0; y:45}
+//                                    PathLine{x:0; y:65}
+//                                }
 
-                            }
+//                            }
+
+
 
 
 
                         }
 
                     }//end-Birthday
+
+
+                    //start-name
+                    Rectangle{
+                        anchors.left: parent.left
+                        y: 321
+                        width: parent.width
+                        height: 50
+                        color: "transparent"
+
+                        Text {
+                            text: qsTr("姓名")
+                            x: 34.5
+                            anchors.verticalCenter: parent.verticalCenter
+                            font.pixelSize: 14
+                            color: "#858585"
+
+                        }
+                        TextField {
+                            id:dialogName
+                            placeholderText: qsTr("Name")
+                            x: 125.5
+                            anchors.verticalCenter: parent.verticalCenter
+                            width: 400
+                            height: 50
+
+                            selectByMouse: true
+                            font.pointSize: 11
+
+
+
+                            background: Rectangle {
+                                width: parent.width
+                                height: parent.height
+                                anchors.bottom: parent.bottom
+                                color: "transparent"
+                                border.color: "#DDDDDD"
+                                radius: 3
+
+                                }
+                        }
+
+
+
+                    }//end-name
 
 
 
@@ -779,6 +884,21 @@ Item {
 
                         }
                         onPressed: {
+                            idText.text = dialogID.text
+                            idName.text = dialogName.text
+                            idSex.text = "男"
+                            idBirthday.text = dialogBirthday.text
+
+
+                            if(addPatient)//添加
+                            {
+                                patientDB.insert(idText.text, idName.text, idSex.text, idBirthday.text, "3")
+                            }
+                            else //更新
+                            {
+
+                            }
+
                             editDialog.close()
 
 
@@ -797,7 +917,7 @@ Item {
                             width: parent.width
                             height: parent.height
 
-                            color: "#0DAF9D"
+                            color: "#FFEEF1F6"
                             border.color: "#DDE2E7"
                             radius: 14
 
@@ -878,6 +998,9 @@ Item {
 
     Patient{
         id: patientDB
+        onSearchChanged: {
+            patientInfo.append({"name": name, "sex": sex, "age": age})
+        }
 
     }
 
