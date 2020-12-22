@@ -27,13 +27,9 @@ Item {
 
     property int frontSize: 14
 
-    property string patientID: "A00001"
-    property string patientName: "ECIDME"
-    property string patientSex: "female"
-    property string patientBirthday: "2018-07-14"
-    property string patientAge: "3"
 
     property bool addPatient: false
+    property bool sexMaleChecked: true
 
 
 
@@ -196,25 +192,46 @@ Item {
                             color: "#FFFFFF"
                             radius: 5
 
+
                             Image {
                                 x: 14
                                 anchors.verticalCenter: parent.verticalCenter
                                 source: "Resources/Patient/patient.png"
                             }
                             Text {
+                                id: currentName
                                 x: 52
                                 anchors.verticalCenter: parent.verticalCenter
                                 text: name
                             }
                             Text {
+                                id: currentSex
                                 x: 149.5
                                 anchors.verticalCenter: parent.verticalCenter
                                 text: sex
                             }
                             Text {
+                                id: currentBirthday
                                 x: 184
                                 anchors.verticalCenter: parent.verticalCenter
-                                text: age
+                                text: birthday
+                            }
+
+
+                            Text {
+                                id: currentID
+                                text: id
+                                visible: false
+                            }
+                            Text {
+                                id: currentDiagnosis
+                                text: diagnosis
+                                visible: false
+                            }
+                            Text {
+                                id: currentPatientID
+                                text: patientID
+                                visible: false
                             }
 
                             Column{
@@ -252,7 +269,18 @@ Item {
                                 anchors.fill: parent
                                 onPressed: {
                                     currentPatient.color = "#0DAF9D"
-                                    console.log("listelement: ", index)
+                                    //infoListView.
+
+                                    console.log("listelement: ", infoListView.currentIndex, index)
+
+
+                                    idText.text = currentPatientID.text
+                                    idName.text = currentName.text
+                                    idSex.text = currentSex.text
+                                    idBirthday.text = currentBirthday.text
+                                    idDiagnosis.text = currentDiagnosis.text
+
+
 
                                 }
 
@@ -321,6 +349,12 @@ Item {
                         anchors.fill: parent
                         onPressed: {
                             addPatient = false
+
+                            dialogID.text = idText.text
+                            dialogName.text = idName.text
+                            dialogBirthday.text = idBirthday.text
+                            dialogName.text = idName.text
+
                             editDialog.open()
                         }
 
@@ -521,6 +555,7 @@ Item {
 
 
                 TextField {
+                    id:idDiagnosis
                     placeholderText: qsTr("输入诊断信息")
                     x: 343
                     y: 416.5
@@ -666,39 +701,50 @@ Item {
                             width: 400
                             height: 50
                             color: "#7AE9EFF4"
-                            //border.color: "#DDDDDD"
                             radius: 3
 
-                            Rectangle {
+
+                            Button {
                                 x: 9
                                 anchors.verticalCenter: parent.verticalCenter
                                 width: 187.5
                                 height: 34
-                                color: "#0DAF9D"
-                                //border.color: "#DDDDDD"
-                                radius: 3
+
+                                background: Rectangle{
+                                    color: sexMaleChecked? "#0DAF9D" : "#7AE9EFF4"
+                                    radius: 3
+                                }
+
                                 Text {
                                     anchors.centerIn: parent
                                     text: qsTr("男")
                                     font.pixelSize: 12
                                     color: "#323C47"
                                 }
+                                onPressed: {
+                                    sexMaleChecked = true
+                                }
 
                             }
 
-                            Rectangle {
+                            Button {
                                 x: 202
                                 anchors.verticalCenter: parent.verticalCenter
                                 width: 187.5
                                 height: 34
-                                color: "#FFFFFF"
-                                //border.color: "#DDDDDD"
-                                radius: 3
+                                checkable: true
+                                background: Rectangle{
+                                    color: sexMaleChecked? "#7AE9EFF4" : "#0DAF9D"
+                                    radius: 3
+                                }
                                 Text {
                                     anchors.centerIn: parent
                                     text: qsTr("女")
                                     font.pixelSize: 12
                                     color: "#323C47"
+                                }
+                                onPressed: {
+                                    sexMaleChecked = false
                                 }
 
                             }
@@ -886,7 +932,7 @@ Item {
                         onPressed: {
                             idText.text = dialogID.text
                             idName.text = dialogName.text
-                            idSex.text = "男"
+                            idSex.text = sexMaleChecked? qsTr("男") : qsTr("女")
                             idBirthday.text = dialogBirthday.text
 
 
@@ -896,7 +942,7 @@ Item {
                             }
                             else //更新
                             {
-
+                                patientDB.updateById("1", "A4L", idName.text, idSex.text, idBirthday.text, idDiagnosis.text)
                             }
 
                             editDialog.close()
@@ -999,7 +1045,7 @@ Item {
     Patient{
         id: patientDB
         onSearchChanged: {
-            patientInfo.append({"name": name, "sex": sex, "age": age})
+            patientInfo.append({"id": id, "patientID": patientID, "name": name, "sex": sex, "birthday": birthday, "diagnosis": diagnosis})
         }
 
     }

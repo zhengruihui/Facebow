@@ -24,7 +24,7 @@ Patient::Patient()
                                   "name VARCHAR(40) NOT NULL, "
                                   "sex VARCHAR(40) NOT NULL, "
                                   "birthday VARCHAR(40) NOT NULL, "
-                                  "age VARCHAR(40) NULL)");
+                                  "diagnosis VARCHAR(40) NULL)");
 
         if(success)
         {
@@ -73,19 +73,19 @@ bool Patient::disConnect()
 
 
 //向数据库中插入记录
-bool Patient::insert(QString patientID, QString name, QString sex, QString birthday, QString age)
+bool Patient::insert(QString patientID, QString name, QString sex, QString birthday, QString diagnosis)
 {
     QSqlDatabase db = QSqlDatabase::database("connection1"); //建立数据库连接
     QSqlQuery query(db);
-    query.prepare("INSERT INTO patients (patientID, name, sex, birthday, age) "
-                  "VALUES (:patientID, :name, :sex, :birthday, :age)");
+    query.prepare("INSERT INTO patients (patientID, name, sex, birthday, diagnosis) "
+                  "VALUES (:patientID, :name, :sex, :birthday, :diagnosis)");
 
 
     query.bindValue(":patientID", patientID);
     query.bindValue(":name", name);
     query.bindValue(":sex", sex);
     query.bindValue(":birthday", birthday);
-    query.bindValue(":age", age );
+    query.bindValue(":diagnosis", diagnosis );
 
 
     if(query.exec())
@@ -119,7 +119,7 @@ bool Patient::searchByName(QString name)
     while(query.next())
     {
 
-        emit searchChanged(query.value(1).toString(), query.value(2).toString(), query.value(3).toString(), query.value(4).toString(), query.value(5).toString());
+        emit searchChanged(query.value(0).toString(), query.value(1).toString(), query.value(2).toString(), query.value(3).toString(), query.value(4).toString(), query.value(5).toString());
 
     }
     return true;
@@ -140,32 +140,46 @@ bool Patient::deleteById(int id)
 }
 
 //根据ID更新记录
-bool Patient::updateById(int id)
+bool Patient::updateById(QString id, QString patientID, QString name, QString sex, QString birthday, QString diagnosis)
 {
     QSqlDatabase db = QSqlDatabase::database("connection1"); //建立数据库连接
     QSqlQuery query(db);
-    query.prepare(QString("update automobil set attribute=?,type=?,"
-                             "kind=?, nation=?,"
-                             "carnumber=?, elevaltor=?,"
-                             "distance=?, oil=?,"
-                             "temperature=? where id=%1").arg(id));
 
-     query.bindValue(0,"四轮");
-     query.bindValue(1,"轿车");
-     query.bindValue(2,"富康");
-     query.bindValue(3,rand()%100);
-     query.bindValue(4,rand()%10000);
-     query.bindValue(5,rand()%300);
-     query.bindValue(6,rand()%200000);
-     query.bindValue(7,rand()%52);
-     query.bindValue(8,rand()%100);
+//    query.prepare("UPDATE  departments  SET department =:department WHERE departID =:departID ");
 
-     bool success=query.exec();
-     if(!success)
-     {
-          QSqlError lastError = query.lastError();
-          qDebug() << lastError.driverText() << QString(QObject::tr("更新失败"));
-     }
+//    query.bindValue(":departID",);
+//    query.bindValue(":department",);
+//    query.exec();
+
+
+
+
+
+
+
+
+
+
+
+    QString command = "UPDATE patients SET";
+
+    command.append(" patientID = '" + patientID);
+    command.append("' name = '" + name);
+    command.append("' sex = '" + sex);
+    command.append("' birthday = '" + birthday);
+    command.append("' diagnosis = '" + diagnosis);
+    command.append("' WHERE ID = " + id);
+
+    qDebug() << command;
+
+
+    bool success=query.exec(command);
+
+    if(!success)
+    {
+      QSqlError lastError = query.lastError();
+      qDebug() << lastError.driverText() << QString(QObject::tr("更新失败"));
+    }
     return true;
 }
 
