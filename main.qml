@@ -19,8 +19,6 @@ Window {
 
 
     id: mainWindow
-//    width: 1366
-//    height: 768
     width: 1400
     height: 800
     visible: true
@@ -365,8 +363,6 @@ Window {
 
 
 
-
-
     Information{
         id:information
         anchors.top: topBar.bottom
@@ -374,6 +370,12 @@ Window {
         anchors.left: leftBar.right
         anchors.right: rightBar.left
         visible: true
+
+        onSearchUpdate: {
+            console.log("name: ",name)
+
+        }
+
     }
 
 
@@ -414,6 +416,7 @@ Window {
         anchors.right: rightBar.left
         visible: false
     }
+
 
 
 

@@ -73,31 +73,43 @@ bool Patient::disConnect()
 
 
 //向数据库中插入记录
-bool Patient::insert(QString patientID, QString name, QString sex, QString birthday, QString diagnosis)
+QString Patient::insert(QString num, QString name, QString sex, QString birthday, QString diagnosis)
 {
     QSqlDatabase db = QSqlDatabase::database("connection1"); //建立数据库连接
     QSqlQuery query(db);
+    QString ID;
     query.prepare("INSERT INTO patients (patientID, name, sex, birthday, diagnosis) "
                   "VALUES (:patientID, :name, :sex, :birthday, :diagnosis)");
 
 
-    query.bindValue(":patientID", patientID);
+    query.bindValue(":patientID", num);
     query.bindValue(":name", name);
     query.bindValue(":sex", sex);
     query.bindValue(":birthday", birthday);
     query.bindValue(":diagnosis", diagnosis );
 
 
+
+
     if(query.exec())
     {
-        return true;
+        query.exec("select last_insert_rowid() patients");
+        if(query.exec())
+        {
+            while(query.next())
+            {
+                ID = query.value(0).toString();
+            }
+            return ID;
+        }
+
     }
     else{
         QSqlError lastError = query.lastError();
         qDebug() << lastError.driverText() << QString(QObject::tr("插入失败"));
-        return false;
+        return "error";
     }
-
+    return "error";
 
 }
 
@@ -140,45 +152,25 @@ bool Patient::deleteById(int id)
 }
 
 //根据ID更新记录
-bool Patient::updateById(QString id, QString patientID, QString name, QString sex, QString birthday, QString diagnosis)
+bool Patient::updateById(QString id, QString num, QString name, QString sex, QString birthday, QString diagnosis)
 {
     QSqlDatabase db = QSqlDatabase::database("connection1"); //建立数据库连接
     QSqlQuery query(db);
 
-    query.prepare("UPDATE patients SET patientID =:patientID  name =:name sex =:sex birthday =:birthday diagnosis =:diagnosis WHERE ID =:ID ");
-
-    query.bindValue(":patientID", patientID);
-    query.bindValue(":name", name);
-    query.bindValue(":sex", sex);
-    query.bindValue(":birthday", birthday);
-    query.bindValue(":diagnosis", diagnosis);
-    query.bindValue(":ID", id);
-
-    bool success = query.exec();
+    QString command = QString("UPDATE patients SET patientID = '%1' , name = '%2' , sex = '%3' , birthday = '%4' , diagnosis = '%5' WHERE ID = %6")
+            .arg(num)
+            .arg(name)
+            .arg(sex)
+            .arg(birthday)
+            .arg(diagnosis)
+            .arg(id);
 
 
+    qDebug() << command;
 
 
+    bool success = query.exec(command);
 
-
-
-
-
-
-
-//    QString command = "UPDATE patients SET";
-
-//    command.append(" patientID = '" + patientID);
-//    command.append("' name = '" + name);
-//    command.append("' sex = '" + sex);
-//    command.append("' birthday = '" + birthday);
-//    command.append("' diagnosis = '" + diagnosis);
-//    command.append("' WHERE ID = " + id);
-
-//    qDebug() << command;
-
-
-//    bool success=query.exec(command);
 
     if(!success)
     {

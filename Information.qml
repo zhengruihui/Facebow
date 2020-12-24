@@ -7,6 +7,9 @@ import Patient 1.0
 
 Item {
 
+    signal searchUpdate(var name)
+
+
     property int topBarHeight: 40
     property int bottomBarHeight: 100
     property int leftBarWidth: 40
@@ -30,6 +33,14 @@ Item {
 
     property bool addPatient: false
     property bool sexMaleChecked: true
+
+
+    property string currentPatientInfoID
+    property string currentPatientInfoNum
+    property string currentPatientInfoName
+    property string currentPatientInfoSex
+    property string currentPatientInfoBirthday
+    property string currentPatientInfoDiagnosis
 
 
 
@@ -115,7 +126,7 @@ Item {
                         onEditingFinished: editing = false;
                         onTextChanged: {
                             patientInfo.clear()
-                            patientDB.searchByName(inputField.text)
+                            patientDatabase.searchByName(inputField.text)
 
                         }
                     }
@@ -175,14 +186,8 @@ Item {
                     model: patientInfo
                     spacing: 10
 
-
-
-                    //patientInfo.
-
-
                     delegate: Column {
                         x: 20
-                        //anchors.horizontalCenter: parent.horizontalCenter
                         Rectangle{
                             id: currentPatient
                             width: 265
@@ -192,6 +197,13 @@ Item {
                             color: "#FFFFFF"
                             radius: 5
 
+                            property string currentItemID : id
+                            property string currentItemNum : num
+                            property string currentItemName : name
+                            property string currentItemSex : sex
+                            property string currentItemBirthday : birthday
+                            property string currentItemDiagnosis : diagnosis
+
 
                             Image {
                                 x: 14
@@ -199,40 +211,21 @@ Item {
                                 source: "Resources/Patient/patient.png"
                             }
                             Text {
-                                id: currentName
                                 x: 52
                                 anchors.verticalCenter: parent.verticalCenter
-                                text: name
+                                text: currentItemName
                             }
                             Text {
-                                id: currentSex
                                 x: 149.5
                                 anchors.verticalCenter: parent.verticalCenter
-                                text: sex
+                                text: currentItemtSex
                             }
                             Text {
-                                id: currentBirthday
                                 x: 184
                                 anchors.verticalCenter: parent.verticalCenter
-                                text: birthday
+                                text: currentItemBirthday
                             }
 
-
-                            Text {
-                                id: currentID
-                                text: id
-                                visible: false
-                            }
-                            Text {
-                                id: currentDiagnosis
-                                text: diagnosis
-                                visible: false
-                            }
-                            Text {
-                                id: currentPatientID
-                                text: patientID
-                                visible: false
-                            }
 
                             Column{
                                 id: infoEdit
@@ -269,18 +262,8 @@ Item {
                                 anchors.fill: parent
                                 onPressed: {
                                     currentPatient.color = "#0DAF9D"
-                                    //infoListView.
 
-                                    console.log("listelement: ", infoListView.currentIndex, index)
-
-
-                                    idText.text = currentPatientID.text
-                                    idName.text = currentName.text
-                                    idSex.text = currentSex.text
-                                    idBirthday.text = currentBirthday.text
-                                    idDiagnosis.text = currentDiagnosis.text
-
-
+                                    updateCurrentPatientInfo(currentItemID, currentItemNum, currentItemName, currentItemSex, currentItemBirthday, currentItemDiagnosis)
 
                                 }
 
@@ -350,10 +333,10 @@ Item {
                         onPressed: {
                             addPatient = false
 
-                            dialogID.text = idText.text
-                            dialogName.text = idName.text
-                            dialogBirthday.text = idBirthday.text
-                            dialogName.text = idName.text
+                            dialogID.text = currentPatientID.text
+                            dialogName.text = currentPatientName.text
+                            dialogBirthday.text = currentPatientBirthday.text
+                            dialogName.text = currentPatientName.text
 
                             editDialog.open()
                         }
@@ -389,8 +372,8 @@ Item {
                     color: "#323C47"
                 }
                 Text {
-                    id:idText
-                    text: "A34543"
+                    id:currentPatientID
+                    text: currentPatientInfoNum
                     anchors.left: displayID.right
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: frontSize
@@ -408,8 +391,8 @@ Item {
                     color: "#323C47"
                 }
                 Text {
-                    id:idName
-                    text: "陈同学"
+                    id:currentPatientName
+                    text: currentPatientInfoName
                     anchors.left: displayName.right
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: frontSize
@@ -429,8 +412,8 @@ Item {
                     color: "#323C47"
                 }
                 Text {
-                    id: idSex
-                    text: "女"
+                    id: currentPatientSex
+                    text: currentPatientInfoSex
                     anchors.left: displaySex.right
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: frontSize
@@ -448,8 +431,8 @@ Item {
                     color: "#323C47"
                 }
                 Text {
-                    id:idBirthday
-                    text: "1974-11-14"
+                    id:currentPatientBirthday
+                    text: currentPatientInfoBirthday
                     anchors.left: displayBirthday.right
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: frontSize
@@ -651,7 +634,7 @@ Item {
 
                         }
                         TextField {
-                            id:dialogID
+                            id:dialogNum
                             placeholderText: qsTr("ID")
                             x: 125.5
                             anchors.verticalCenter: parent.verticalCenter
@@ -930,19 +913,19 @@ Item {
 
                         }
                         onPressed: {
-                            idText.text = dialogID.text
-                            idName.text = dialogName.text
-                            idSex.text = sexMaleChecked? qsTr("男") : qsTr("女")
-                            idBirthday.text = dialogBirthday.text
-
+                            currentPatientInfoNum = dialogNum.text
+                            currentPatientInfoName = dialogName.text
+                            currentPatientInfoSex = sexMaleChecked? qsTr("男") : qsTr("女")
+                            currentPatientInfoBirthday = dialogBirthday.text
 
                             if(addPatient)//添加
                             {
-                                patientDB.insert(idText.text, idName.text, idSex.text, idBirthday.text, "3")
+                                currentPatientInfoID = patientDatabase.insert(currentPatientInfoNum, currentPatientInfoName, currentPatientInfoSex, currentPatientInfoBirthday, currentPatientInfoDiagnosis)
+                                updateCurrentPatientInfo(currentPatientInfoID, dialogNum.text, sexMaleChecked? qsTr("男") : qsTr("女"), dialogBirthday.text, currentPatientInfoDiagnosis);
                             }
                             else //更新
                             {
-                                patientDB.updateById("1", "A4L", idName.text, idSex.text, idBirthday.text, idDiagnosis.text)
+                                patientDatabase.updateById(currentPatientID.text, currentPatientID.text, currentPatientName.text, currentPatientSex.text, currentPatientBirthday.text, idDiagnosis.text)
                             }
 
                             editDialog.close()
@@ -970,6 +953,7 @@ Item {
                         }
                         onPressed: {
                             editDialog.close()
+
 
                         }
 
@@ -1041,15 +1025,27 @@ Item {
         source: rootRectangle
     }
 
-
     Patient{
-        id: patientDB
+        id: patientDatabase
         onSearchChanged: {
-            patientInfo.append({"id": id, "patientID": patientID, "name": name, "sex": sex, "birthday": birthday, "diagnosis": diagnosis})
+            patientInfo.append({"id": id, "num": num, "name": name, "sex": sex, "birthday": birthday, "diagnosis": diagnosis})
         }
 
     }
 
+    function search()
+    {
+        console.log("search!")
 
+    }
+
+    function updateCurrentPatientInfo(ID, num, name, sex, birthday)
+    {
+        currentPatientInfoID = ID
+        currentPatientInfoNum = num
+        currentPatientInfoName = name
+        currentPatientInfoSex = sex
+        currentPatientInfoBirthday = birthday
+    }
 
 }

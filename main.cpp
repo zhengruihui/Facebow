@@ -7,6 +7,15 @@
 #include "patient.h"
 
 
+//static QObject *singletontype_callback(QQmlEngine *engine, QJSEngine *scriptEngine)
+//{
+//    Q_UNUSED(engine)
+//    Q_UNUSED(scriptEngine)
+
+//    Patient *patient = new Patient();
+//    return patient;
+//}
+
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
@@ -23,6 +32,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<SerialPort>("SerialPort",1,0,"SerialPort");
 
 
+    //qmlRegisterSingletonType<Patient>("Patient", 1, 0, "PatientApi", singletontype_callback);
 
 
     QQmlApplicationEngine engine;
