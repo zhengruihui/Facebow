@@ -115,27 +115,74 @@ QString Patient::insert(QString num, QString name, QString sex, QString birthday
 }
 
 
-bool Patient::searchByName(QString name)
+bool Patient::queryByName(QString name)
 {
-    if(name==nullptr)
-    {
-        return false;
-    }
     QSqlDatabase db = QSqlDatabase::database("connection1"); //建立数据库连接
     QSqlQuery query(db);
-
-    QString command = "SELECT * FROM patients WHERE pName Like ";
-    command.append("'%" + name + "%'");
-    query.exec(command);
-
-
-    while(query.next())
+    if(name.data())
     {
+        QString command = "SELECT * FROM patients WHERE pName Like ";
+        command.append("'%" + name + "%'");
+        query.exec(command);
 
-        emit searchChanged(query.value(0).toString(), query.value(1).toString(), query.value(2).toString(), query.value(3).toString(), query.value(4).toString(), query.value(5).toString());
+
+        while(query.next())
+        {
+
+            emit searchChanged(query.value(0).toString(), query.value(1).toString(), query.value(2).toString(), query.value(3).toString(), query.value(4).toString(), query.value(5).toString());
+
+        }
+        return true;
+    }
+    else
+    {
+        QString command = "SELECT * FROM patients ORDER BY ID DESC";
+        query.exec(command);
+
+        while(query.next())
+        {
+
+            emit searchChanged(query.value(0).toString(), query.value(1).toString(), query.value(2).toString(), query.value(3).toString(), query.value(4).toString(), query.value(5).toString());
+
+        }
+        return true;
 
     }
-    return true;
+}
+
+bool Patient::queryAll(QString name)
+{
+    QSqlDatabase db = QSqlDatabase::database("connection1"); //建立数据库连接
+    QSqlQuery query(db);
+    if(name.data())
+    {
+        QString command = "SELECT * FROM patients WHERE pName Like ";
+        command.append("'%" + name + "%'");
+        query.exec(command);
+
+
+        while(query.next())
+        {
+
+            emit searchChanged(query.value(0).toString(), query.value(1).toString(), query.value(2).toString(), query.value(3).toString(), query.value(4).toString(), query.value(5).toString());
+
+        }
+        return true;
+    }
+    else
+    {
+        QString command = "SELECT * FROM patients";
+        query.exec(command);
+
+        while(query.next())
+        {
+
+            emit searchChanged(query.value(0).toString(), query.value(1).toString(), query.value(2).toString(), query.value(3).toString(), query.value(4).toString(), query.value(5).toString());
+
+        }
+        return true;
+
+    }
 }
 
 //根据ID删除记录

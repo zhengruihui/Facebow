@@ -125,7 +125,7 @@ Item {
                         onEditingFinished: editing = false;
                         onTextChanged: {
                             patientInfo.clear()
-                            patientDatabase.searchByName(inputField.text)
+                            patientDatabase.queryByName(inputField.text)
 
                         }
                     }
@@ -173,6 +173,113 @@ Item {
 
                 ListModel{
                      id: patientInfo
+
+                }
+
+                Component{
+                    id: listViewDelegate
+                    Column {
+                       x: 20
+                       Rectangle{
+                           id: listItemPatientInfo
+                           width: 265
+                           height: 50
+                           border.width: 1
+                           border.color: "#E9EFF4"
+                           color: (infoListView.currentIndex == index)?  "#0DAF9D" : "#FFFFFF"
+                           radius: 5
+
+                           property string listItemID: id
+                           property string listItemNum: num
+                           property string listItemName: name
+                           property string listItemSex: sex
+                           property string listItemBirthday: birthday
+                           property string listItemDiagnosis: diagnosis
+
+
+
+
+                           Image {
+                               x: 14
+                               anchors.verticalCenter: parent.verticalCenter
+                               source: "Resources/Patient/patient.png"
+                           }
+                           Text {
+                               x: 52
+                               anchors.verticalCenter: parent.verticalCenter
+                               text: parent.listItemName
+                           }
+                           Text {
+                               x: 149.5
+                               anchors.verticalCenter: parent.verticalCenter
+                               text: parent.listItemSex
+                           }
+                           Text {
+                               x: 184
+                               anchors.verticalCenter: parent.verticalCenter
+                               text: patientDatabase.birthdayToAge(parent.listItemBirthday)
+                           }
+
+
+                           Column{
+                               id: infoEdit
+                               x: 238.7
+                               anchors.verticalCenter: parent.verticalCenter
+                               width: 16
+                               height: 18.9
+                               spacing: 4
+                               Rectangle{
+                                   anchors.horizontalCenter: parent.horizontalCenter
+                                   width: 4
+                                   height: 4
+                                   radius: 2
+                                   color: "#DDE2E7"
+                               }
+                               Rectangle{
+                                   anchors.horizontalCenter: parent.horizontalCenter
+                                   width: 4
+                                   height: 4
+                                   radius: 2
+                                   color: "#DDE2E7"
+                               }
+                               Rectangle{
+                                   anchors.horizontalCenter: parent.horizontalCenter
+                                   width: 4
+                                   height: 4
+                                   radius: 2
+                                   color: "#DDE2E7"
+                               }
+
+
+                           }
+                           MouseArea{
+                               anchors.fill: parent
+                               onPressed: {
+                                   //listItemPatientInfo.color =  (infoListView.currentIndex != index)?  "#0DAF9D" : "#FFFFFF"
+
+                                   infoListView.currentIndex = index
+
+
+                                   updateCurrentPatientInfo(listItemPatientInfo.listItemID, listItemPatientInfo.listItemNum, listItemPatientInfo.listItemName, listItemPatientInfo.listItemSex, listItemPatientInfo.listItemBirthday, listItemPatientInfo.listItemDiagnosis)
+
+                               }
+
+
+                           }
+
+                           MouseArea{
+                               anchors.fill: infoEdit
+                               onPressed: {
+                                   console.log("edit info")
+                               }
+
+                           }
+
+                       }
+                   }
+
+
+
                 }
 
 
@@ -186,99 +293,9 @@ Item {
                     model: patientInfo
                     spacing: 10
 
-                    delegate: Column {
-                        x: 20
-                        Rectangle{
-                            id: listItemPatientInfo
-                            width: 265
-                            height: 50
-                            border.width: 1
-                            border.color: "#E9EFF4"
-                            color: "#FFFFFF"
-                            radius: 5
+                    property int listItemPressed
 
-                            property string listItemID: id
-                            property string listItemNum: num
-                            property string listItemName: name
-                            property string listItemSex: sex
-                            property string listItemBirthday: birthday
-                            property string listItemDiagnosis: diagnosis
-
-
-                            Image {
-                                x: 14
-                                anchors.verticalCenter: parent.verticalCenter
-                                source: "Resources/Patient/patient.png"
-                            }
-                            Text {
-                                x: 52
-                                anchors.verticalCenter: parent.verticalCenter
-                                text: parent.listItemName
-                            }
-                            Text {
-                                x: 149.5
-                                anchors.verticalCenter: parent.verticalCenter
-                                text: parent.listItemSex
-                            }
-                            Text {
-                                x: 184
-                                anchors.verticalCenter: parent.verticalCenter
-                                text: patientDatabase.birthdayToAge(parent.listItemBirthday)
-                            }
-
-
-                            Column{
-                                id: infoEdit
-                                x: 238.7
-                                anchors.verticalCenter: parent.verticalCenter
-                                width: 16
-                                height: 18.9
-                                spacing: 4
-                                Rectangle{
-                                    anchors.horizontalCenter: parent.horizontalCenter
-                                    width: 4
-                                    height: 4
-                                    radius: 2
-                                    color: "#DDE2E7"
-                                }
-                                Rectangle{
-                                    anchors.horizontalCenter: parent.horizontalCenter
-                                    width: 4
-                                    height: 4
-                                    radius: 2
-                                    color: "#DDE2E7"
-                                }
-                                Rectangle{
-                                    anchors.horizontalCenter: parent.horizontalCenter
-                                    width: 4
-                                    height: 4
-                                    radius: 2
-                                    color: "#DDE2E7"
-                                }
-
-
-                            }
-                            MouseArea{
-                                anchors.fill: parent
-                                onPressed: {
-                                    listItemPatientInfo.color = "#0DAF9D"
-
-                                    updateCurrentPatientInfo(listItemPatientInfo.listItemID, listItemPatientInfo.listItemNum, listItemPatientInfo.listItemName, listItemPatientInfo.listItemSex, listItemPatientInfo.listItemBirthday, listItemPatientInfo.listItemDiagnosis)
-
-                                }
-
-
-                            }
-                            MouseArea{
-                                anchors.fill: infoEdit
-                                onPressed: {
-                                    console.log("edit info")
-                                }
-
-                            }
-
-                        }
-                    }
+                    delegate:listViewDelegate
 
 
                     ScrollBar.vertical: ScrollBar {
@@ -286,9 +303,9 @@ Item {
                         active: true
                     }
 
-                    onCurrentIndexChanged: {
-                                console.log("current index = ",currentIndex)
-                            }
+                    focus: true                    //可以用鼠标控制高亮位置
+                    keyNavigationWraps: true        //高亮到最后一个元素是否返回第一个元素
+                    highlightMoveVelocity: 1000    //高亮移动的速度
 
                 }
 
@@ -822,6 +839,8 @@ Item {
                                 pathItemCount: 5
                                 preferredHighlightBegin: 0.5
                                 preferredHighlightEnd: 0.5
+
+                                visible: false
                                 path: Path{
                                     startX: 0
                                     startY: -30
@@ -1048,5 +1067,7 @@ Item {
         currentPatientInfoBirthday = birthday
         currentPatientInfoDiagnosis = diagnosis
     }
+
+    Component.onCompleted:patientDatabase.queryByName("")
 
 }
