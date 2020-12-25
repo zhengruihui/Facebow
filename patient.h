@@ -17,6 +17,7 @@ public:
     Q_INVOKABLE QString insert(QString num, QString name, QString sex, QString birthday, QString diagnosis);            //出入数据
     Q_INVOKABLE bool searchByName(QString name);          //查询患者信息（关键字为名字）
     Q_INVOKABLE bool updateById(QString id, QString num, QString name, QString sex, QString birthday, QString diagnosis);  //更新
+    Q_INVOKABLE QString birthdayToAge(QString birthday);
     bool deleteById(int id);  //删除
     bool sortById();
 

@@ -44,7 +44,6 @@ Item {
 
 
 
-
     Rectangle {
         id: rootRectangle
         anchors.top: parent.top
@@ -177,6 +176,7 @@ Item {
                 }
 
 
+
                 ListView {
                     id: infoListView
                     anchors.top: infoRectangle.bottom
@@ -189,7 +189,7 @@ Item {
                     delegate: Column {
                         x: 20
                         Rectangle{
-                            id: currentPatient
+                            id: listItemPatientInfo
                             width: 265
                             height: 50
                             border.width: 1
@@ -197,12 +197,12 @@ Item {
                             color: "#FFFFFF"
                             radius: 5
 
-                            property string currentItemID : id
-                            property string currentItemNum : num
-                            property string currentItemName : name
-                            property string currentItemSex : sex
-                            property string currentItemBirthday : birthday
-                            property string currentItemDiagnosis : diagnosis
+                            property string listItemID: id
+                            property string listItemNum: num
+                            property string listItemName: name
+                            property string listItemSex: sex
+                            property string listItemBirthday: birthday
+                            property string listItemDiagnosis: diagnosis
 
 
                             Image {
@@ -213,17 +213,17 @@ Item {
                             Text {
                                 x: 52
                                 anchors.verticalCenter: parent.verticalCenter
-                                text: currentItemName
+                                text: parent.listItemName
                             }
                             Text {
                                 x: 149.5
                                 anchors.verticalCenter: parent.verticalCenter
-                                text: currentItemtSex
+                                text: parent.listItemSex
                             }
                             Text {
                                 x: 184
                                 anchors.verticalCenter: parent.verticalCenter
-                                text: currentItemBirthday
+                                text: patientDatabase.birthdayToAge(parent.listItemBirthday)
                             }
 
 
@@ -261,9 +261,9 @@ Item {
                             MouseArea{
                                 anchors.fill: parent
                                 onPressed: {
-                                    currentPatient.color = "#0DAF9D"
+                                    listItemPatientInfo.color = "#0DAF9D"
 
-                                    updateCurrentPatientInfo(currentItemID, currentItemNum, currentItemName, currentItemSex, currentItemBirthday, currentItemDiagnosis)
+                                    updateCurrentPatientInfo(listItemPatientInfo.listItemID, listItemPatientInfo.listItemNum, listItemPatientInfo.listItemName, listItemPatientInfo.listItemSex, listItemPatientInfo.listItemBirthday, listItemPatientInfo.listItemDiagnosis)
 
                                 }
 
@@ -333,10 +333,10 @@ Item {
                         onPressed: {
                             addPatient = false
 
-                            dialogID.text = currentPatientID.text
-                            dialogName.text = currentPatientName.text
-                            dialogBirthday.text = currentPatientBirthday.text
-                            dialogName.text = currentPatientName.text
+                            editDialog.dialogNum = currentPatientInfoNum
+                            editDialog.dialogName = currentPatientInfoName
+                            editDialog.dialogBirthday = currentPatientInfoBirthday
+                            editDialog.dialogSex = currentPatientInfoSex
 
                             editDialog.open()
                         }
@@ -538,8 +538,9 @@ Item {
 
 
                 TextField {
-                    id:idDiagnosis
+                    id: diagnosisID
                     placeholderText: qsTr("输入诊断信息")
+                    text: currentPatientInfoDiagnosis
                     x: 343
                     y: 416.5
 
@@ -560,13 +561,13 @@ Item {
 
                         }
 
-
-
-
-
                 }
 
 
+
+
+
+                //编辑对话框
 
                 Popup {
                     id: editDialog
@@ -577,20 +578,20 @@ Item {
                     bottomPadding: 0
                     leftPadding: 0
                     rightPadding: 0
-
-
                     focus: true
-
                     modal: true
-
                     closePolicy: Popup.NoAutoClose
-
                     enter: Transition {
                         NumberAnimation { property: "opacity"; from: 0.0; to: 1.0 }
                     }
                     exit: Transition {
                         NumberAnimation { property: "opacity"; from: 1.0; to: 0.0 }
                     }
+
+                    property alias dialogNum: dialogNumID.text
+                    property alias dialogBirthday: dialogBirthdayID.text
+                    property alias dialogName: dialogNameID.text
+                    property string dialogSex: qsTr("男")
 
 
 
@@ -634,7 +635,7 @@ Item {
 
                         }
                         TextField {
-                            id:dialogNum
+                            id: dialogNumID
                             placeholderText: qsTr("ID")
                             x: 125.5
                             anchors.verticalCenter: parent.verticalCenter
@@ -706,6 +707,7 @@ Item {
                                 }
                                 onPressed: {
                                     sexMaleChecked = true
+                                    editDialog.dialogSex = qsTr("男")
                                 }
 
                             }
@@ -728,6 +730,7 @@ Item {
                                 }
                                 onPressed: {
                                     sexMaleChecked = false
+                                    editDialog.dialogSex = qsTr("女")
                                 }
 
                             }
@@ -756,7 +759,7 @@ Item {
 
 
                         TextField {
-                            id:dialogBirthday
+                            id: dialogBirthdayID
                             placeholderText: qsTr("1975-11-12")
                             x: 125.5
                             anchors.verticalCenter: parent.verticalCenter
@@ -777,57 +780,57 @@ Item {
                                 radius: 3
 
                                 }
-//                            ListModel{
-//                                 id: listmodel_year
-//                                 ListElement{yname:"1970"}
-//                                 ListElement{yname:"1971"}
-//                                 ListElement{yname:"1972"}
-//                                 ListElement{yname:"1973"}
-//                                 ListElement{yname:"1974"}
-//                                 ListElement{yname:"1975"}
-//                                 ListElement{yname:"1976"}
-//                                 ListElement{yname:"1977"}
-//                                 ListElement{yname:"1978"}
-//                                 ListElement{yname:"1979"}
-//                                 ListElement{yname:"1980"}
-//                                 ListElement{yname:"1981"}
-//                                 ListElement{yname:"1982"}
-//                                 ListElement{yname:"1983"}
-//                                 ListElement{yname:"1984"}
+                            ListModel{
+                                 id: listmodel_year
+                                 ListElement{yname:"1970"}
+                                 ListElement{yname:"1971"}
+                                 ListElement{yname:"1972"}
+                                 ListElement{yname:"1973"}
+                                 ListElement{yname:"1974"}
+                                 ListElement{yname:"1975"}
+                                 ListElement{yname:"1976"}
+                                 ListElement{yname:"1977"}
+                                 ListElement{yname:"1978"}
+                                 ListElement{yname:"1979"}
+                                 ListElement{yname:"1980"}
+                                 ListElement{yname:"1981"}
+                                 ListElement{yname:"1982"}
+                                 ListElement{yname:"1983"}
+                                 ListElement{yname:"1984"}
 
 
-//                            }
-//                            Component{
-//                                id: com_delegate_year
-//                                Column{
-//                                    id: wrapper_year
-//                                    Text {
-//                                        id: nameText
-//                                        text: yname
-//                                        color: wrapper_year.PathView.isCurrentItem ? "#14c0f5" : "#dcdcdc"
-//                                    }
-//                                }
-//                            }
+                            }
+                            Component{
+                                id: com_delegate_year
+                                Column{
+                                    id: wrapper_year
+                                    Text {
+                                        id: nameText
+                                        text: yname
+                                        color: wrapper_year.PathView.isCurrentItem ? "#14c0f5" : "#dcdcdc"
+                                    }
+                                }
+                            }
 
-//                            PathView{
-//                                id: pathview_start_year
-//                                anchors.top: parent.bottom
-//                                width: parent.width
-//                                height: parent.height
-//                                model:listmodel_year
-//                                delegate: com_delegate_year
-//                                pathItemCount: 5
-//                                preferredHighlightBegin: 0.5
-//                                preferredHighlightEnd: 0.5
-//                                path: Path{
-//                                    startX: 0
-//                                    startY: -30
-//                                    PathLine{x:0; y:25}
-//                                    PathLine{x:0; y:45}
-//                                    PathLine{x:0; y:65}
-//                                }
+                            PathView{
+                                id: pathview_start_year
+                                anchors.top: parent.bottom
+                                width: parent.width
+                                height: parent.height
+                                model:listmodel_year
+                                delegate: com_delegate_year
+                                pathItemCount: 5
+                                preferredHighlightBegin: 0.5
+                                preferredHighlightEnd: 0.5
+                                path: Path{
+                                    startX: 0
+                                    startY: -30
+                                    PathLine{x:0; y:25}
+                                    PathLine{x:0; y:45}
+                                    PathLine{x:0; y:65}
+                                }
 
-//                            }
+                            }
 
 
 
@@ -855,7 +858,7 @@ Item {
 
                         }
                         TextField {
-                            id:dialogName
+                            id:dialogNameID
                             placeholderText: qsTr("Name")
                             x: 125.5
                             anchors.verticalCenter: parent.verticalCenter
@@ -913,19 +916,16 @@ Item {
 
                         }
                         onPressed: {
-                            currentPatientInfoNum = dialogNum.text
-                            currentPatientInfoName = dialogName.text
-                            currentPatientInfoSex = sexMaleChecked? qsTr("男") : qsTr("女")
-                            currentPatientInfoBirthday = dialogBirthday.text
 
                             if(addPatient)//添加
                             {
-                                currentPatientInfoID = patientDatabase.insert(currentPatientInfoNum, currentPatientInfoName, currentPatientInfoSex, currentPatientInfoBirthday, currentPatientInfoDiagnosis)
-                                updateCurrentPatientInfo(currentPatientInfoID, dialogNum.text, sexMaleChecked? qsTr("男") : qsTr("女"), dialogBirthday.text, currentPatientInfoDiagnosis);
+                                currentPatientInfoID = patientDatabase.insert(editDialog.dialogNum, editDialog.dialogName, editDialog.dialogSex, editDialog.dialogBirthday, diagnosisID.text)
+                                updateCurrentPatientInfo(currentPatientInfoID, editDialog.dialogNum, editDialog.dialogName, editDialog.dialogSex, editDialog.dialogBirthday, currentPatientInfoDiagnosis);
                             }
                             else //更新
                             {
-                                patientDatabase.updateById(currentPatientID.text, currentPatientID.text, currentPatientName.text, currentPatientSex.text, currentPatientBirthday.text, idDiagnosis.text)
+                                updateCurrentPatientInfo(currentPatientInfoID, editDialog.dialogNum, editDialog.dialogName, editDialog.dialogSex, editDialog.dialogBirthday, diagnosisID.text);
+                                patientDatabase.updateById(currentPatientInfoID, currentPatientInfoNum, currentPatientInfoName, currentPatientInfoSex, currentPatientInfoBirthday, currentPatientInfoDiagnosis)
                             }
 
                             editDialog.close()
@@ -1039,13 +1039,14 @@ Item {
 
     }
 
-    function updateCurrentPatientInfo(ID, num, name, sex, birthday)
+    function updateCurrentPatientInfo(ID, num, name, sex, birthday, diagnosis)
     {
         currentPatientInfoID = ID
         currentPatientInfoNum = num
         currentPatientInfoName = name
         currentPatientInfoSex = sex
         currentPatientInfoBirthday = birthday
+        currentPatientInfoDiagnosis = diagnosis
     }
 
 }

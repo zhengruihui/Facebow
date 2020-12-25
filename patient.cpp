@@ -7,7 +7,8 @@
 #include <QtDebug>
 #include <QSqlDriver>
 #include <QSqlRecord>
-
+#include <QList>
+#include <QDateTime>
 
 Patient::Patient()
 {
@@ -20,11 +21,11 @@ Patient::Patient()
         QSqlQuery query(db);
         bool success = query.exec("CREATE TABLE patients ("
                                   "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                                  "patientID VARCHAR(40) NOT NULL, "
-                                  "name VARCHAR(40) NOT NULL, "
-                                  "sex VARCHAR(40) NOT NULL, "
-                                  "birthday VARCHAR(40) NOT NULL, "
-                                  "diagnosis VARCHAR(40) NULL)");
+                                  "pID VARCHAR(40) NOT NULL, "
+                                  "pName VARCHAR(40) NOT NULL, "
+                                  "pSex VARCHAR(40) NOT NULL, "
+                                  "pBirthday VARCHAR(40) NOT NULL, "
+                                  "pDiagnosis VARCHAR(40) NULL)");
 
         if(success)
         {
@@ -78,15 +79,15 @@ QString Patient::insert(QString num, QString name, QString sex, QString birthday
     QSqlDatabase db = QSqlDatabase::database("connection1"); //建立数据库连接
     QSqlQuery query(db);
     QString ID;
-    query.prepare("INSERT INTO patients (patientID, name, sex, birthday, diagnosis) "
-                  "VALUES (:patientID, :name, :sex, :birthday, :diagnosis)");
+    query.prepare("INSERT INTO patients (pID, pName, pSex, pBirthday, pDiagnosis) "
+                  "VALUES (:pID, :pName, :pSex, :pBirthday, :pDiagnosis)");
 
 
-    query.bindValue(":patientID", num);
-    query.bindValue(":name", name);
-    query.bindValue(":sex", sex);
-    query.bindValue(":birthday", birthday);
-    query.bindValue(":diagnosis", diagnosis );
+    query.bindValue(":pID", num);
+    query.bindValue(":pName", name);
+    query.bindValue(":pSex", sex);
+    query.bindValue(":pBirthday", birthday);
+    query.bindValue(":pDiagnosis", diagnosis );
 
 
 
@@ -123,7 +124,7 @@ bool Patient::searchByName(QString name)
     QSqlDatabase db = QSqlDatabase::database("connection1"); //建立数据库连接
     QSqlQuery query(db);
 
-    QString command = "SELECT * FROM patients WHERE name Like ";
+    QString command = "SELECT * FROM patients WHERE pName Like ";
     command.append("'%" + name + "%'");
     query.exec(command);
 
@@ -157,7 +158,7 @@ bool Patient::updateById(QString id, QString num, QString name, QString sex, QSt
     QSqlDatabase db = QSqlDatabase::database("connection1"); //建立数据库连接
     QSqlQuery query(db);
 
-    QString command = QString("UPDATE patients SET patientID = '%1' , name = '%2' , sex = '%3' , birthday = '%4' , diagnosis = '%5' WHERE ID = %6")
+    QString command = QString("UPDATE patients SET pID= '%1' , pName = '%2' , pSex = '%3' , pBirthday = '%4' , pDiagnosis = '%5' WHERE ID = %6")
             .arg(num)
             .arg(name)
             .arg(sex)
@@ -178,6 +179,18 @@ bool Patient::updateById(QString id, QString num, QString name, QString sex, QSt
       qDebug() << lastError.driverText() << QString(QObject::tr("更新失败"));
     }
     return true;
+}
+
+QString Patient::birthdayToAge(QString birthday)
+{
+
+    QDateTime startDateTime = QDateTime::fromString(birthday, "yyyy-MM-dd");
+
+    QDateTime endDateTime = QDateTime::currentDateTime();
+
+    int year = (endDateTime.toTime_t() - startDateTime.toTime_t()) / (365*24*60*60);
+
+    return QString::number(year);
 }
 
 //排序
