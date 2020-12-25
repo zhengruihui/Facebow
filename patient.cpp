@@ -213,10 +213,6 @@ bool Patient::updateById(QString id, QString num, QString name, QString sex, QSt
             .arg(diagnosis)
             .arg(id);
 
-
-    qDebug() << command;
-
-
     bool success = query.exec(command);
 
 
@@ -235,7 +231,7 @@ QString Patient::birthdayToAge(QString birthday)
 
     QDateTime endDateTime = QDateTime::currentDateTime();
 
-    int year = (endDateTime.toTime_t() - startDateTime.toTime_t()) / (365*24*60*60);
+    int year = (endDateTime.toTime_t() - startDateTime.toTime_t()) / (365*24*60*60) + 1;
 
     return QString::number(year);
 }
