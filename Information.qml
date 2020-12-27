@@ -598,12 +598,12 @@ Item {
                     focus: true
                     modal: true
                     closePolicy: Popup.NoAutoClose
-                    enter: Transition {
-                        NumberAnimation { property: "opacity"; from: 0.0; to: 1.0 }
-                    }
-                    exit: Transition {
-                        NumberAnimation { property: "opacity"; from: 1.0; to: 0.0 }
-                    }
+//                    enter: Transition {
+//                        NumberAnimation { property: "opacity"; from: 0.0; to: 1.0 }
+//                    }
+//                    exit: Transition {
+//                        NumberAnimation { property: "opacity"; from: 1.0; to: 0.0 }
+//                    }
 
                     property alias dialogNum: dialogNumID.text
                     property alias dialogBirthday: dialogBirthdayID.text
