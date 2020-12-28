@@ -69,11 +69,11 @@ void SerialPort::readData()
         float x = list.at(0).toFloat();
         float y = list.at(1).toFloat();
         float z = list.at(2).toFloat();
-        float heading = list.at(3).toFloat();
-        float tilt = list.at(4).toFloat();
-        float roll = list.at(5).toFloat();
+        float ex = list.at(3).toFloat();
+        float ey = list.at(4).toFloat();
+        float ez = list.at(5).toFloat();
 
-        emit positionChanged(x, y, z, heading, tilt, roll);
+        emit positionChanged(x, y, z, ex, ey, ez);
 
         readBuffer.clear();
     }

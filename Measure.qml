@@ -1,7 +1,6 @@
 import QtQuick 2.15
 import QtQuick3D 1.15
 import QtQuick.Controls 2.14
-import SerialPort 1.0
 import QtGraphicalEffects 1.15
 
 Item {
@@ -447,15 +446,15 @@ Item {
         source: rootRectangle
     }
 
-    SerialPort{
-            onPositionChanged: {
-                skullModel2.x = x;
-                skullModel2.y = y+yOffset;
-                skullModel2.z = z;
-                skullModel2.eulerRotation.x = tilt;
-                skullModel2.eulerRotation.y = heading;
-                skullModel2.eulerRotation.z = roll;
-            }
+
+    function updatePosition(x, y, z, ex, ey, ez)
+    {
+        skullModel2.x = x;
+        skullModel2.y = y+yOffset;
+        skullModel2.z = z;
+        skullModel2.eulerRotation.x = ex;
+        skullModel2.eulerRotation.y = ey;
+        skullModel2.eulerRotation.z = ez;
     }
 
 }

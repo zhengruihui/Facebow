@@ -40,6 +40,8 @@ Item {
     property string currentPatientInfoBirthday
     property string currentPatientInfoDiagnosis
 
+    property int guideStep: 1
+
 
 
     Rectangle {
@@ -122,6 +124,7 @@ Item {
                         onTextEdited: editing = true;
                         onEditingFinished: editing = false;
                         onTextChanged: {
+                            infoListView.currentIndex = -1
                             patientInfo.clear()
                             patientDatabase.queryByName(inputField.text)
 
@@ -288,8 +291,6 @@ Item {
                     model: patientInfo
                     spacing: 10
                     currentIndex: -1
-
-                    property int listItemPressed
 
                     delegate:listViewDelegate
 
@@ -1063,6 +1064,13 @@ Item {
         currentPatientInfoSex = sex
         currentPatientInfoBirthday = birthday
     }
+
+    function updatePosition(x, y, z, ex, ey, ez)
+    {
+        patientDatabase.insertPosition(currentPatientInfoID, guideStep, x, y, z, ex, ey, ez)
+    }
+
+
 
     Component.onCompleted:{
         patientDatabase.queryByName("")

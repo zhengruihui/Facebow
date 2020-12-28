@@ -419,6 +419,12 @@ Window {
 
 
 
+    SerialPort{
+            onPositionChanged: {
+                measure.updatePosition(x, y, z, ex, ey, ez)
+                information.updatePosition(x, y, z, ex, ey, ez)
+            }
+    }
 
 
 
