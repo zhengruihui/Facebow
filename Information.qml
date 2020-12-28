@@ -30,10 +30,8 @@ Item {
 
     property int frontSize: 14
 
-
     property bool addPatient: false
     property bool sexMaleChecked: true
-
 
     property string currentPatientInfoID
     property string currentPatientInfoNum
@@ -128,6 +126,7 @@ Item {
                             patientDatabase.queryByName(inputField.text)
 
                         }
+
                     }
 
 
@@ -255,13 +254,9 @@ Item {
                            MouseArea{
                                anchors.fill: parent
                                onPressed: {
-                                   //listItemPatientInfo.color =  (infoListView.currentIndex != index)?  "#0DAF9D" : "#FFFFFF"
-
                                    infoListView.currentIndex = index
-
-
-                                   updateCurrentPatientInfo(listItemPatientInfo.listItemID, listItemPatientInfo.listItemNum, listItemPatientInfo.listItemName, listItemPatientInfo.listItemSex, listItemPatientInfo.listItemBirthday, listItemPatientInfo.listItemDiagnosis)
-
+                                   updateCurrentPatientInfo(listItemPatientInfo.listItemID, listItemPatientInfo.listItemNum, listItemPatientInfo.listItemName, listItemPatientInfo.listItemSex, listItemPatientInfo.listItemBirthday)
+                                   diagnosisID.text = listItemPatientInfo.listItemDiagnosis
                                }
 
 
@@ -292,6 +287,7 @@ Item {
                     height: parent.height - 100
                     model: patientInfo
                     spacing: 10
+                    currentIndex: -1
 
                     property int listItemPressed
 
@@ -532,7 +528,7 @@ Item {
                     font.pixelSize: frontSize
                 }
                 Text {
-                    text: qsTr("编辑")
+                    text: qsTr("保存")
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.rightMargin: 16
@@ -543,6 +539,7 @@ Item {
                         anchors.fill: parent
                         onPressed: {
 
+                            patientDatabase.updateDiagnosisById(currentPatientInfoID, diagnosisID.text)
                         }
 
                     }
@@ -938,13 +935,13 @@ Item {
 
                             if(addPatient)//添加
                             {
-                                currentPatientInfoID = patientDatabase.insert(editDialog.dialogNum, editDialog.dialogName, editDialog.dialogSex, editDialog.dialogBirthday, diagnosisID.text)
-                                updateCurrentPatientInfo(currentPatientInfoID, editDialog.dialogNum, editDialog.dialogName, editDialog.dialogSex, editDialog.dialogBirthday, currentPatientInfoDiagnosis);
+                                currentPatientInfoID = patientDatabase.insert(editDialog.dialogNum, editDialog.dialogName, editDialog.dialogSex, editDialog.dialogBirthday)
+                                updateCurrentPatientInfo(currentPatientInfoID, editDialog.dialogNum, editDialog.dialogName, editDialog.dialogSex, editDialog.dialogBirthday);
                             }
                             else //更新
                             {
-                                updateCurrentPatientInfo(currentPatientInfoID, editDialog.dialogNum, editDialog.dialogName, editDialog.dialogSex, editDialog.dialogBirthday, diagnosisID.text);
-                                patientDatabase.updateById(currentPatientInfoID, currentPatientInfoNum, currentPatientInfoName, currentPatientInfoSex, currentPatientInfoBirthday, currentPatientInfoDiagnosis)
+                                updateCurrentPatientInfo(currentPatientInfoID, editDialog.dialogNum, editDialog.dialogName, editDialog.dialogSex, editDialog.dialogBirthday);
+                                patientDatabase.updateById(currentPatientInfoID, currentPatientInfoNum, currentPatientInfoName, currentPatientInfoSex, currentPatientInfoBirthday)
                             }
 
                             editDialog.close()
@@ -1058,16 +1055,17 @@ Item {
 
     }
 
-    function updateCurrentPatientInfo(ID, num, name, sex, birthday, diagnosis)
+    function updateCurrentPatientInfo(ID, num, name, sex, birthday)
     {
         currentPatientInfoID = ID
         currentPatientInfoNum = num
         currentPatientInfoName = name
         currentPatientInfoSex = sex
         currentPatientInfoBirthday = birthday
-        currentPatientInfoDiagnosis = diagnosis
     }
 
-    Component.onCompleted:patientDatabase.queryByName("")
+    Component.onCompleted:{
+        patientDatabase.queryByName("")
+    }
 
 }
