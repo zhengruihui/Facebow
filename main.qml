@@ -369,7 +369,7 @@ Window {
         anchors.bottom: bottomBar.top
         anchors.left: leftBar.right
         anchors.right: rightBar.left
-        visible: true
+        visible: false
 
         onSearchUpdate: {
             console.log("name: ",name)
@@ -385,7 +385,7 @@ Window {
         anchors.bottom: bottomBar.top
         anchors.left: leftBar.right
         anchors.right: rightBar.left
-        visible: false
+        visible: true
     }
 
     Track{
@@ -422,7 +422,11 @@ Window {
     SerialPort{
             onPositionChanged: {
                 measure.updatePosition(x, y, z, ex, ey, ez)
-                information.updatePosition(x, y, z, ex, ey, ez)
+                if(measure.startMeasure)
+                {
+                    information.updatePosition(measure.guideStep, x, y, z, ex, ey, ez)
+                }
+
             }
     }
 

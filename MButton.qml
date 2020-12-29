@@ -34,8 +34,7 @@ Rectangle {
         id: img
         source: highlighted ? pressedImageUrl : normalImagelUrl
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: parent.top
-        anchors.topMargin: (parent.height-height)/2
+        y: haveText? (parent.height - img.height - t.height)/2 : (parent.height - img.height)/2
 
     }
     Text {
@@ -76,4 +75,5 @@ Rectangle {
 
 
     }
+
 }

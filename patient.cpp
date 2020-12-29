@@ -113,6 +113,7 @@ QString Patient::insert(QString num, QString name, QString sex, QString birthday
 
 }
 
+
 bool Patient::insertPosition(QString userID, QString step, QString x, QString y, QString z, QString ex, QString ey, QString ez)
 {
     QSqlQuery query(db);

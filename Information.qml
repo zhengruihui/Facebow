@@ -40,9 +40,6 @@ Item {
     property string currentPatientInfoBirthday
     property string currentPatientInfoDiagnosis
 
-    property int guideStep: 1
-
-
 
     Rectangle {
         id: rootRectangle
@@ -1065,7 +1062,7 @@ Item {
         currentPatientInfoBirthday = birthday
     }
 
-    function updatePosition(x, y, z, ex, ey, ez)
+    function updatePosition(guideStep, x, y, z, ex, ey, ez)
     {
         patientDatabase.insertPosition(currentPatientInfoID, guideStep, x, y, z, ex, ey, ez)
     }

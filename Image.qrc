@@ -42,5 +42,8 @@
         <file>Resources/Patient/PDF.png</file>
         <file>Resources/Patient/report.png</file>
         <file>Resources/Patient/search.png</file>
+        <file>Resources/assets/navigation/device_setting.png</file>
+        <file>Resources/assets/navigation/measure_setting.png</file>
+        <file>Resources/assets/navigation/play.png</file>
     </qresource>
 </RCC>

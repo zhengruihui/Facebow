@@ -12,7 +12,7 @@ Item {
 
     property int rightBarWidth: 130
 
-    property int centerBarWidth: 10
+    property int centerBarWidth: 20
 
     property var barColor: "#1f2026"
 
@@ -28,7 +28,10 @@ Item {
     property int yOffset: -15
 
     property int currentButtonID : 0
-    //anchors.fill: parent
+
+    property bool startMeasure: false
+    property int guideStep: 1
+
 
 
     Node {
@@ -164,6 +167,71 @@ Item {
             width: parent.width-2*borderWidth
             height:topBarHeight
             color: barColor
+            property bool modelPressed: true
+
+
+            Button{
+                x: 58
+                anchors.verticalCenter: parent.verticalCenter
+                width: 25
+                height: 25
+                background: Rectangle{
+                    color: "transparent"
+                    border.width: 0
+
+
+                }
+
+                Text {
+                    text: qsTr("模型")
+                    width: 16
+                    height: 17
+                    anchors.centerIn: parent
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    color: topBar.modelPressed? "#0DAF9D" : "#DEDEDE"
+                    font.pixelSize: 12
+                }
+
+                onPressed: {
+                    topBar.modelPressed = true;
+                    viewModel.visible = true
+                    view3D.visible = false
+                }
+
+            }
+
+
+            Button{
+                x: 100
+                anchors.verticalCenter: parent.verticalCenter
+                width: 25
+                height: 25
+                background: Rectangle{
+                    color: "transparent"
+                    border.width: 0
+
+
+                }
+
+                Text {
+                    text: qsTr("3D")
+                    width: 16
+                    height: 17
+                    anchors.centerIn: parent
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    color: topBar.modelPressed? "#DEDEDE" : "#0DAF9D"
+                    font.pixelSize: 12
+                }
+
+                onPressed: {
+                    topBar.modelPressed = false
+                    viewModel.visible = false
+                    view3D.visible = true
+                }
+
+            }
 
 
         }
@@ -175,6 +243,151 @@ Item {
             width: parent.width-2*borderWidth
             height:bottomBarHeight
             color: barColor
+
+
+            MButton{
+                id: playID
+                x: parent.width - 497
+                anchors.verticalCenter: parent.verticalCenter
+                width: 100
+                height: 50
+                normalImagelUrl: "Resources/assets/navigation/play.png"
+                pressedImageUrl: "Resources/assets/navigation/play.png"
+                text: qsTr("开始")
+                normalTextColor: "#DEDEDE"
+                pressedTextColor: "#0DAF9D"
+                hover:false
+                radius: 25
+                color: barColor
+
+                border.width: 2
+                border.color: "#26272C"
+
+                highlighted: startMeasure
+                onClicked: {
+                    startMeasure = !startMeasure
+                }
+
+            }
+
+            MButton{
+                id: measureSettingID
+                x: parent.width - 366.7
+                anchors.verticalCenter: parent.verticalCenter
+                width: 100
+                height: 50
+                normalImagelUrl: "Resources/assets/navigation/measure_setting.png"
+                pressedImageUrl: "Resources/assets/navigation/measure_setting.png"
+                text: qsTr("测量设置")
+                normalTextColor: "#DEDEDE"
+                pressedTextColor: "#0DAF9D"
+                hover:false
+                radius: 25
+                color: barColor
+
+                border.width: 2
+                border.color: "#26272C"
+
+                onClicked: {
+
+
+                }
+
+            }
+
+            MButton{
+                id: deviceSettingID
+                x: parent.width - 236.7
+                anchors.verticalCenter: parent.verticalCenter
+                width: 100
+                height: 50
+                normalImagelUrl: "Resources/assets/navigation/device_setting.png"
+                pressedImageUrl: "Resources/assets/navigation/device_setting.png"
+                text: qsTr("设备设置")
+                normalTextColor: "#DEDEDE"
+                pressedTextColor: "#0DAF9D"
+                hover:false
+                radius: 25
+                color: barColor
+
+                border.width: 2
+                border.color: "#26272C"
+
+                onClicked: {
+
+
+                }
+
+            }
+
+            DropShadow {
+                anchors.fill: playID
+                transparentBorder: true
+                horizontalOffset: -2
+                verticalOffset: 2
+                radius: 10
+                samples: 21
+                color: "#80000000"
+                spread: 0
+                source: playID
+            }
+            DropShadow {
+                anchors.fill: playID
+                transparentBorder: true
+                horizontalOffset: 1
+                verticalOffset: -1
+                radius: 10
+                samples: 21
+                color: "#80000000"
+                spread: 0
+                source: playID
+            }
+
+            DropShadow {
+                anchors.fill: measureSettingID
+                transparentBorder: true
+                horizontalOffset: -2
+                verticalOffset: 2
+                radius: 10
+                samples: 21
+                color: "#80000000"
+                spread: 0
+                source: measureSettingID
+            }
+            DropShadow {
+                anchors.fill: measureSettingID
+                transparentBorder: true
+                horizontalOffset: 1
+                verticalOffset: -1
+                radius: 10
+                samples: 21
+                color: "#80000000"
+                spread: 0
+                source: measureSettingID
+            }
+
+            DropShadow {
+                anchors.fill: deviceSettingID
+                transparentBorder: true
+                horizontalOffset: -2
+                verticalOffset: 2
+                radius: 10
+                samples: 21
+                color: "#80000000"
+                spread: 0
+                source: deviceSettingID
+            }
+            DropShadow {
+                anchors.fill: deviceSettingID
+                transparentBorder: true
+                horizontalOffset: 1
+                verticalOffset: -1
+                radius: 10
+                samples: 21
+                color: "#80000000"
+                spread: 0
+                source: deviceSettingID
+            }
 
         }
 
@@ -272,9 +485,9 @@ Item {
                     normalImagelUrl: "Resources/assets/skull/right.png"
                     pressedImageUrl: "Resources/assets/skull/right_sel.png"
 
-                    highlighted: view3DSkull.camera == cameraPerspectiveRight
+                    highlighted: viewModel.camera == cameraPerspectiveRight
                     onClicked: {
-                        view3DSkull.camera = cameraPerspectiveRight
+                        viewModel.camera = cameraPerspectiveRight
                     }
 
                 }
@@ -288,9 +501,9 @@ Item {
                     normalImagelUrl: "Resources/assets/skull/left.png"
                     pressedImageUrl: "Resources/assets/skull/left_sel.png"
 
-                    highlighted: view3DSkull.camera == cameraPerspectiveLeft
+                    highlighted: viewModel.camera == cameraPerspectiveLeft
                     onClicked: {
-                        view3DSkull.camera = cameraPerspectiveLeft
+                        viewModel.camera = cameraPerspectiveLeft
                     }
 
                 }
@@ -304,9 +517,9 @@ Item {
                     normalImagelUrl: "Resources/assets/skull/front.png"
                     pressedImageUrl: "Resources/assets/skull/front_sel.png"
 
-                    highlighted: view3DSkull.camera == cameraPerspectiveFront
+                    highlighted: viewModel.camera == cameraPerspectiveFront
                     onClicked: {
-                        view3DSkull.camera = cameraPerspectiveFront
+                        viewModel.camera = cameraPerspectiveFront
                     }
 
                 }
@@ -320,9 +533,9 @@ Item {
                     normalImagelUrl: "Resources/assets/skull/top.png"
                     pressedImageUrl: "Resources/assets/skull/top_sel.png"
 
-                    highlighted: view3DSkull.camera == cameraPerspectiveTop
+                    highlighted: viewModel.camera == cameraPerspectiveTop
                     onClicked: {
-                        view3DSkull.camera = cameraPerspectiveTop
+                        viewModel.camera = cameraPerspectiveTop
                     }
 
                 }
@@ -336,9 +549,9 @@ Item {
                     normalImagelUrl: "Resources/assets/skull/oblique.png"
                     pressedImageUrl: "Resources/assets/skull/oblique_sel.png"
 
-                    highlighted: view3DSkull.camera == cameraPerspectiveRightOblique
+                    highlighted: viewModel.camera == cameraPerspectiveRightOblique
                     onClicked: {
-                        view3DSkull.camera = cameraPerspectiveRightOblique
+                        viewModel.camera = cameraPerspectiveRightOblique
                     }
 
                 }
@@ -360,50 +573,263 @@ Item {
             width: rightBarWidth
             height: parent.height-2*borderWidth
             color: barColor
+            property int yOffset : 107
+
+            Rectangle{
+                id: guideStep1ID
+                anchors.horizontalCenter: parent.horizontalCenter
+                y: 60
+                width: 80
+                height: 88
+                color: barColor
+                MouseArea{
+                    anchors.fill: parent
+                    onPressed: {
+                        guideStep = 1
+                    }
+
+                }
+            }
+
+            Rectangle{
+                id: guideStep2ID
+                anchors.horizontalCenter: parent.horizontalCenter
+                y: 60+rightBar.yOffset
+                width: 80
+                height: 88
+                color: barColor
+                MouseArea{
+                    anchors.fill: parent
+                    onPressed: {
+                        guideStep = 2
+                    }
+
+                }
+            }
+
+            Rectangle{
+                id: guideStep3ID
+                anchors.horizontalCenter: parent.horizontalCenter
+                y: 60+2*rightBar.yOffset
+                width: 80
+                height: 88
+                color: barColor
+                MouseArea{
+                    anchors.fill: parent
+                    onPressed: {
+                        guideStep = 3
+                    }
+
+                }
+            }
+
+            Rectangle{
+                id: guideStep4ID
+                anchors.horizontalCenter: parent.horizontalCenter
+                y: 60+3*rightBar.yOffset
+                width: 80
+                height: 88
+                color: barColor
+                MouseArea{
+                    anchors.fill: parent
+                    onPressed: {
+                        guideStep = 4
+                    }
+
+                }
+            }
+
+            Rectangle{
+                id: guideStep5ID
+                anchors.horizontalCenter: parent.horizontalCenter
+                y: 60+4*rightBar.yOffset
+                width: 80
+                height: 88
+                color: barColor
+                MouseArea{
+                    anchors.fill: parent
+                    onPressed: {
+                        guideStep = 5
+                    }
+
+                }
+            }
+
+
+
+            DropShadow {
+                anchors.fill: guideStep1ID
+                transparentBorder: true
+                horizontalOffset: -2
+                verticalOffset: 2
+                radius: 10
+                samples: 21
+                color: "#80000000"
+                spread: 0
+                source: guideStep1ID
+            }
+            DropShadow {
+                anchors.fill: guideStep2ID
+                transparentBorder: true
+                horizontalOffset: -2
+                verticalOffset: 2
+                radius: 10
+                samples: 21
+                color: "#80000000"
+                spread: 0
+                source: guideStep2ID
+            }
+            DropShadow {
+                anchors.fill: guideStep3ID
+                transparentBorder: true
+                horizontalOffset: -2
+                verticalOffset: 2
+                radius: 10
+                samples: 21
+                color: "#80000000"
+                spread: 0
+                source: guideStep3ID
+            }
+            DropShadow {
+                anchors.fill: guideStep4ID
+                transparentBorder: true
+                horizontalOffset: -2
+                verticalOffset: 2
+                radius: 10
+                samples: 21
+                color: "#80000000"
+                spread: 0
+                source: guideStep4ID
+            }
+            DropShadow {
+                anchors.fill: guideStep5ID
+                transparentBorder: true
+                horizontalOffset: -2
+                verticalOffset: 2
+                radius: 10
+                samples: 21
+                color: "#80000000"
+                spread: 0
+                source: guideStep5ID
+            }
+
         }
 
-
-        View3D {
-            id: view3DSkull
+        Rectangle{
+            id: viewID
             anchors.top: topBar.bottom
             anchors.left: leftBar.right
             width: (parent.width-leftBarWidth-rightBarWidth-centerBarWidth)/2
             height: parent.height-topBarHeight-bottomBarHeight
-            camera: cameraPerspectiveRightOblique
-            importScene: standAloneScene
-            renderMode: View3D.Offscreen
+            color: "#ffffff"
 
 
-            environment: SceneEnvironment {
-                clearColor: "#949597"
-                backgroundMode: SceneEnvironment.Color
-            }
-
-            MouseArea{
+            View3D {
+                id: viewModel
                 anchors.fill: parent
-                onWheel: {
-                    var datl = wheel.angleDelta.y/120
+                camera: cameraPerspectiveRightOblique
+                importScene: standAloneScene
+                renderMode: View3D.Offscreen
+                visible: true
 
-                    if(datl>0){
-                        zoomFactor<zoomFactorMax?zoomFactor += 0.1:zoomFactor;
-                    }else{
-                        zoomFactor>zoomFactorMin?zoomFactor -= 0.1:zoomFactor;
-                    }
+
+
+
+
+                environment: SceneEnvironment {
+                    clearColor: "#ffffff"
+                    backgroundMode: SceneEnvironment.Color
 
                 }
 
+                MouseArea{
+                    anchors.fill: parent
+                    onWheel: {
+                        var datl = wheel.angleDelta.y/120
+
+                        if(datl>0){
+                            zoomFactor<zoomFactorMax?zoomFactor += 0.1:zoomFactor;
+                        }else{
+                            zoomFactor>zoomFactorMin?zoomFactor -= 0.1:zoomFactor;
+                        }
+
+                    }
+
+                }
             }
+
+
+            Rectangle {
+                id: view3D
+                anchors.fill: parent
+                color: "#ffffff"
+                visible: false
+
+            }
+
+
+        }
+
+
+
+
+
+        DropShadow {
+            anchors.fill: viewID
+            transparentBorder: true
+            horizontalOffset: -2
+            verticalOffset: 2
+            radius: 10
+            samples: 21
+            color: "#80000000"
+            spread: 0
+            source: viewID
+        }
+        DropShadow {
+            anchors.fill: viewID
+            transparentBorder: true
+            horizontalOffset: 1
+            verticalOffset: -1
+            radius: 10
+            samples: 21
+            color: "#80000000"
+            spread: 0
+            source: viewID
         }
 
 
 
 
         Rectangle{
+            id: guideStepID
             anchors.top: topBar.bottom
             anchors.right: rightBar.left
             width: (parent.width-leftBarWidth-rightBarWidth-centerBarWidth)/2
             height: parent.height-topBarHeight-bottomBarHeight
-            color: "#949597"
+            color: "#ffffff"
+
+        }
+        DropShadow {
+            anchors.fill: guideStepID
+            transparentBorder: true
+            horizontalOffset: -1
+            verticalOffset: 2
+            radius: 10
+            samples: 21
+            color: "#80000000"
+            spread: 0
+            source: guideStepID
+        }
+        DropShadow {
+            anchors.fill: guideStepID
+            transparentBorder: true
+            horizontalOffset: 1
+            verticalOffset: -1
+            radius: 10
+            samples: 21
+            color: "#80000000"
+            spread: 0
+            source: guideStepID
         }
 
 
