@@ -14,10 +14,9 @@ Item {
 
     property int centerBarWidth: 20
 
-    property var barColor: "#1f2026"
+    property var barColor: "#24242c"
 
     property int borderWidth: 4
-
 
 
     property var zoomFactor: 7
@@ -152,7 +151,7 @@ Item {
         width: parent.width
         height: parent.height
 
-        color: "#1f2026"
+        color: barColor
         border.width: borderWidth;
         border.color: "transparent";
         radius: 6
@@ -258,7 +257,7 @@ Item {
                 pressedTextColor: "#0DAF9D"
                 hover:false
                 radius: 25
-                color: barColor
+                color: "#454449"
 
                 border.width: 2
                 border.color: "#26272C"
@@ -283,7 +282,7 @@ Item {
                 pressedTextColor: "#0DAF9D"
                 hover:false
                 radius: 25
-                color: barColor
+                color: "#454449"
 
                 border.width: 2
                 border.color: "#26272C"
@@ -308,7 +307,7 @@ Item {
                 pressedTextColor: "#0DAF9D"
                 hover:false
                 radius: 25
-                color: barColor
+                color: "#454449"
 
                 border.width: 2
                 border.color: "#26272C"
@@ -320,74 +319,74 @@ Item {
 
             }
 
-            DropShadow {
-                anchors.fill: playID
-                transparentBorder: true
-                horizontalOffset: -2
-                verticalOffset: 2
-                radius: 10
-                samples: 21
-                color: "#80000000"
-                spread: 0
-                source: playID
-            }
-            DropShadow {
-                anchors.fill: playID
-                transparentBorder: true
-                horizontalOffset: 1
-                verticalOffset: -1
-                radius: 10
-                samples: 21
-                color: "#80000000"
-                spread: 0
-                source: playID
-            }
+//            DropShadow {
+//                anchors.fill: playID
+//                transparentBorder: true
+//                horizontalOffset: -2
+//                verticalOffset: 2
+//                radius: 10
+//                samples: 21
+//                color: "#80000000"
+//                spread: 0
+//                source: playID
+//            }
+//            DropShadow {
+//                anchors.fill: playID
+//                transparentBorder: true
+//                horizontalOffset: 1
+//                verticalOffset: -1
+//                radius: 10
+//                samples: 21
+//                color: "#80000000"
+//                spread: 0
+//                source: playID
+//            }
 
-            DropShadow {
-                anchors.fill: measureSettingID
-                transparentBorder: true
-                horizontalOffset: -2
-                verticalOffset: 2
-                radius: 10
-                samples: 21
-                color: "#80000000"
-                spread: 0
-                source: measureSettingID
-            }
-            DropShadow {
-                anchors.fill: measureSettingID
-                transparentBorder: true
-                horizontalOffset: 1
-                verticalOffset: -1
-                radius: 10
-                samples: 21
-                color: "#80000000"
-                spread: 0
-                source: measureSettingID
-            }
+//            DropShadow {
+//                anchors.fill: measureSettingID
+//                transparentBorder: true
+//                horizontalOffset: -2
+//                verticalOffset: 2
+//                radius: 10
+//                samples: 21
+//                color: "#80000000"
+//                spread: 0
+//                source: measureSettingID
+//            }
+//            DropShadow {
+//                anchors.fill: measureSettingID
+//                transparentBorder: true
+//                horizontalOffset: 1
+//                verticalOffset: -1
+//                radius: 10
+//                samples: 21
+//                color: "#80000000"
+//                spread: 0
+//                source: measureSettingID
+//            }
 
-            DropShadow {
-                anchors.fill: deviceSettingID
-                transparentBorder: true
-                horizontalOffset: -2
-                verticalOffset: 2
-                radius: 10
-                samples: 21
-                color: "#80000000"
-                spread: 0
-                source: deviceSettingID
-            }
-            DropShadow {
-                anchors.fill: deviceSettingID
-                transparentBorder: true
-                horizontalOffset: 1
-                verticalOffset: -1
-                radius: 10
-                samples: 21
-                color: "#80000000"
-                spread: 0
-                source: deviceSettingID
-            }
+//            DropShadow {
+//                anchors.fill: deviceSettingID
+//                transparentBorder: true
+//                horizontalOffset: -2
+//                verticalOffset: 2
+//                radius: 10
+//                samples: 21
+//                color: "#80000000"
+//                spread: 0
+//                source: deviceSettingID
+//            }
+//            DropShadow {
+//                anchors.fill: deviceSettingID
+//                transparentBorder: true
+//                horizontalOffset: 1
+//                verticalOffset: -1
+//                radius: 10
+//                samples: 21
+//                color: "#80000000"
+//                spread: 0
+//                source: deviceSettingID
+//            }
 
         }
 
@@ -721,7 +720,7 @@ Item {
             anchors.left: leftBar.right
             width: (parent.width-leftBarWidth-rightBarWidth-centerBarWidth)/2
             height: parent.height-topBarHeight-bottomBarHeight
-            color: "#ffffff"
+            color: "#454449"
 
 
             View3D {
@@ -737,7 +736,7 @@ Item {
 
 
                 environment: SceneEnvironment {
-                    clearColor: "#ffffff"
+                    clearColor: "#454449"
                     backgroundMode: SceneEnvironment.Color
 
                 }
@@ -762,7 +761,7 @@ Item {
             Rectangle {
                 id: view3D
                 anchors.fill: parent
-                color: "#ffffff"
+                color: "#454449"
                 visible: false
 
             }
@@ -774,29 +773,6 @@ Item {
 
 
 
-        DropShadow {
-            anchors.fill: viewID
-            transparentBorder: true
-            horizontalOffset: -2
-            verticalOffset: 2
-            radius: 10
-            samples: 21
-            color: "#80000000"
-            spread: 0
-            source: viewID
-        }
-        DropShadow {
-            anchors.fill: viewID
-            transparentBorder: true
-            horizontalOffset: 1
-            verticalOffset: -1
-            radius: 10
-            samples: 21
-            color: "#80000000"
-            spread: 0
-            source: viewID
-        }
-
 
 
 
@@ -806,30 +782,8 @@ Item {
             anchors.right: rightBar.left
             width: (parent.width-leftBarWidth-rightBarWidth-centerBarWidth)/2
             height: parent.height-topBarHeight-bottomBarHeight
-            color: "#ffffff"
+            color: "#454449"
 
-        }
-        DropShadow {
-            anchors.fill: guideStepID
-            transparentBorder: true
-            horizontalOffset: -1
-            verticalOffset: 2
-            radius: 10
-            samples: 21
-            color: "#80000000"
-            spread: 0
-            source: guideStepID
-        }
-        DropShadow {
-            anchors.fill: guideStepID
-            transparentBorder: true
-            horizontalOffset: 1
-            verticalOffset: -1
-            radius: 10
-            samples: 21
-            color: "#80000000"
-            spread: 0
-            source: guideStepID
         }
 
 

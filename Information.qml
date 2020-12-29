@@ -16,7 +16,7 @@ Item {
     property int rightBarWidth: 130
     property int centerBarWidth: 10
 
-    property var barColor: "#1f2026"
+    property var barColor: "#24242c"
     property int borderWidth: 4
 
     property var zoomFactor: 7

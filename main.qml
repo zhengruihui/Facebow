@@ -12,8 +12,8 @@ Window {
     property int bottomBarHeight: 15
     property int leftBarWidth: 80
     property int rightBarWidth: 50
-    property var menuBarColor: "#1f2026"
-    property int currentPage: 1
+    property var menuBarColor: "#24242c"
+    property int currentPage: 2
     property int currentButton: 1
     property bool normalWindow: true
 
