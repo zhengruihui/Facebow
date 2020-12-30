@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
     app.setApplicationName("Facebow");
     app.setApplicationVersion("0.1");
 
-    MainWidget widget;
+    GLWidget widget;
     widget.show();
 
     return app.exec();

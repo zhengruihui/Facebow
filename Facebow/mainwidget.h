@@ -5,13 +5,13 @@
 #include <QOpenGLWidget>
 
 
-class MainWidget : public QOpenGLWidget
+class GLWidget : public QOpenGLWidget
 {
     Q_OBJECT
 
 public:
     using QOpenGLWidget::QOpenGLWidget;
-    ~MainWidget();
+    ~GLWidget();
 
 protected:
 

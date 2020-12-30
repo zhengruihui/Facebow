@@ -1,9 +1,16 @@
 #include "mainwidget.h"
-#include <GL/glu.h>
 
+#ifdef WINDOWS
+    #include <GL/glu.h>
+#else
+    #include <OpenGL/gl.h>
+    #include <OpenGL/glu.h>
+    #include <GLUT/glut.h>
+#endif
 
-MainWidget::~MainWidget()
+GLWidget::~GLWidget()
 {
+
 
 }
 
@@ -14,7 +21,7 @@ MainWidget::~MainWidget()
 
 
 
-void MainWidget::initializeGL()
+void GLWidget::initializeGL()
 {
 
     glClearColor(0, 0, 0, 1);
@@ -36,7 +43,7 @@ void MainWidget::initializeGL()
 
 
 
-void MainWidget::resizeGL(int w, int h)
+void GLWidget::resizeGL(int w, int h)
 {
 
 
@@ -47,9 +54,9 @@ void MainWidget::resizeGL(int w, int h)
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
 }
-//! [5]
 
-void MainWidget::paintGL()
+
+void GLWidget::paintGL()
 {
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
