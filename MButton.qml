@@ -59,7 +59,7 @@ Rectangle {
         onEntered: {
             if(hover)
             {
-                root.color = "grey"
+                root.color = "#454449"
             }
 
         }

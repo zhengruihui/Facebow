@@ -3,6 +3,7 @@ import QtQuick3D 1.15
 import QtQuick.Controls 2.14
 import QtGraphicalEffects 1.15
 
+
 Item {
     property int topBarHeight: 40
 
@@ -758,11 +759,16 @@ Item {
             }
 
 
-            Rectangle {
+            Canvas {
                 id: view3D
                 anchors.fill: parent
-                color: "#454449"
+                //color: "#454449"
                 visible: false
+                onPaint: {
+                    var ctx = getContext("2d");
+                    ctx.fillStyle = Qt.rgba(1, 0, 0, 1);
+                    ctx.fillRect(0, 0, width/2, height/2);
+                }
 
             }
 
