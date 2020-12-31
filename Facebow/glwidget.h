@@ -1,6 +1,5 @@
-#ifndef MAINWIDGET_H
-#define MAINWIDGET_H
-
+#ifndef QLWIDGET_H
+#define QLWIDGET_H
 
 #include <QOpenGLWidget>
 #include <QOpenGLExtraFunctions>
@@ -9,25 +8,25 @@
 #include <QOpenGLShaderProgram>
 
 
+namespace Ui {
+class QLWidget;
+}
 
 class GLWidget : public QOpenGLWidget , protected QOpenGLExtraFunctions
 {
     Q_OBJECT
 
 public:
-    using QOpenGLWidget::QOpenGLWidget;
+    explicit GLWidget(QWidget *parent = nullptr);
     ~GLWidget();
 
 protected:
-
-
     void initializeGL() override;
     void resizeGL(int w, int h) override;
     void paintGL() override;
 
-
 private:
-
+    Ui::QLWidget *ui;
 };
 
-#endif // MAINWIDGET_H
+#endif // QLWIDGET_H

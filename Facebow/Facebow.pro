@@ -1,24 +1,27 @@
-QT       += core gui widgets
+QT       += core gui
 
-TARGET = Facebow
-TEMPLATE = app
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-SOURCES += main.cpp
+CONFIG += c++11
+
+# You can make your code fail to compile if it uses deprecated APIs.
+# In order to do so, uncomment the following line.
+#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    mainwidget.cpp
+    glwidget.cpp \
+    main.cpp \
+    mainwindow.cpp
 
 HEADERS += \
-    mainwidget.h
+    glwidget.h \
+    mainwindow.h
 
+FORMS += \
+    glwidget.ui \
+    mainwindow.ui
 
-
-
-win32{
-    DEFINES += WINDOWS
-    LIBS += -lOpengl32 -lglu32
-}
-unix{
-    LIBS += -framework opengl -framework glut
-}
-
+# Default rules for deployment.
+qnx: target.path = /tmp/$${TARGET}/bin
+else: unix:!android: target.path = /opt/$${TARGET}/bin
+!isEmpty(target.path): INSTALLS += target
