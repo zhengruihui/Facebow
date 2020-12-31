@@ -3,9 +3,14 @@
 
 
 #include <QOpenGLWidget>
+#include <QOpenGLExtraFunctions>
+#include <QOpenGLFunctions_3_3_Core>
+#include <QOpenGLShader>
+#include <QOpenGLShaderProgram>
 
 
-class GLWidget : public QOpenGLWidget
+
+class GLWidget : public QOpenGLWidget , protected QOpenGLExtraFunctions
 {
     Q_OBJECT
 
