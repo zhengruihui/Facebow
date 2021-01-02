@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -14,36 +14,20 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
-<<<<<<< HEAD
     glwidget.h \
     mainwindow.h
-=======
-    mainwidget.h
-
-RESOURCES += \
-    shaders.qrc \
-    textures.qrc
-
-# install
-target.path = $$[QT_INSTALL_EXAMPLES]/opengl/cube
-INSTALLS += target
->>>>>>> parent of 88bafca... 搭建好跨平台opengl
 
 FORMS += \
     glwidget.ui \
     mainwindow.ui
 
-<<<<<<< HEAD
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
-=======
-win32:LIBS += -lOpengl32 \
-              -lglu32
-
-unix:LIBS += -lglut -lGLU
->>>>>>> parent of 88bafca... 搭建好跨平台opengl
 
 RESOURCES += \
-    Image.qrc
+    Image.qrc \
+    Shader.qrc \
+    Texture.qrc
+

@@ -1,25 +1,42 @@
 #include "glwidget.h"
 #include "ui_glwidget.h"
 #include "QImage"
+#include <QMouseEvent>
 
 
-const char *vertexShaderSource = "#version 330 core\n"
-    "layout (location = 0) in vec3 aPos;\n"
-    "layout (location = 1) in vec3 aColor;\n"
-    "out vec3 ourColor;\n"
-    "void main()\n"
-    "{\n"
-    "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-    "   ourColor = aColor;\n"
-    "}\0";
+const GLfloat VERTEX_DATA[] = {
+       //face 1
+       -0.5f, 0.0f, -0.2887f,
+       0.5f, 0.0f, -0.2887f,
+       0.0f, 0.0f, 0.5774f,
+       //face 2
+       -0.5f, 0.0f, -0.2887f,
+       0.5f, 0.0f, -0.2887f,
+       0.0f, 0.8165f, 0.0f,
+       //face 3
+       -0.5f, 0.0f, -0.2887f,
+       0.0f, 0.0f, 0.5774f,
+       0.0f, 0.8165f, 0.0f,
+       //face 4
+       0.5f, 0.0f, -0.2887f,
+       0.0f, 0.0f, 0.5774f,
+       0.0f, 0.8165f, 0.0f,
+};
 
-const char *fragmentShaderSource = "#version 330 core\n"
-    "out vec4 FragColor;\n"
-    "in vec3 ourColor;\n"
-    "void main()\n"
-    "{\n"
-    "   FragColor = vec4(ourColor, 1.0f);\n"
-    "}\n\0";
+const GLfloat COLOR_DATA[] = {
+    1.0f, 0.0f, 0.0f,
+    1.0f, 0.0f, 0.0f,
+    1.0f, 0.0f, 0.0f,
+    0.0f, 1.0f, 0.0f,
+    0.0f, 1.0f, 0.0f,
+    0.0f, 1.0f, 0.0f,
+    0.0f, 0.0f, 1.0f,
+    0.0f, 0.0f, 1.0f,
+    0.0f, 0.0f, 1.0f,
+    1.0f, 0.0f, 1.0f,
+    1.0f, 0.0f, 1.0f,
+    1.0f, 0.0f, 1.0f,
+};
 
 GLWidget::GLWidget(QWidget *parent) :
     QOpenGLWidget(parent),
@@ -33,10 +50,96 @@ GLWidget::~GLWidget()
     delete ui;
 }
 
+void GLWidget::mousePressEvent(QMouseEvent *e)
+{
+    timer.start(12, this);
+    mousePressPosition = QVector2D(e->localPos());
+}
+
+void GLWidget::mouseReleaseEvent(QMouseEvent *e)
+{
+    // Mouse release position - mouse press position
+    QVector2D diff = QVector2D(e->localPos()) - mousePressPosition;
+
+    // Rotation axis is perpendicular to the mouse position difference
+    // vector
+    QVector3D n = QVector3D(diff.y(), diff.x(), 0.0).normalized();
+
+    // Accelerate angular speed relative to the length of the mouse sweep
+    qreal acc = diff.length() / 100.0;
+
+    // Calculate new rotation axis as weighted sum
+    rotationAxis = (rotationAxis * angularSpeed + n * acc).normalized();
+
+    // Increase angular speed
+    angularSpeed += acc;
+    timer.stop();
+
+}
+
+void GLWidget::timerEvent(QTimerEvent *)
+{
+    // Decrease angular speed (friction)
+    angularSpeed *= 0.99;
+
+    // Stop rotation when speed goes below threshold
+    if (angularSpeed < 0.01) {
+        angularSpeed = 0.0;
+    } else {
+        // Update rotation
+        rotation = QQuaternion::fromAxisAndAngle(rotationAxis, angularSpeed) * rotation;
+
+        // Request an update
+        update();
+    }
+
+}
 
 void GLWidget::initializeGL()
 {
-    initializeOpenGLFunctions();
+    m_shader = new QOpenGLShaderProgram();
+    m_shader->addShaderFromSourceFile(QOpenGLShader::Vertex, ":/Shader/vshader.glsl");
+    m_shader->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/Shader/fshader.glsl");
+    if (m_shader->link()) {
+        qDebug("Shaders link success.");
+    } else {
+        qDebug("Shaders link failed!");
+    }
+    m_shader->bind();
+
+    m_vao = new QOpenGLVertexArrayObject();
+    m_vao->create();
+    m_vao->bind();
+
+
+    m_vbo = new QOpenGLBuffer(QOpenGLBuffer::Type::VertexBuffer);
+    m_vbo->create();
+    m_vbo->bind();
+    m_vbo->allocate(VERTEX_DATA, 4*3*3* sizeof(GLfloat));
+
+    glFunction = context()->functions();
+    glFunction->glEnableVertexAttribArray(0);
+    glFunction->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(GLfloat), 0);
+    m_vbo->release();
+
+
+
+
+    m_cbo = new QOpenGLBuffer(QOpenGLBuffer::Type::VertexBuffer);
+    m_cbo->create();
+    m_cbo->bind();
+    m_cbo->allocate(COLOR_DATA, 4*3*3* sizeof(GLfloat));
+
+
+    glFunction = context()->functions();
+    glFunction->glEnableVertexAttribArray(1);
+    glFunction->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3*sizeof(GLfloat), 0);
+    m_cbo->release();
+
+
+    m_vao->release();
+
+
 }
 
 
@@ -44,90 +147,36 @@ void GLWidget::initializeGL()
 
 void GLWidget::resizeGL(int w, int h)
 {
+    aspectRatio = (float)w/h;
+
+    // Reset projection
+    projection.setToIdentity();
+
+    // Set perspective projection
+    projection.perspective(45.0f, aspectRatio, 1.1f, 100.0f);
 
 }
 
 
 void GLWidget::paintGL()
 {
-    //vertex shader - 编译顶点流处理器
-    unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-    glCompileShader(vertexShader);
+    glFunction = context()->functions();
+    glFunction->glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+    glFunction->glClearColor(0.0f, 0.2f, 0.0f, 1.0f);
 
 
-    // fragment shader - 编译片段流处理器
-    unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-    glCompileShader(fragmentShader);
+    m_vao->bind();
+    m_shader->bind();
+    QMatrix4x4 matrix;
 
+    matrix.translate(0.0, 0.0, -5.0);
+    matrix.rotate(rotation);
+    matrix.scale(2);
+    m_shader->setUniformValue(m_shader->uniformLocation("MVP"), projection*matrix);
 
-    // shader program  - 将着色器连接到着色器处理程序
-    unsigned int shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-    glLinkProgram(shaderProgram);
+    glFunction->glDrawArrays(GL_TRIANGLES, 0, 12);
 
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
-
-    /*准备数据并*/
-    float vertices[] = {
-        // 位置              // 颜色
-         0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // 右下
-        -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // 左下
-         0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // 顶部
-    };
-
-    unsigned int VAO;
-    glGenVertexArrays(1, &VAO);
-    glBindVertexArray(VAO);
-
-
-    unsigned int VBO;
-    glGenBuffers(1, &VBO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-
-    //指定输入数据的哪一个部分对应顶点着色器的哪一个顶点属性
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
-
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3* sizeof(float)));
-    glEnableVertexAttribArray(1);
-
-
-//    QImage *image = new QImage("Person.jpg");
-//    unsigned char *data = image->bits();
-//    int width = image->width();
-//    int height = image->height();
-
-
-//    unsigned int texture;
-//    glGenTextures(1, &texture);
-//    glBindTexture(GL_TEXTURE_2D, texture);
-//    // 为当前绑定的纹理对象设置环绕、过滤方式
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-//    // 加载并生成纹理
-
-//    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-//    glGenerateMipmap(GL_TEXTURE_2D);
-
-
-
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
-
-
-    glUseProgram(shaderProgram);
-
-    glDrawArrays(GL_TRIANGLES, 0, 3);
-
-
+    m_shader->release();
+    m_vao->release();
 
 }
