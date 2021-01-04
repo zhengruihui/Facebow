@@ -1,5 +1,9 @@
-cmake -G "MinGW Makefiles" -DENABLE_BOOST_WORKAROUND=ON -DBUILD_STATIC_LIB=ON -DCMAKE_RC_COMPILER=C:/APP/Qt/Tools/mingw810_64/bin/windres.exe -DCMAKE_MAKE_PROGRAM=C:/APP/Qt/Tools/mingw810_64/bin/mingw32-make.exe -DCMAKE_LFLAGS=-static -DCMAKE_LFLAGS_DLL=-static -DDX9_INCLUDE_PATH=C:/APP/Qt/Tools/mingw810_64/x86_64-w64-mingw32/include -DD3D9_LIBRARY=C:/APP/Qt/Tools/mingw810_64/x86_64-w64-mingw32/lib/libd3d9.a -DD3DX9_LIBRARY=C:/APP/Qt/Tools/mingw810_64/x86_64-w64-mingw32/lib/libd3dx9.a .
+cmake -G "MinGW Makefiles" -DENABLE_BOOST_WORKAROUND=ON -DBUILD_STATIC_LIB=ON -DCMAKE_RC_COMPILER=C:/APP/Qt/Tools/mingw730_64/bin/windres.exe -DCMAKE_MAKE_PROGRAM=C:/APP/Qt/Tools/mingw730_64/bin/mingw32-make.exe -DCMAKE_LFLAGS=-static -DCMAKE_LFLAGS_DLL=-static -DDX9_INCLUDE_PATH=C:/APP/Qt/Tools/mingw730_64/x86_64-w64-mingw32/include -DD3D9_LIBRARY=C:/APP/Qt/Tools/mingw730_64/x86_64-w64-mingw32/lib/libd3d9.a -DD3DX9_LIBRARY=C:/APP/Qt/Tools/mingw730_64/x86_64-w64-mingw32/lib/libd3dx9.a .
 
 
 C:/APP/Qt/Tools/mingw810_64/bin
+
 C:/APP/Qt/Tools/mingw810_64/x86_64-w64-mingw32
+
+C:/APP/Qt/Tools/mingw730_64/bin
+C:/APP/Qt/Tools/mingw730_64/x86_64-w64-mingw32
