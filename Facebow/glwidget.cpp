@@ -1,6 +1,6 @@
 #include "glwidget.h"
 #include "ui_glwidget.h"
-#include "QImage"
+
 
 
 GLWidget::GLWidget(QWidget *parent) :
@@ -10,45 +10,9 @@ GLWidget::GLWidget(QWidget *parent) :
     ui->setupUi(this);
 
     node = new Node();
-    node->loadObjModel(":/Model/skull.obj");
+    //node->loadObjModel(":/Model/skull.obj");
 
-    const GLfloat VERTEX_INIT_DATA[] = {
-           //face 1
-           -0.5f, 0.0f, -0.2887f,
-           0.5f, 0.0f, -0.2887f,
-           0.0f, 0.0f, 0.5774f,
-           //face 2
-           -0.5f, 0.0f, -0.2887f,
-           0.5f, 0.0f, -0.2887f,
-           0.0f, 0.8165f, 0.0f,
-           //face 3
-           -0.5f, 0.0f, -0.2887f,
-           0.0f, 0.0f, 0.5774f,
-           0.0f, 0.8165f, 0.0f,
-           //face 4
-           0.5f, 0.0f, -0.2887f,
-           0.0f, 0.0f, 0.5774f,
-           0.0f, 0.8165f, 0.0f,
-       };
-    const GLfloat COLOR_INIT_DATA[] = {
-        1.0f, 0.0f, 0.0f,
-        1.0f, 0.0f, 0.0f,
-        1.0f, 0.0f, 0.0f,
-        0.0f, 1.0f, 0.0f,
-        0.0f, 1.0f, 0.0f,
-        0.0f, 1.0f, 0.0f,
-        0.0f, 0.0f, 1.0f,
-        0.0f, 0.0f, 1.0f,
-        0.0f, 0.0f, 1.0f,
-        1.0f, 0.0f, 1.0f,
-        1.0f, 0.0f, 1.0f,
-        1.0f, 0.0f, 1.0f,
-       };
-    memcpy(this->vertexData, VERTEX_INIT_DATA, sizeof(this->vertexData));
-    memcpy(this->colorBuffer, COLOR_INIT_DATA, sizeof(this->colorBuffer));
-
-
-
+    node->loadStlModel(":/Model/skull.stl");
 }
 
 GLWidget::~GLWidget()
@@ -84,11 +48,9 @@ void GLWidget::initializeGL()
 //    f->glEnableVertexAttribArray(0);
 //    f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,4*sizeof(GLfloat), 0);
 
-    QVector<float> mv = node->getVertexVector("Group53615");
-
-    m_vbo->allocate(mv.data(), mv.size() * sizeof(GLfloat));
+    m_vbo->allocate(node->getVertexVector("skull").data(), node->getVertexVector("skull").size() * sizeof(GLfloat));
     f->glEnableVertexAttribArray(0);
-    f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,4*sizeof(GLfloat), 0);
+    f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,3*sizeof(GLfloat), 0);
     m_vbo->release();
 
 //    m_cbo->create();
@@ -108,8 +70,6 @@ void GLWidget::initializeGL()
 void GLWidget::resizeGL(int w, int h)
 {
     aspectRatio = (float)w/h;
-
-
 }
 
 
@@ -125,11 +85,9 @@ void GLWidget::paintGL()
     mvp.lookAt(QVector3D(0.0f, 3.0f, 0.0f),
                QVector3D(0.0f, 0.0f, 0.0f),
                QVector3D(1.0f, 0.0f, 0.0f));
-    mvp.scale(0.01);
+    mvp.scale(0.04);
     m_shader->setUniformValue(m_shader->uniformLocation("MVP"), mvp);
-    //f->glDrawArrays(GL_TRIANGLES, 0, 12);
-
-    f->glDrawArrays(GL_QUADS, 0, node->getVertexVector("Group53615").size()/4);
+    f->glDrawArrays(GL_TRIANGLES, 0, node->getVertexVector("skull").size());
     m_shader->release();
     m_vao->release();
 }

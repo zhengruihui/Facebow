@@ -39,8 +39,7 @@ private:
     QOpenGLBuffer *m_vbo, *m_cbo;
     QOpenGLVertexArrayObject *m_vao;
     QOpenGLShaderProgram *m_shader;
-    GLfloat colorBuffer[4 * 3 *3];
-    GLfloat vertexData[4 * 3 * 3];
+
 
     float aspectRatio;
 

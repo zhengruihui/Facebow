@@ -33,6 +33,7 @@ struct Model
     QVector<float> vertexVector;
     QVector<float> normalVector;
     QVector<float> uvVector;
+
 };
 
 class Node
@@ -40,6 +41,7 @@ class Node
 public:
     Node();
     void loadObjModel(QString fileName);
+    void loadStlModel(QString fileName);
     QVector<struct Model*> modelVector;
 
     QVector<float> getVertexVector(QString modelName);

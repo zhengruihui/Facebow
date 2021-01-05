@@ -6,5 +6,5 @@ out vec4 cols;
 void main()
 {
   gl_Position = MVP * vec4(posVertex, 1.0f);
-  cols = vec4(1.0f, 0.0f, 0.0f, 1.0f);
+  cols = vec4(1.0f, 0.5f, 0.5f, 1.0f);
 }
