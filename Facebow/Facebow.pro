@@ -10,11 +10,13 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    3D/node.cpp \
     glwidget.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    3D/node.h \
     glwidget.h \
     mainwindow.h
 
@@ -29,6 +31,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     Image.qrc \
+    Model.qrc \
     Shader.qrc \
     Texture.qrc
 

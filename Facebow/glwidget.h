@@ -9,6 +9,7 @@
 #include <QOpenGLBuffer>
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLTexture>
+#include "3D/node.h"
 
 namespace Ui {
 class QLWidget;
@@ -25,10 +26,6 @@ public:
 
 protected:
 
-    void computeNormalVectors(size_t num_vertices);
-
-
-
     void initializeGL()override;
     void paintGL()override;
     void resizeGL(int w, int h)override;
@@ -39,16 +36,15 @@ protected:
 private:
     Ui::QLWidget *ui;
 
-    QOpenGLBuffer *m_vbo, *m_cbo, *m_uvbo;
+    QOpenGLBuffer *m_vbo, *m_cbo;
     QOpenGLVertexArrayObject *m_vao;
     QOpenGLShaderProgram *m_shader;
-    QOpenGLTexture *m_texture;
+    GLfloat colorBuffer[4 * 3 *3];
+    GLfloat vertexData[4 * 3 * 3];
 
     float aspectRatio;
-    GLfloat normalBuffer[4 * 3 *3];
-    GLfloat vertexData[4 * 3 * 3];
-    GLfloat uvData[4 * 3 * 2];
-    QVector3D camera_pos, light_pos;
+
+    Node *node;
 
 
 };
