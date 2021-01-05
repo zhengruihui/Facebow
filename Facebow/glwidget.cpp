@@ -8,6 +8,7 @@ GLWidget::GLWidget(QWidget *parent) :
     ui(new Ui::QLWidget)
 {
     ui->setupUi(this);
+    scaleFactor = 0.04;
 
     node = new Node();
     //node->loadObjModel(":/Model/skull.obj");
@@ -85,10 +86,17 @@ void GLWidget::paintGL()
     mvp.lookAt(QVector3D(0.0f, 3.0f, 0.0f),
                QVector3D(0.0f, 0.0f, 0.0f),
                QVector3D(1.0f, 0.0f, 0.0f));
-    mvp.scale(0.04);
+    mvp.scale(scaleFactor);
     m_shader->setUniformValue(m_shader->uniformLocation("MVP"), mvp);
     f->glDrawArrays(GL_TRIANGLES, 0, node->getVertexVector("skull").size());
     m_shader->release();
     m_vao->release();
+    qDebug() << "paintGL";
 }
 
+
+void GLWidget::on_pushButton_clicked()
+{
+    scaleFactor += 0.01;
+    update();
+}

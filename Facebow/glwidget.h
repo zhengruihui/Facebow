@@ -33,8 +33,12 @@ protected:
 
 
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::QLWidget *ui;
+    float scaleFactor;
 
     QOpenGLBuffer *m_vbo, *m_cbo;
     QOpenGLVertexArrayObject *m_vao;
