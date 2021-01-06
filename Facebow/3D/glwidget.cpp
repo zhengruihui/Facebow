@@ -10,7 +10,6 @@ GLWidget::GLWidget(QWidget *parent) :
     ui->setupUi(this);
 
     scaleFactor = 0.8;
-
     cameraEye = QVector3D(0.0f, 0.0f, 100.0f);
     cameraCenter = QVector3D(0.0f, 0.0f, 0.0f);
     cameraUp = QVector3D(0.0f, 1.0f, 0.0f);
@@ -134,15 +133,15 @@ void GLWidget::paintGL()
     skull1_vao->bind();
 
     QMatrix4x4 mMatriSkull1;
-    mMatriSkull1.scale(scaleFactor);
-    mMatriSkull1.rotate(-90.0f, QVector3D(1.0f, 0.0f, 0.0f));
+    //mMatriSkull1.scale(scaleFactor);
+    //mMatriSkull1.rotate(-90.0f, QVector3D(1.0f, 0.0f, 0.0f));
     m_shader->bind();
-    m_shader->setUniformValue(m_shader->uniformLocation("view"), vpMatri);
-    m_shader->setUniformValue(m_shader->uniformLocation("model"), mMatriSkull1);
-    m_shader->setUniformValue(m_shader->uniformLocation("lightPos"), QVector3D(0.0f, 0.0f, -220.0f));
-    m_shader->setUniformValue(m_shader->uniformLocation("lightColor"), QVector3D(1.0f, 1.0f, 1.0f));
-    m_shader->setUniformValue(m_shader->uniformLocation("objectColor"), QVector3D(0.1f, 0.1f, 0.1f));
-    m_shader->setUniformValue(m_shader->uniformLocation("viewPos"), QVector3D(0.0f, 0.0f, 100.0f));
+    m_shader->setUniformValue("view", vpMatri);
+    m_shader->setUniformValue("model", mMatriSkull1);
+    m_shader->setUniformValue("lightPos", QVector3D(0.0f, 0.0f, 100.0f));
+    m_shader->setUniformValue("lightColor", QVector3D(1.0f, 1.0f, 1.0f));
+    m_shader->setUniformValue("objectColor", QVector3D(0.6f, 0.6f, 0.6f));
+    m_shader->setUniformValue("viewPos", QVector3D(0.0f, 0.0f, 100.0f));
 
 
     glFunctions->glDrawArrays(GL_TRIANGLES, 0, node->getVertexVector(SKULL1INDEX).size()/3);
