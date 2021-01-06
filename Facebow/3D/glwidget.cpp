@@ -139,8 +139,8 @@ void GLWidget::paintGL()
     m_shader->bind();
     m_shader->setUniformValue(m_shader->uniformLocation("view"), vpMatri);
     m_shader->setUniformValue(m_shader->uniformLocation("model"), mMatriSkull1);
-    m_shader->setUniformValue(m_shader->uniformLocation("lightPos"), QVector3D(0.0f, 0.0f, 1.0f));
-    m_shader->setUniformValue(m_shader->uniformLocation("lightColor"), QVector3D(0.5f, 0.5f, 0.5f));
+    m_shader->setUniformValue(m_shader->uniformLocation("lightPos"), QVector3D(0.0f, 0.0f, -220.0f));
+    m_shader->setUniformValue(m_shader->uniformLocation("lightColor"), QVector3D(1.0f, 1.0f, 1.0f));
     m_shader->setUniformValue(m_shader->uniformLocation("objectColor"), QVector3D(0.1f, 0.1f, 0.1f));
     m_shader->setUniformValue(m_shader->uniformLocation("viewPos"), QVector3D(0.0f, 0.0f, 100.0f));
 
