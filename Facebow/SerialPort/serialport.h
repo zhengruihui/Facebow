@@ -19,7 +19,7 @@ private:
     QSerialPort *serialPort = nullptr;
 
 signals:
-    void positionChanged(float x, float y, float z, float ex, float ey, float ez);
+    void facebowPosChanged(float x, float y, float z, float ex, float ey, float ez);
 
 private slots:
     void readData();

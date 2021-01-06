@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>Model/skull.stl</file>
         <file>Model/skull1.stl</file>
         <file>Model/skull2.stl</file>
     </qresource>

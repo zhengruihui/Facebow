@@ -185,7 +185,7 @@ void GLWidget::on_pushButton_clicked()
     update();
 }
 
-void GLWidget::on_facebow_pos_changed(float x, float y, float z, float pitch, float yaw, float roll)
+void GLWidget::changeSkullPos(float x, float y, float z, float pitch, float yaw, float roll)
 {
     moveX = x;
     moveY = y;

@@ -1,4 +1,4 @@
-QT       += core gui serialport
+QT       += core gui serialport sql
 
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -10,20 +10,22 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    3D/glwidget.cpp \
     3D/node.cpp \
+    Database/database.cpp \
     SerialPort/serialport.cpp \
-    glwidget.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    3D/glwidget.h \
     3D/node.h \
+    Database/database.h \
     SerialPort/serialport.h \
-    glwidget.h \
     mainwindow.h
 
 FORMS += \
-    glwidget.ui \
+    3D/glwidget.ui \
     mainwindow.ui
 
 # Default rules for deployment.

@@ -1,4 +1,4 @@
-#include "patient.h"
+#include "database.h"
 #include <QTextCodec>
 #include <QSqlDatabase>
 #include <QSqlQuery>
@@ -10,7 +10,7 @@
 #include <QList>
 #include <QDateTime>
 
-Patient::Patient()
+Database::Database()
 {
     db = QSqlDatabase::addDatabase("QSQLITE", "connection");
     db.setDatabaseName("Patient.db");
@@ -45,7 +45,7 @@ Patient::Patient()
 
 }
 
-Patient::~Patient()
+Database::~Database()
 {
     db.setDatabaseName("Patient.db");
     db.close();
@@ -53,7 +53,7 @@ Patient::~Patient()
 
 
 //向数据库中插入记录
-QString Patient::insert(QString num, QString name, QString sex, QString birthday)
+QString Database::insert(QString num, QString name, QString sex, QString birthday)
 {
     QSqlQuery query(db);
     QString ID;
@@ -114,7 +114,7 @@ QString Patient::insert(QString num, QString name, QString sex, QString birthday
 }
 
 
-bool Patient::insertPosition(QString userID, QString step, QString x, QString y, QString z, QString ex, QString ey, QString ez)
+bool Database::insertPosition(QString userID, QString step, QString x, QString y, QString z, QString ex, QString ey, QString ez)
 {
     QSqlQuery query(db);
 
@@ -145,7 +145,7 @@ bool Patient::insertPosition(QString userID, QString step, QString x, QString y,
 }
 
 
-bool Patient::queryByName(QString name)
+bool Database::queryByName(QString name)
 {
     QSqlQuery query(db);
     if(name.data())
@@ -188,7 +188,7 @@ bool Patient::queryByName(QString name)
 }
 
 //根据ID删除记录
-bool Patient::deleteById(int id)
+bool Database::deleteById(int id)
 {
     QSqlDatabase db = QSqlDatabase::database("connection"); //建立数据库连接
     QSqlQuery query(db);
@@ -202,7 +202,7 @@ bool Patient::deleteById(int id)
 }
 
 //根据ID更新记录
-bool Patient::updateById(QString id, QString num, QString name, QString sex, QString birthday)
+bool Database::updateById(QString id, QString num, QString name, QString sex, QString birthday)
 {
     QSqlQuery query(db);
 
@@ -226,7 +226,7 @@ bool Patient::updateById(QString id, QString num, QString name, QString sex, QSt
 
 }
 
-bool Patient::updateDiagnosisById(QString id, QString diagnosis)
+bool Database::updateDiagnosisById(QString id, QString diagnosis)
 {
     QSqlQuery query(db);
 
@@ -248,7 +248,7 @@ bool Patient::updateDiagnosisById(QString id, QString diagnosis)
 
 }
 
-QString Patient::birthdayToAge(QString birthday)
+QString Database::birthdayToAge(QString birthday)
 {
 
     QDateTime startDateTime = QDateTime::fromString(birthday, "yyyy-MM-dd");

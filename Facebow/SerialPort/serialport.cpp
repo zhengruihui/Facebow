@@ -73,7 +73,7 @@ void SerialPort::readData()
         float ey = list.at(4).toFloat();
         float ez = list.at(5).toFloat();
 
-        emit positionChanged(x, y, z, ex, ey, ez);
+        emit facebowPosChanged(x, y, z, ex, ey, ez);
 
         readBuffer.clear();
     }

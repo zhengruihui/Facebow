@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     serialPort = new SerialPort();
 
-    connect(serialPort, &SerialPort::positionChanged, ui->openGLWidget, &GLWidget::on_facebow_pos_changed);
+    connect(serialPort, &SerialPort::facebowPosChanged, ui->openGLWidget, &GLWidget::changeSkullPos);
 
 }
 

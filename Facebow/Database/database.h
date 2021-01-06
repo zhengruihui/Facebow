@@ -5,12 +5,12 @@
 #include <QSqlDatabase>
 
 
-class Patient : public QObject
+class Database : public QObject
 {
     Q_OBJECT
 public:
-    Patient();
-    ~Patient();
+    Database();
+    ~Database();
     Q_INVOKABLE QString insert(QString num, QString name, QString sex, QString birthday);
 
     Q_INVOKABLE bool insertPosition(QString userID, QString step, QString x, QString y, QString z, QString ex, QString ey, QString ez);

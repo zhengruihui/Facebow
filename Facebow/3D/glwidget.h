@@ -44,7 +44,7 @@ protected:
 private slots:
     void on_pushButton_clicked();
 public slots:
-    void on_facebow_pos_changed(float x, float y, float z, float pitch, float yaw, float roll);
+    void changeSkullPos(float x, float y, float z, float pitch, float yaw, float roll);
 
 private:
     Ui::QLWidget *ui;
