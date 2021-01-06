@@ -1,31 +1,24 @@
-//#version 330
-//layout(location = 0) in vec3 posVertex;
-//layout(location = 1) in vec3 normVertex;
+#version 330 core
+layout (location = 0) in vec3 aPos;
+layout (location = 1) in vec3 aNormal;
 
-//uniform mat4 MVP;
-//out vec4 cols;
+out vec3 FragPos;
+out vec3 Normal;
 
-//void main()
-//{
-//  gl_Position = MVP * vec4(posVertex, 1.0f);
-//  cols = vec4(1.0f, 0.5f, 0.5f, 1.0f);
-//}
+uniform mat4 model;
+uniform mat4 view;
 
 
-#version 330
-layout(location = 0) in vec3 posVertex;
-layout(location = 1) in vec3 normVertex;
+void main()
+{
+    FragPos = vec3(model * vec4(aPos, 1.0));
+    Normal = mat3(transpose(inverse(model))) * aNormal;
 
-uniform mat4 vpMat;
-uniform mat4 modelMat;
-
-out vec4 realPos;
-out vec4 norms;
-out vec4 cols;
-
-void main() {
-    realPos = modelMat * vec4(posVertex, 1.0f);
-    norms = modelMat * vec4(normVertex, 1.0f);
-    gl_Position = vpMat * realPos;
-    cols = vec4(0.5f, 0.5f, 0.5f, 1.0f);
+    gl_Position = view * vec4(FragPos, 1.0);
 }
+
+
+
+
+
+

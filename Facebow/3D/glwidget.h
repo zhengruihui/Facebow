@@ -31,9 +31,8 @@ public:
 protected:
 
     void initializeGL()override;
-    void paintGL()override;
     void resizeGL(int w, int h)override;
-
+    void paintGL()override;
 
     void cameraPerspectiveLookAt(float angle);
 
@@ -61,7 +60,7 @@ private:
     QVector3D cameraCenter;
     QVector3D cameraUp;
 
-    QVector3D light1Position;
+    QVector3D lightPos;
 
     float moveX;
     float moveY;
