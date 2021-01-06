@@ -133,8 +133,8 @@ void GLWidget::paintGL()
     skull1_vao->bind();
 
     QMatrix4x4 mMatriSkull1;
-    //mMatriSkull1.scale(scaleFactor);
-    //mMatriSkull1.rotate(-90.0f, QVector3D(1.0f, 0.0f, 0.0f));
+    mMatriSkull1.scale(scaleFactor);
+    mMatriSkull1.rotate(-90.0f, QVector3D(1.0f, 0.0f, 0.0f));
     m_shader->bind();
     m_shader->setUniformValue("view", vpMatri);
     m_shader->setUniformValue("model", mMatriSkull1);
@@ -144,7 +144,7 @@ void GLWidget::paintGL()
     m_shader->setUniformValue("viewPos", QVector3D(0.0f, 0.0f, 100.0f));
 
 
-    glFunctions->glDrawArrays(GL_TRIANGLES, 0, node->getVertexVector(SKULL1INDEX).size()/3);
+    glFunctions->glDrawArrays(GL_LINES, 0, node->getVertexVector(SKULL1INDEX).size()/3);
 
     skull1_vao->release();
 
