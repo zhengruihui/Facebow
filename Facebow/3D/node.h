@@ -40,13 +40,13 @@ class Node
 {
 public:
     Node();
-    void loadObjModel(QString fileName);
-    void loadStlModel(QString fileName);
+    bool loadObjModel(QString fileName);
+    bool loadStlModel(QString fileName);
     QVector<struct Model*> modelVector;
 
-    QVector<float> getVertexVector(QString modelName);
-    QVector<float> getNormalData(QString modelName);
-    QVector<float> getUvData(QString modelName);
+    QVector<float> getVertexVector(uint8_t index);
+    QVector<float> getNormalData(uint8_t index);
+    QVector<float> getUvData(uint8_t index);
 
 };
 

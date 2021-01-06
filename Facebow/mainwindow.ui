@@ -14,11 +14,16 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <widget class="GLWidget" name="openGLWidget"/>
-    </item>
-   </layout>
+   <widget class="GLWidget" name="openGLWidget">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>40</y>
+      <width>731</width>
+      <height>471</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
  </widget>
  <customwidgets>

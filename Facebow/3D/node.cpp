@@ -8,7 +8,7 @@ Node::Node()
 
 }
 
-void Node::loadObjModel(QString fileName)
+bool Node::loadObjModel(QString fileName)
 {
     QFile file(fileName);
     struct Model *model;
@@ -88,10 +88,10 @@ void Node::loadObjModel(QString fileName)
 
     }
 
-    qDebug() << "obj done!";
+    return true;
 }
 
-void Node::loadStlModel(QString fileName)
+bool Node::loadStlModel(QString fileName)
 {
     QFile file(fileName);
 
@@ -116,46 +116,31 @@ void Node::loadStlModel(QString fileName)
                     model->vertexVector.append(*(float*)(allData+84+50*i+j*4));
                 }
 
-
             }
 
         }
 
         modelVector.append(model);
+        file.close();
+        return true;
+    }
+    else
+    {
+        return false;
     }
 }
 
-QVector<float> Node::getVertexVector(QString modelName)
+QVector<float> Node::getVertexVector(uint8_t index)
 {
-    for(int i=0; i<modelVector.size(); i++)
-    {
-        if(modelVector.at(i)->modelName.contains(modelName))
-        {
-            return modelVector.at(i)->vertexVector;
-        }
-    }
+    return modelVector.at(index)->vertexVector;
 }
 
-QVector<float> Node::getNormalData(QString modelName)
+QVector<float> Node::getNormalData(uint8_t index)
 {
-    for(int i=0; i<modelVector.size(); i++)
-    {
-        if(modelVector.at(i)->modelName.contains(modelName))
-        {
-            return modelVector.at(i)->normalVector;
-        }
-    }
-
+    return modelVector.at(index)->normalVector;
 }
 
-QVector<float> Node::getUvData(QString modelName)
+QVector<float> Node::getUvData(uint8_t index)
 {
-    for(int i=0; i<modelVector.size(); i++)
-    {
-        if(modelVector.at(i)->modelName.contains(modelName))
-        {
-            return modelVector.at(i)->uvVector;
-        }
-    }
-
+    return modelVector.at(index)->uvVector;
 }

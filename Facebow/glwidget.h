@@ -16,6 +16,10 @@ class QLWidget;
 }
 
 
+#define SKULL1INDEX 0
+#define SKULL2INDEX 1
+
+
 class GLWidget : public QOpenGLWidget , protected QOpenGLExtraFunctions
 {
     Q_OBJECT
@@ -31,21 +35,45 @@ protected:
     void resizeGL(int w, int h)override;
 
 
+    void cameraPerspectiveLookAt(float angle);
+
+
+
 
 
 private slots:
     void on_pushButton_clicked();
+public slots:
+    void on_facebow_pos_changed(float x, float y, float z, float pitch, float yaw, float roll);
 
 private:
     Ui::QLWidget *ui;
-    float scaleFactor;
 
-    QOpenGLBuffer *m_vbo, *m_cbo;
-    QOpenGLVertexArrayObject *m_vao;
+
+    QOpenGLVertexArrayObject *skull1_vao;
+    QOpenGLVertexArrayObject *skull2_vao;
+
+    QOpenGLBuffer *m_vbo, *m_nbo;
     QOpenGLShaderProgram *m_shader;
 
 
+    QVector3D cameraEye;
+    QVector3D cameraCenter;
+    QVector3D cameraUp;
+
+    QVector3D light1Position;
+
+    float moveX;
+    float moveY;
+    float moveZ;
+    float eulerRotationX;
+    float eulerRotationY;
+    float eulerRotationZ;
+    QVector3D rotateVector;
+
+
     float aspectRatio;
+    float scaleFactor;
 
     Node *node;
 
