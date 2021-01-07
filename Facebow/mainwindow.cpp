@@ -10,7 +10,15 @@ MainWindow::MainWindow(QWidget *parent)
 
     serialPort = new SerialPort();
 
-    connect(serialPort, &SerialPort::facebowPosChanged, ui->openGLWidget, &GLWidget::changeSkullPos);
+    buttonGroup = new QButtonGroup(this);
+    buttonGroup->addButton(ui->informationButton);
+    buttonGroup->addButton(ui->measureButton);
+    buttonGroup->addButton(ui->trackButton);
+    buttonGroup->addButton(ui->reportButton);
+
+
+
+    //connect(serialPort, &SerialPort::facebowPosChanged, ui->openGLWidget, &GLWidget::changeSkullPos);
 
 }
 

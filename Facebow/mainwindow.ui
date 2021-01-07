@@ -13,21 +13,202 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: &quot;#24242c&quot;;
+
+
+
+</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <widget class="GLWidget" name="openGLWidget"/>
-    </item>
-   </layout>
+   <property name="styleSheet">
+    <string notr="true">QToolButton
+{
+	border-top: 2px;
+	border-bottom: 15px;
+	border-style: flat;
+	font: 12px;
+	color: #DEDEDE;
+
+}
+
+
+QToolButton:checked
+{
+	color: #0DAF9D;
+}
+
+QToolButton:disabled
+{
+	color: #24242c;
+}
+</string>
+   </property>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>140</y>
+      <width>82</width>
+      <height>302</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="spacing">
+      <number>20</number>
+     </property>
+     <item>
+      <widget class="QToolButton" name="informationButton">
+       <property name="minimumSize">
+        <size>
+         <width>80</width>
+         <height>60</height>
+        </size>
+       </property>
+       <property name="sizeIncrement">
+        <size>
+         <width>80</width>
+         <height>60</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>患者信息</string>
+       </property>
+       <property name="icon">
+        <iconset resource="Image.qrc">
+         <normaloff>:/Resources/Navigation/information.png</normaloff>
+         <normalon>:/Resources/Navigation/information_sel.png</normalon>
+         <disabledon>:/Resources/Navigation/information.png</disabledon>:/Resources/Navigation/information.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>24</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextUnderIcon</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="measureButton">
+       <property name="minimumSize">
+        <size>
+         <width>80</width>
+         <height>60</height>
+        </size>
+       </property>
+       <property name="sizeIncrement">
+        <size>
+         <width>80</width>
+         <height>60</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>测量</string>
+       </property>
+       <property name="icon">
+        <iconset resource="Image.qrc">
+         <normaloff>:/Resources/Navigation/measure.png</normaloff>
+         <normalon>:/Resources/Navigation/measure_sel.png</normalon>:/Resources/Navigation/measure.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>24</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextUnderIcon</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="trackButton">
+       <property name="minimumSize">
+        <size>
+         <width>80</width>
+         <height>60</height>
+        </size>
+       </property>
+       <property name="sizeIncrement">
+        <size>
+         <width>80</width>
+         <height>60</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>轨迹</string>
+       </property>
+       <property name="icon">
+        <iconset resource="Image.qrc">
+         <normaloff>:/Resources/Navigation/track.png</normaloff>
+         <normalon>:/Resources/Navigation/track_sel.png</normalon>:/Resources/Navigation/track.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>24</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextUnderIcon</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="reportButton">
+       <property name="minimumSize">
+        <size>
+         <width>80</width>
+         <height>60</height>
+        </size>
+       </property>
+       <property name="sizeIncrement">
+        <size>
+         <width>80</width>
+         <height>60</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>报告</string>
+       </property>
+       <property name="icon">
+        <iconset resource="Image.qrc">
+         <normaloff>:/Resources/Navigation/report.png</normaloff>
+         <normalon>:/Resources/Navigation/report_sel.png</normalon>
+         <disabledon>:/Resources/Navigation/information.png</disabledon>:/Resources/Navigation/report.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>24</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextUnderIcon</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>GLWidget</class>
-   <extends>QOpenGLWidget</extends>
-   <header>3D/glwidget.h</header>
-  </customwidget>
- </customwidgets>
- <resources/>
+ <resources>
+  <include location="Image.qrc"/>
+ </resources>
  <connections/>
 </ui>

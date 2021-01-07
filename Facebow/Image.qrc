@@ -1,3 +1,17 @@
 <RCC>
-    <qresource prefix="/"/>
+    <qresource prefix="/">
+        <file>Resources/Navigation/device_setting.png</file>
+        <file>Resources/Navigation/help.png</file>
+        <file>Resources/Navigation/help_sel.png</file>
+        <file>Resources/Navigation/information.png</file>
+        <file>Resources/Navigation/information_sel.png</file>
+        <file>Resources/Navigation/measure.png</file>
+        <file>Resources/Navigation/measure_sel.png</file>
+        <file>Resources/Navigation/measure_setting.png</file>
+        <file>Resources/Navigation/play.png</file>
+        <file>Resources/Navigation/report.png</file>
+        <file>Resources/Navigation/report_sel.png</file>
+        <file>Resources/Navigation/track.png</file>
+        <file>Resources/Navigation/track_sel.png</file>
+    </qresource>
 </RCC>

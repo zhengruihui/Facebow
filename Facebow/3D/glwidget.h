@@ -40,8 +40,7 @@ protected:
 
 
 
-private slots:
-    void on_pushButton_clicked();
+
 public slots:
     void changeSkullPos(float x, float y, float z, float pitch, float yaw, float roll);
 

@@ -32,7 +32,7 @@ struct Model
     QString modelName;
     QVector<float> vertexVector;
     QVector<float> normalVector;
-    QVector<float> uvVector;
+    QVector<float> textureVector;
 
 };
 
@@ -45,8 +45,8 @@ public:
     QVector<struct Model*> modelVector;
 
     QVector<float> getVertexVector(uint8_t index);
-    QVector<float> getNormalData(uint8_t index);
-    QVector<float> getUvData(uint8_t index);
+    QVector<float> getNormalVector(uint8_t index);
+    QVector<float> getTextureVector(uint8_t index);
 
 };
 

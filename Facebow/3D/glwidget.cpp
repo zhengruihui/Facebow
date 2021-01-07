@@ -43,6 +43,9 @@ void GLWidget::initializeGL()
 {
     QOpenGLFunctions *glFunctions = this->context()->functions();
     glFunctions->glEnable(GL_DEPTH_TEST);   // 三维绘图的关键！
+
+    glFunctions->glEnable(GL_LIGHTING);
+    glFunctions->glEnable(GL_COLOR_MATERIAL);
     m_shader = new QOpenGLShaderProgram();
     m_shader->addCacheableShaderFromSourceFile(QOpenGLShader::Vertex, ":/Shader/vshader.glsl");
     m_shader->addCacheableShaderFromSourceFile(QOpenGLShader::Fragment, ":/Shader/fshader.glsl");
@@ -69,7 +72,7 @@ void GLWidget::initializeGL()
     m_nbo = new QOpenGLBuffer(QOpenGLBuffer::Type::VertexBuffer);
     m_nbo->create();
     m_nbo->bind();
-    m_nbo->allocate(node->getNormalData(SKULL1INDEX).data(), node->getNormalData(SKULL1INDEX).size()*sizeof(GLfloat));
+    m_nbo->allocate(node->getNormalVector(SKULL1INDEX).data(), node->getNormalVector(SKULL1INDEX).size()*sizeof(GLfloat));
     glFunctions->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3*sizeof(GLfloat), 0);
     glFunctions->glEnableVertexAttribArray(1);
     m_nbo->release();
@@ -77,26 +80,26 @@ void GLWidget::initializeGL()
 
 
 
-//    skull2_vao = new QOpenGLVertexArrayObject();
-//    skull2_vao->create();
-//    skull2_vao->bind();
+    skull2_vao = new QOpenGLVertexArrayObject();
+    skull2_vao->create();
+    skull2_vao->bind();
 
-//    m_vbo = new QOpenGLBuffer(QOpenGLBuffer::Type::VertexBuffer);
-//    m_vbo->create();
-//    m_vbo->bind();
-//    m_vbo->allocate(node->getVertexVector(SKULL2INDEX).data(), node->getVertexVector(SKULL2INDEX).size() * sizeof(GLfloat));
-//    glFunctions->glEnableVertexAttribArray(0);
-//    glFunctions->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,3*sizeof(GLfloat), 0);
-//    m_vbo->release();
+    m_vbo = new QOpenGLBuffer(QOpenGLBuffer::Type::VertexBuffer);
+    m_vbo->create();
+    m_vbo->bind();
+    m_vbo->allocate(node->getVertexVector(SKULL2INDEX).data(), node->getVertexVector(SKULL2INDEX).size() * sizeof(GLfloat));
+    glFunctions->glEnableVertexAttribArray(0);
+    glFunctions->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,3*sizeof(GLfloat), 0);
+    m_vbo->release();
 
-//    m_nbo = new QOpenGLBuffer(QOpenGLBuffer::Type::VertexBuffer);
-//    m_nbo->create();
-//    m_nbo->bind();
-//    m_nbo->allocate(node->getNormalData(SKULL2INDEX).data(), node->getNormalData(SKULL2INDEX).size()*sizeof(GLfloat));
-//    glFunctions->glEnableVertexAttribArray(1);
-//    glFunctions->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3*sizeof(GLfloat), 0);
-//    m_nbo->release();
-//    skull2_vao->release();
+    m_nbo = new QOpenGLBuffer(QOpenGLBuffer::Type::VertexBuffer);
+    m_nbo->create();
+    m_nbo->bind();
+    m_nbo->allocate(node->getNormalVector(SKULL2INDEX).data(), node->getNormalVector(SKULL2INDEX).size()*sizeof(GLfloat));
+    glFunctions->glEnableVertexAttribArray(1);
+    glFunctions->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3*sizeof(GLfloat), 0);
+    m_nbo->release();
+    skull2_vao->release();
 
 
 }
@@ -124,8 +127,12 @@ void GLWidget::paintGL()
     QMatrix4x4 vpMatri;
     vpMatri.perspective(45.0f, aspectRatio, 0.1f, 100.0f);
     vpMatri.lookAt(cameraEye,cameraCenter,cameraUp);
-
-
+    m_shader->bind();
+    m_shader->setUniformValue("view", vpMatri);
+    m_shader->setUniformValue("lightPos", QVector3D(0.0f, 0.0f, 100.0f));
+    m_shader->setUniformValue("lightColor", QVector3D(1.0f, 1.0f, 1.0f));
+    m_shader->setUniformValue("objectColor", QVector3D(0.6f, 0.6f, 0.6f));
+    m_shader->setUniformValue("viewPos", QVector3D(0.0f, 0.0f, 100.0f));
 
 
 
@@ -135,13 +142,10 @@ void GLWidget::paintGL()
     QMatrix4x4 mMatriSkull1;
     mMatriSkull1.scale(scaleFactor);
     mMatriSkull1.rotate(-90.0f, QVector3D(1.0f, 0.0f, 0.0f));
-    m_shader->bind();
-    m_shader->setUniformValue("view", vpMatri);
+
+
     m_shader->setUniformValue("model", mMatriSkull1);
-    m_shader->setUniformValue("lightPos", QVector3D(0.0f, 0.0f, 100.0f));
-    m_shader->setUniformValue("lightColor", QVector3D(1.0f, 1.0f, 1.0f));
-    m_shader->setUniformValue("objectColor", QVector3D(0.6f, 0.6f, 0.6f));
-    m_shader->setUniformValue("viewPos", QVector3D(0.0f, 0.0f, 100.0f));
+
 
 
     glFunctions->glDrawArrays(GL_LINES, 0, node->getVertexVector(SKULL1INDEX).size()/3);
@@ -152,21 +156,21 @@ void GLWidget::paintGL()
 
 
     //paint skull2
-//    skull2_vao->bind();
-//    QMatrix4x4 mMatriSkull2;
-//    mMatriSkull2.scale(scaleFactor);
-//    mMatriSkull2.translate(QVector3D(moveX, moveY, moveZ));
-//    mMatriSkull2.rotate(-90.0f, QVector3D(1.0f, 0.0f, 0.0f));
-//    mMatriSkull2.rotate(eulerRotationX, QVector3D(1.0f, 0.0f, 0.0f));
-//    mMatriSkull2.rotate(eulerRotationY, QVector3D(0.0f, 1.0f, 0.0f));
-//    mMatriSkull2.rotate(eulerRotationZ, QVector3D(0.0f, 0.0f, 1.0f));
+    skull2_vao->bind();
+    QMatrix4x4 mMatriSkull2;
+    mMatriSkull2.scale(scaleFactor);
+    mMatriSkull2.translate(QVector3D(moveX, moveY, moveZ));
+    mMatriSkull2.rotate(-90.0f, QVector3D(1.0f, 0.0f, 0.0f));
+    mMatriSkull2.rotate(eulerRotationX, QVector3D(1.0f, 0.0f, 0.0f));
+    mMatriSkull2.rotate(eulerRotationY, QVector3D(0.0f, 1.0f, 0.0f));
+    mMatriSkull2.rotate(eulerRotationZ, QVector3D(0.0f, 0.0f, 1.0f));
 
-//    m_shader->setUniformValue(m_shader->uniformLocation("modelMat"), mMatriSkull2);
-//    glFunctions->glDrawArrays(GL_TRIANGLES, 0, node->getVertexVector(SKULL2INDEX).size()/3);
+    m_shader->setUniformValue("model", mMatriSkull2);
+    glFunctions->glDrawArrays(GL_LINES, 0, node->getVertexVector(SKULL2INDEX).size()/3);
 
 
     m_shader->release();
-//    skull2_vao->release();
+    skull2_vao->release();
 
 
     qDebug() << "paintGL";
@@ -184,14 +188,6 @@ void GLWidget::cameraPerspectiveLookAt(float angle)
     cameraEye = QVector3D(x, 0.0f, z);
 }
 
-
-
-void GLWidget::on_pushButton_clicked()
-{
-    scaleFactor += 0.02;
-    cameraPerspectiveLookAt(15);
-    update();
-}
 
 void GLWidget::changeSkullPos(float x, float y, float z, float pitch, float yaw, float roll)
 {
