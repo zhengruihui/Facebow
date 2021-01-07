@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     buttonGroup->addButton(ui->measureButton);
     buttonGroup->addButton(ui->trackButton);
     buttonGroup->addButton(ui->reportButton);
+    buttonGroup->addButton(ui->helpButton);
 
 
 

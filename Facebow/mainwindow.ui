@@ -29,9 +29,10 @@
 	border-style: flat;
 	font: 12px;
 	color: #DEDEDE;
+	
+
 
 }
-
 
 QToolButton:checked
 {
@@ -44,167 +45,347 @@ QToolButton:disabled
 }
 </string>
    </property>
-   <widget class="QWidget" name="">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>140</y>
-      <width>82</width>
-      <height>302</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <property name="spacing">
-      <number>20</number>
-     </property>
-     <item>
-      <widget class="QToolButton" name="informationButton">
-       <property name="minimumSize">
-        <size>
-         <width>80</width>
-         <height>60</height>
-        </size>
-       </property>
-       <property name="sizeIncrement">
-        <size>
-         <width>80</width>
-         <height>60</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>患者信息</string>
-       </property>
-       <property name="icon">
-        <iconset resource="Image.qrc">
-         <normaloff>:/Resources/Navigation/information.png</normaloff>
-         <normalon>:/Resources/Navigation/information_sel.png</normalon>
-         <disabledon>:/Resources/Navigation/information.png</disabledon>:/Resources/Navigation/information.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>24</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-       <property name="toolButtonStyle">
-        <enum>Qt::ToolButtonTextUnderIcon</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QToolButton" name="measureButton">
-       <property name="minimumSize">
-        <size>
-         <width>80</width>
-         <height>60</height>
-        </size>
-       </property>
-       <property name="sizeIncrement">
-        <size>
-         <width>80</width>
-         <height>60</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>测量</string>
-       </property>
-       <property name="icon">
-        <iconset resource="Image.qrc">
-         <normaloff>:/Resources/Navigation/measure.png</normaloff>
-         <normalon>:/Resources/Navigation/measure_sel.png</normalon>:/Resources/Navigation/measure.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>24</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-       <property name="toolButtonStyle">
-        <enum>Qt::ToolButtonTextUnderIcon</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QToolButton" name="trackButton">
-       <property name="minimumSize">
-        <size>
-         <width>80</width>
-         <height>60</height>
-        </size>
-       </property>
-       <property name="sizeIncrement">
-        <size>
-         <width>80</width>
-         <height>60</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>轨迹</string>
-       </property>
-       <property name="icon">
-        <iconset resource="Image.qrc">
-         <normaloff>:/Resources/Navigation/track.png</normaloff>
-         <normalon>:/Resources/Navigation/track_sel.png</normalon>:/Resources/Navigation/track.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>24</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-       <property name="toolButtonStyle">
-        <enum>Qt::ToolButtonTextUnderIcon</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QToolButton" name="reportButton">
-       <property name="minimumSize">
-        <size>
-         <width>80</width>
-         <height>60</height>
-        </size>
-       </property>
-       <property name="sizeIncrement">
-        <size>
-         <width>80</width>
-         <height>60</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>报告</string>
-       </property>
-       <property name="icon">
-        <iconset resource="Image.qrc">
-         <normaloff>:/Resources/Navigation/report.png</normaloff>
-         <normalon>:/Resources/Navigation/report_sel.png</normalon>
-         <disabledon>:/Resources/Navigation/information.png</disabledon>:/Resources/Navigation/report.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>24</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-       <property name="toolButtonStyle">
-        <enum>Qt::ToolButtonTextUnderIcon</enum>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetMinAndMaxSize</enum>
+      </property>
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>127</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QToolButton" name="informationButton">
+        <property name="minimumSize">
+         <size>
+          <width>80</width>
+          <height>60</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>80</width>
+          <height>60</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>80</width>
+          <height>60</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>患者信息</string>
+        </property>
+        <property name="icon">
+         <iconset resource="Image.qrc">
+          <normaloff>:/Resources/Navigation/information.png</normaloff>
+          <normalon>:/Resources/Navigation/information_sel.png</normalon>
+          <disabledon>:/Resources/Navigation/information.png</disabledon>:/Resources/Navigation/information.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="measureButton">
+        <property name="minimumSize">
+         <size>
+          <width>80</width>
+          <height>60</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>80</width>
+          <height>60</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>80</width>
+          <height>60</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>测量</string>
+        </property>
+        <property name="icon">
+         <iconset resource="Image.qrc">
+          <normaloff>:/Resources/Navigation/measure.png</normaloff>
+          <normalon>:/Resources/Navigation/measure_sel.png</normalon>:/Resources/Navigation/measure.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="trackButton">
+        <property name="minimumSize">
+         <size>
+          <width>80</width>
+          <height>60</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>80</width>
+          <height>60</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>80</width>
+          <height>60</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>轨迹</string>
+        </property>
+        <property name="icon">
+         <iconset resource="Image.qrc">
+          <normaloff>:/Resources/Navigation/track.png</normaloff>
+          <normalon>:/Resources/Navigation/track_sel.png</normalon>:/Resources/Navigation/track.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="reportButton">
+        <property name="minimumSize">
+         <size>
+          <width>80</width>
+          <height>60</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>80</width>
+          <height>60</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>80</width>
+          <height>60</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>报告</string>
+        </property>
+        <property name="icon">
+         <iconset resource="Image.qrc">
+          <normaloff>:/Resources/Navigation/report.png</normaloff>
+          <normalon>:/Resources/Navigation/report_sel.png</normalon>
+          <disabledon>:/Resources/Navigation/information.png</disabledon>:/Resources/Navigation/report.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QToolButton" name="helpButton">
+        <property name="minimumSize">
+         <size>
+          <width>80</width>
+          <height>60</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>80</width>
+          <height>60</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>80</width>
+          <height>60</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>帮助</string>
+        </property>
+        <property name="icon">
+         <iconset resource="Image.qrc">
+          <normaloff>:/Resources/Navigation/help.png</normaloff>
+          <normalon>:/Resources/Navigation/help_sel.png</normalon>
+          <disabledon>:/Resources/Navigation/information.png</disabledon>:/Resources/Navigation/help.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <spacer name="verticalTop">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QWidget" name="widget" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>1315</width>
+          <height>765</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(255, 255, 255);</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalBottom">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>15</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>15</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources>
