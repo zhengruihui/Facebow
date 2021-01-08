@@ -13,5 +13,40 @@
         <file>Resources/Navigation/report_sel.png</file>
         <file>Resources/Navigation/track.png</file>
         <file>Resources/Navigation/track_sel.png</file>
+        <file>Resources/Navigation/icon.png</file>
+        <file>Resources/Menubar/close.png</file>
+        <file>Resources/Menubar/close_sel.png</file>
+        <file>Resources/Menubar/max.png</file>
+        <file>Resources/Menubar/max_sel.png</file>
+        <file>Resources/Menubar/min.png</file>
+        <file>Resources/Menubar/min_sel.png</file>
+        <file>Resources/ModelButton/default.png</file>
+        <file>Resources/ModelButton/default_sel.png</file>
+        <file>Resources/ModelButton/front.png</file>
+        <file>Resources/ModelButton/front_sel.png</file>
+        <file>Resources/ModelButton/left.png</file>
+        <file>Resources/ModelButton/left_sel.png</file>
+        <file>Resources/ModelButton/oblique.png</file>
+        <file>Resources/ModelButton/oblique_sel.png</file>
+        <file>Resources/ModelButton/right.png</file>
+        <file>Resources/ModelButton/right_sel.png</file>
+        <file>Resources/ModelButton/top.png</file>
+        <file>Resources/ModelButton/top_sel.png</file>
+        <file>Resources/ModelButton/zoom_in.png</file>
+        <file>Resources/ModelButton/zoom_in_sel.png</file>
+        <file>Resources/ModelButton/zoom_out.png</file>
+        <file>Resources/ModelButton/zoom_out_sel.png</file>
+        <file>Resources/Navigation/device_setting_sel.png</file>
+        <file>Resources/Navigation/measure_setting_sel.png</file>
+        <file>Resources/Navigation/play_sel.png</file>
+        <file>Resources/Step/map1.png</file>
+        <file>Resources/Step/map1-s.png</file>
+        <file>Resources/Step/map2.png</file>
+        <file>Resources/Step/map2-s.png</file>
+        <file>Resources/Step/map3.png</file>
+        <file>Resources/Step/map3-s.png</file>
+        <file>Resources/Step/step1.png</file>
+        <file>Resources/Step/step2.png</file>
+        <file>Resources/Step/step3.png</file>
     </qresource>
 </RCC>

@@ -14,6 +14,7 @@ SOURCES += \
     3D/node.cpp \
     Database/database.cpp \
     SerialPort/serialport.cpp \
+    UI/Page/pageinfo.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -22,10 +23,12 @@ HEADERS += \
     3D/node.h \
     Database/database.h \
     SerialPort/serialport.h \
+    UI/Page/pageinfo.h \
     mainwindow.h
 
 FORMS += \
     3D/glwidget.ui \
+    UI/Page/pageinfo.ui \
     mainwindow.ui
 
 # Default rules for deployment.
