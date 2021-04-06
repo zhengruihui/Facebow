@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="504px" height="80px" viewBox="0 0 504 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>PFD报告表头</title>
+    <defs>
+        <linearGradient x1="51.0163884%" y1="-18.880988%" x2="51.0163884%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#5FF6DD" offset="0%"></stop>
+            <stop stop-color="#03B9A0" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="PFD报告表头" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="bg" transform="translate(0.000000, -13.500000)">
+            <polygon fill="url(#linearGradient-1)" points="0 3 504 3 504 94 0 94"></polygon>
+            <path d="M506.628965,3.19541013 C506.628965,3.19541013 250.239779,-13.5878906 224.593551,93.1226887 C386.055509,94.85079 507.593551,93.4927776 507.593551,93.4927776 L506.628965,3.19541013 Z" id="Path-2" fill-opacity="0.1" fill="#FFFFFF"></path>
+            <path d="M191.693705,-97.9084145 C191.693705,-97.9084145 83.4396645,43.6081448 100.908415,190.934678 C164.994309,193.696505 191.908415,191.526149 191.908415,191.526149 L191.693705,-97.9084145 Z" id="Path-2-Copy" fill-opacity="0.1" fill="#FFFFFF" transform="translate(145.194803, 47.286389) rotate(90.000000) translate(-145.194803, -47.286389) "></path>
+        </g>
+    </g>
+</svg>

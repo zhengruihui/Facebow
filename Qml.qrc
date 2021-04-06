@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>UI/Page/Qml/skull.qml</file>
+    </qresource>
+</RCC>

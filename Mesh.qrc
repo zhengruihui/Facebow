@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Resources/Mesh/skull1_nPoints.bin</file>
+        <file>Resources/Mesh/skull1_tPoints.bin</file>
+        <file>Resources/Mesh/skull1_vPoints.bin</file>
+        <file>Resources/Mesh/skull2_nPoints.bin</file>
+        <file>Resources/Mesh/skull2_tPoints.bin</file>
+        <file>Resources/Mesh/skull2_vPoints.bin</file>
+    </qresource>
+</RCC>

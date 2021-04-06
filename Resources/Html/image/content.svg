@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="504px" height="674px" viewBox="0 0 504 674" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>形状结合</title>
+    <defs>
+        <path d="M489.5,76.7521906 C497.784271,76.7521906 504.5,83.4679193 504.5,91.7521906 L504.5,91.7521906 L504.5,684.408693 C504.5,692.692964 497.784271,699.408693 489.5,699.408693 L489.5,699.408693 L274.213,699.408191 L259.251191,713.101949 C255.429751,716.599166 249.570249,716.599166 245.748809,713.101949 L230.786,699.408191 L15.5,699.408693 C7.32059295,699.408693 0.670269778,692.861906 0.503217759,684.722521 L0.5,684.408693 L0.5,91.7521906 C0.5,83.4679193 7.21572875,76.7521906 15.5,76.7521906 L15.5,76.7521906 Z" id="path-1"></path>
+        <filter x="-6.8%" y="-3.5%" width="113.7%" height="110.8%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="12" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="9.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.0985830124   0 0 0 0 0.497225996   0 0 0 0 0.443126938  0 0 0 0.0851449275 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="确定稿" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="PFD报告" transform="translate(0.000000, -46.000000)">
+            <g id="形状结合" transform="translate(252.500000, 396.238526) scale(1, -1) translate(-252.500000, -396.238526) ">
+                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+            </g>
+        </g>
+    </g>
+</svg>
