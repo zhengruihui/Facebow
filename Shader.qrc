@@ -1,8 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>Shader/fshader.glsl</file>
-        <file>Shader/vshader.glsl</file>
-        <file>Shader/chart_fshader.glsl</file>
-        <file>Shader/chart_vshader.glsl</file>
-    </qresource>
-</RCC>

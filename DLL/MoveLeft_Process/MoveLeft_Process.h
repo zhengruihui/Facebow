@@ -1,2 +1,0 @@
-#pragma once
-extern "C" __declspec(dllexport) void MoveLeft_Process(float *in_Right_X, float *in_Right_Y, float *in_Right_Z, int len, float *out_Bennett_X, float *out_Bennett_Y, float *out_ISS_X, float *out_ISS_Y, int *len_out);

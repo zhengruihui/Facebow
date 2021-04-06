@@ -1,2 +1,0 @@
-#pragma once
-extern "C" __declspec(dllexport) void OpenClosed_Process(float *in_Left_X, float *in_Left_Y, float *in_Left_Z, float *in_Right_X, float *in_Right_Y, float *in_Right_Z, int len1, int len2, float *out_Left_X, float *out_Left_Y, float *out_Right_X, float *out_Right_Y, int *len_out);
